@@ -1,5 +1,19 @@
 #!/bin/bash
 
+exe="build/exe"
+if ! [ -f "$exe" ]
+then
+    if [ -f "../$exe" ]
+    then
+        exe="../$exe"
+    else
+        echo "Can't find executable"
+        echo "We are here : `pwd`"
+        echo "Path used : $exe & ../$exe"
+        exit 1
+    fi
+fi
+
 run_test() {
     expression=`sed '1!d' $1`
     resulthope=`sed '2!d' $1 | tr -d '\r' | tr -d '\n'`
@@ -10,7 +24,7 @@ run_test() {
         exit 1
     fi
 
-    result=`echo "$expression" | ./exe`
+    result=`$exe <<< "$expression"`
 
     result=`echo "$result" | tr -d '\r' | tr -d '\n'`
 
@@ -18,15 +32,10 @@ run_test() {
     then
         echo "`basename $1` OK"
     else
-        echo -e "$1 fail \n\t→ expected : '$resulthope' - actual : '$result'"
+        echo -e "$1 fail \n\t→ expected : '$resulthope' - actual : '$ressult'"
         exit 1
     fi
 }
-
-if [ ! -f "exe" ]
-then
-    make
-fi
 
 if [ $# -gt 0 ]
 then
@@ -35,16 +44,16 @@ then
         if [ -f $param ]
         then
             run_test $param
-        elif [ -f "./Tests/$param" ]
+        elif [ -f "./tests/$param" ]
         then
-            run_test "./Tests/$param"
+            run_test "./tests/$param"
         else
             echo "Aucun fichier $param"
             exit 1
         fi
     done
 else
-    tests=`find ./Tests/test*`
+    tests=`find . -type f -name 'test*'`
     for test in $tests
     do
         run_test $test
