@@ -16,5 +16,22 @@
 - Outil en ligne de commande - intégration
 - Optimisations (facultatif mais recommandé)
 
-## Répartition
+## grammaire
 
+E' → E;
+
+D → T | L
+
+N → (\w+) eps | [Nb]
+Nb → eps | (\d+)
+
+
+## Operator
+
+/ * + - % ++ -- 
+== != > < >= <= 
+&& || !
+& | ^ ~ << >>
+= += -= *= /= %= <<= >>= &= ^= |=
+sizeof()  pas de pointeurs donc pas & * 
+ternary expression ? :

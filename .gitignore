@@ -27,3 +27,9 @@
 *.exe
 *.out
 *.app
+.vscode*
+
+*.output
+*.tab.*
+exe
+lex.*

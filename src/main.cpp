@@ -1,0 +1,22 @@
+
+// "="         { return EGALE; }
+// "("         { return PARENTOUV; }
+// ")"         { return PARENTFERM; }
+// "{"         { return ACCOLOUV; }
+// "}"         { return ACCOLFERM; }
+// "++"        { return PLUSPLUS; }
+// "--"        { return MOINSMOINS; }
+// "&&"        { return ET; }
+// "<<"        { return DECALGAUCHE; }
+// ">>"        { return DECALDROIT; }
+// "^"         { return XOR; }
+// "~"         { return INV; }
+// "+="        { return PLUSEGAL; }
+// "-="        { return MOINSEGAL; }
+// "/="        { return DIVEGAL; }
+// "*="        { return MULEGAL; }
+// "%="        { return MODULOEGAL; }
+// "<<="       { return DECALGAUCHEEGAL; }
+// ">>="       { return DECALDROITEGAL; }
+// "&="        { return ETEGAL; }
+// "^="        { return XOREGAL; }
