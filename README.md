@@ -1,5 +1,7 @@
 # PLD Compilateur
 
+[![Build Status](https://travis-ci.org/NotYet-Hexa/PLD-Comp.svg?branch=master)](https://travis-ci.org/NotYet-Hexa/PLD-Comp)
+
 ## TODO
 
 - Ecriture de la grammaire

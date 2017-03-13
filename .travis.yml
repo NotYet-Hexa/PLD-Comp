@@ -1,3 +1,5 @@
+notifications:
+  slack: notyet-hexa:pYcmfHQygnnf8vFtwrUGhnL9
 language: cpp
 before_install:
   - sudo apt-get -qq update
