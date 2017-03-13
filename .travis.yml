@@ -1,4 +1,6 @@
 language: cpp
-install: make get-deps flex bison
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y make flex bison 
 script:
   - make test
