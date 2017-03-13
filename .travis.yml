@@ -1,5 +1,4 @@
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y build-essentials flex bison make
+language: cpp
+install: make get-deps flex bison
 script:
   - make test
