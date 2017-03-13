@@ -39,7 +39,7 @@ void yyerror(int* exp, const char * msg) {
 
 int main(void) {
    int result; // allocation de prgm
-   yyparse(&result); 
+   yyparse(&result);
    cout << result << endl;
    return 0;
 }
