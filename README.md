@@ -4,21 +4,18 @@
 
 ## TODO
 
-- Ecriture de la grammaire
-- Identification des expressions régulières
-- Conception des structures de données
-- Implémentation de l'analyseur avec flex/bison
-- Constructure de la représentation en mémoire
-- Résolution de portée de variable
-- Vérification statique du programme (optionnel)
-- Définition des structures de données pour une représentation intermédiaire linéaire
-- Transformation de l'AST vers la représentation linéaire
-- Génération de code assembleur à partir de la représentation linéaire
-- Gestion des appels de procédures
-- Outil en ligne de commande - intégration
-- Optimisations (facultatif mais recommandé)
+- [x] Ecriture de la grammaire
+- [ ] Identification des expressions régulières J+Q
+- [ ] Conception des structures de données 
+    + Programme + declaration et definition fonction → N+C
+    + boucle + structure conditionnelle + appel de function → M+T+T
+- [ ] Implémentation de l'analyseur avec flex/bison J+Q
+- [ ] Construction et représentation en mémoire : programme de test → sur papier, représentation de la mémoire et du parcours du compilateur
+    + Programme + declaration et definition fonction → N+C
+    + boucle + structure conditionnelle + appel de function → M+T+T
 
 ## grammaire
+
 
 E' → E;
 
