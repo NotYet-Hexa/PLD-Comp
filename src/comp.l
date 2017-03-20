@@ -9,15 +9,47 @@ using namespace std;
 %option noyywrap
 
 entier [0-9]+
-nom_variable \w+
+charactere "."
+chaine ".+"
+nom [a-zA-Z_]+
+
 
 
 %%
 
-[ \n\t]     { /* ignore */ }
-{entier}    { yylval.ival = atoi(yytext); return ENTIER; }
-"+"         { return PLUS; }
-"-"         { return MOINS; }
-"/"         { return DIV; }
-"*"         { return MUL; }
-"%"         { return MODULO; }
+[ \n\t]             { /* ignore */ }
+{entier}            { yylval.ival = atoi(yytext); return ENTIER; }
+{charactere}        { yylval.charactere = yytext[1]; return CHAR; }
+{chaine}            { yylval.chaine = yytext; return CHAINE; }
+{nom}               { yylval.chaine = yytext; return NOM; }
+"+"                 { return PLUS; }
+"-"                 { return MOINS; }
+"/"                 { return DIV; }
+"*"                 { return MUL; }
+"%"                 { return MODULO; }
+"="                 { return EGALE; }
+"("                 { return PARENTOUV; }
+")"                 { return PARENTFERM; }
+"{"                 { return ACCOLOUV; }
+"}"                 { return ACCOLFERM; }
+"["                 { return CROCHETOUV; }
+"]"                 { return CROCHETFERM; }
+"++"                { return PLUSPLUS; }
+"--"                { return MOINSMOINS; }
+"+="                { return PLUSEGAL; }
+"-="                { return MOINSEGAL; }
+"/="                { return DIVEGAL; }
+"*="                { return MULEGAL; }
+"%="                { return MODULOEGAL; }
+"<<="               { return DECALGAUCHEEGAL; }
+">>="               { return DECALDROITEGAL; }
+"&="                { return ETEGAL; }
+"|="                { return OUEGAL; }
+"^="                { return XOREGAL; }
+"&&"                { return ET; }
+"||"                { return OU; }
+"<<"                { return DECALGAUCHE; }
+">>"                { return DECALDROIT; }
+"^"                 { return XOR; }
+"~"                 { return INV; }
+";"                 { return POINTVIRGULE; }

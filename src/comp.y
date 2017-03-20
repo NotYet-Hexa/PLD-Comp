@@ -8,10 +8,25 @@ int yylex(void);
 // description des symboles non terminaux
 %union {
     int ival;
+    char charactere;
+    char* chaine;
 }
 
 %token <ival> ENTIER
-%token PLUS MOINS DIV MUL MODULO PARENTOUV PARENTFERM
+%token <charactere> CHAR
+%token <chaine> CHAINE
+%token <chaine> NOM
+%token PLUS MOINS DIV MUL MODULO
+%token EGALE
+%token PARENTOUV PARENTFERM ACCOLOUV ACCOLFERM CROCHETOUV CROCHETFERM
+%token PLUSPLUS MOINSMOINS
+%token PLUSEGAL MOINSEGAL DIVEGAL MULEGAL MODULOEGAL
+%token DECALGAUCHEEGAL DECALDROITEGAL
+%token ETEGAL OUEGAL XOREGAL
+%token ET OU
+%token DECALGAUCHE DECALDROIT
+%token XOR INV
+%token POINTVIRGULE
 
 %type <ival> expressionevalue
 
@@ -24,11 +39,13 @@ int yylex(void);
 axiome :    expressionevalue { *resultat = $1; }
             ; 
 
-expressionevalue    : expressionevalue PLUS expressionevalue { $$ = $1 + $3; }
-                    | expressionevalue MOINS expressionevalue { $$ = $1 - $3; }
-                    | expressionevalue DIV expressionevalue { $$ = $1 / $3; }
-                    | expressionevalue MUL expressionevalue { $$ = $1 * $3; }
-                    | expressionevalue MODULO expressionevalue { $$ = $1 % $3; }
+expressionevalue    : expressionevalue PLUS expressionevalue        { $$ = $1 + $3; }
+                    | expressionevalue MOINS expressionevalue       { $$ = $1 - $3; }
+                    | expressionevalue DIV expressionevalue         { $$ = $1 / $3; }
+                    | expressionevalue MUL expressionevalue         { $$ = $1 * $3; }
+                    | expressionevalue MODULO expressionevalue      { $$ = $1 % $3; }
+                    | PARENTOUV expressionevalue PARENTFERM         { $$ = $2; }
+                    | expressionevalue PLUSPLUS                     { $$ = $1++; }
                     | ENTIER { $$ = $1; }
                     ;
 %%

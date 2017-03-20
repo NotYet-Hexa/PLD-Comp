@@ -1,22 +1,9 @@
+#include <iostream>
 
-// "="         { return EGALE; }
-// "("         { return PARENTOUV; }
-// ")"         { return PARENTFERM; }
-// "{"         { return ACCOLOUV; }
-// "}"         { return ACCOLFERM; }
-// "++"        { return PLUSPLUS; }
-// "--"        { return MOINSMOINS; }
-// "&&"        { return ET; }
-// "<<"        { return DECALGAUCHE; }
-// ">>"        { return DECALDROIT; }
-// "^"         { return XOR; }
-// "~"         { return INV; }
-// "+="        { return PLUSEGAL; }
-// "-="        { return MOINSEGAL; }
-// "/="        { return DIVEGAL; }
-// "*="        { return MULEGAL; }
-// "%="        { return MODULOEGAL; }
-// "<<="       { return DECALGAUCHEEGAL; }
-// ">>="       { return DECALDROITEGAL; }
-// "&="        { return ETEGAL; }
-// "^="        { return XOREGAL; }
+using namespace std;
+
+int main()
+{
+    bool t = 0x1000 && 0x0100;
+    cout << t << endl;
+}
