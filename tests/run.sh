@@ -32,7 +32,7 @@ run_test() {
     then
         echo "`basename $1` OK"
     else
-        echo -e "$1 fail \n\t→ expected : '$resulthope' - actual : '$ressult'"
+        echo -e "$1 fail \n\t→ expected : '$resulthope' - actual : '$result'"
         exit 1
     fi
 }

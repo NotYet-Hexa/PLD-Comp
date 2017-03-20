@@ -1,9 +1,11 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 int main()
 {
-    bool t = 0x1000 && 0x0100;
+    int t = 5^2*3+3*2^5;
+    // d'abord multiplication puis xor
     cout << t << endl;
 }

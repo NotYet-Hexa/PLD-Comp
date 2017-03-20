@@ -13,8 +13,6 @@ charactere "."
 chaine ".+"
 nom [a-zA-Z_]+
 
-
-
 %%
 
 [ \n\t]             { /* ignore */ }
@@ -46,10 +44,12 @@ nom [a-zA-Z_]+
 "&="                { return ETEGAL; }
 "|="                { return OUEGAL; }
 "^="                { return XOREGAL; }
-"&&"                { return ET; }
-"||"                { return OU; }
+"&&"                { return ETLOGIQUE; }
+"||"                { return OULOGIQUE; }
 "<<"                { return DECALGAUCHE; }
 ">>"                { return DECALDROIT; }
-"^"                 { return XOR; }
+"^"                 { return XORBINAIRE; }
+"|"                 { return OUBINAIRE; }
+"&"                 { return ETBINAIRE; }
 "~"                 { return INV; }
 ";"                 { return POINTVIRGULE; }

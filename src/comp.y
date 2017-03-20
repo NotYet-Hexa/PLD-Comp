@@ -23,30 +23,51 @@ int yylex(void);
 %token PLUSEGAL MOINSEGAL DIVEGAL MULEGAL MODULOEGAL
 %token DECALGAUCHEEGAL DECALDROITEGAL
 %token ETEGAL OUEGAL XOREGAL
-%token ET OU
+%token ETLOGIQUE OULOGIQUE
 %token DECALGAUCHE DECALDROIT
+%token ETBINAIRE OUBINAIRE
 %token XOR INV
 %token POINTVIRGULE
 
 %type <ival> expressionevalue
 
-%left MOINS PLUS
-%left MUL DIV MODULO
+%left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
+//OPTERNAIRE
+%left OULOGIQUE
+%left ETLOGIQUE
+%left OUBINAIRE
+%left XORBINAIRE
+%left ETBINAIRE
+// EGALEGAL DIFFERENT 
+// INFEG INF SUPEG SUPEG
+%left DECALGAUCHE DECALDROIT
+%left PLUS MOINS
+%left DIV MUL MODULO
+%left NEG
+%left PLUSPLUS MOINSMOINS
 
 %parse-param { int* resultat }
 
 %%
-axiome :    expressionevalue { *resultat = $1; }
-            ; 
 
-expressionevalue    : expressionevalue PLUS expressionevalue        { $$ = $1 + $3; }
+axiome              : expressionevalue                              { *resultat = $1; }
+                    ; 
+
+expressionevalue    : MOINS expressionevalue %prec NEG              { $$ = -$2; }
+                    | expressionevalue PLUS expressionevalue        { $$ = $1 + $3; }
                     | expressionevalue MOINS expressionevalue       { $$ = $1 - $3; }
                     | expressionevalue DIV expressionevalue         { $$ = $1 / $3; }
                     | expressionevalue MUL expressionevalue         { $$ = $1 * $3; }
                     | expressionevalue MODULO expressionevalue      { $$ = $1 % $3; }
                     | PARENTOUV expressionevalue PARENTFERM         { $$ = $2; }
                     | expressionevalue PLUSPLUS                     { $$ = $1++; }
-                    | ENTIER { $$ = $1; }
+                    | expressionevalue MOINSMOINS                   { $$ = $1--; }
+                    | expressionevalue DECALGAUCHE expressionevalue { $$ = $1 << $3; }
+                    | expressionevalue DECALDROIT expressionevalue  { $$ = $1 >> $3; }
+                    | expressionevalue XORBINAIRE expressionevalue  { $$ = $1 ^ $3; }
+                    | expressionevalue OUBINAIRE expressionevalue   { $$ = $1 | $3; }
+                    | expressionevalue ETBINAIRE expressionevalue   { $$ = $1 & $3; }
+                    | ENTIER                                        { $$ = $1; }
                     ;
 %%
 
