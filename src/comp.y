@@ -1,7 +1,7 @@
 %{
 #include <iostream>
 using namespace std;
-void yyerror(int*, const char*);
+void yyerror(char**, const char*);
 int yylex(void);
 %}
 
@@ -16,6 +16,7 @@ int yylex(void);
 %token <charactere> CHAR
 %token <chaine> CHAINE
 %token <chaine> NOM
+
 %token PLUS MOINS DIV MUL MODULO
 %token EGALE
 %token PARENTOUV PARENTFERM ACCOLOUV ACCOLFERM CROCHETOUV CROCHETFERM
@@ -29,7 +30,10 @@ int yylex(void);
 %token XOR INV
 %token POINTVIRGULE
 
+%token VOID INT32 INT64 TYPECHAR FOR WHILE IF ELSE RETURN
+
 %type <ival> expressionevalue
+%type <chaine> ligne
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
 //OPTERNAIRE
@@ -46,11 +50,11 @@ int yylex(void);
 %left NEG
 %left PLUSPLUS MOINSMOINS
 
-%parse-param { int* resultat }
+%parse-param { char** resultat }
 
 %%
 
-axiome              : expressionevalue                              { *resultat = $1; }
+axiome              : ligne                              { *resultat = $1; }
                     ; 
 
 expressionevalue    : MOINS expressionevalue %prec NEG              { $$ = -$2; }
@@ -69,14 +73,17 @@ expressionevalue    : MOINS expressionevalue %prec NEG              { $$ = -$2; 
                     | expressionevalue ETBINAIRE expressionevalue   { $$ = $1 & $3; }
                     | ENTIER                                        { $$ = $1; }
                     ;
+
+ligne               : CHAINE { $$ = $1; }
+                    ;
 %%
 
-void yyerror(int* exp, const char * msg) {
+void yyerror(char** ligne, const char * msg) {
    cout << "Syntax error : " << msg << endl;
 }
 
 int main(void) {
-   int result; // allocation de prgm
+   char* result; // allocation de prgm
    yyparse(&result);
    cout << result << endl;
    return 0;
