@@ -9,8 +9,8 @@ using namespace std;
 %option noyywrap
 
 entier [0-9]+
-charactere "(.)"
-chaine "(.)*"
+charactere \"(\\.|[^\\"])\"
+chaine \"(\\.|[^\\"])*\"
 nom [a-zA-Z_]+
 
 
@@ -19,22 +19,22 @@ nom [a-zA-Z_]+
 [ \n\t]             { /* ignore */ }
 "/*"(.|\n|\r)*"*/"  { /* ignore */ }
 "//".*$ 	        { /* ignore */ }
-"#".*$  	        { /* ignore */ }
 
 {entier}            { yylval.ival = atoi(yytext); return ENTIER; }
-{charactere}        { yylval.charactere = yytext[1]; return CHAR; }
+
+void                { return VOID; }
+int32_t             { return INT32; }
+int64_t             { return INT64; }
+char                { return TYPECHAR; }
+for                 { return FOR; }
+while               { return WHILE; }
+if                  { return IF; }
+else                { return ELSE; }
+return              { return RETURN; }
+
+{charactere}        { yylval.charactere = yytext[0]; return CHAR; }
 {chaine}            { yylval.chaine = yytext; return CHAINE; }
 {nom}               { yylval.chaine = yytext; return NOM; }
-
-"void"              { return VOID; }
-"int32_t"           { return INT32; }
-"int64_t"           { return INT64; }
-"char"              { return TYPECHAR; }
-"for"               { return FOR; }
-"while"             { return WHILE; }
-"if"                { return IF; }
-"else"              { return ELSE; }
-"return"            { return RETURN; }
 
 "+"                 { return PLUS; }
 "-"                 { return MOINS; }

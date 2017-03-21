@@ -1,8 +1,17 @@
 %{
 #include <iostream>
+#include <string>
 using namespace std;
-void yyerror(char**, const char*);
+
+struct resultat {
+    int integer;
+    string character;
+};
+
+void yyerror(resultat*, const char*);
 int yylex(void);
+
+
 %}
 
 // description des symboles non terminaux
@@ -50,11 +59,17 @@ int yylex(void);
 %left NEG
 %left PLUSPLUS MOINSMOINS
 
-%parse-param { char** resultat }
+
+// #ifdef CHAINE
+// %parse-param { char* resultat }
+// #endif
+
+%parse-param { resultat* result}
 
 %%
 
-axiome              : ligne                              { *resultat = $1; }
+axiome              : ligne                             { result->character = $1; }
+                    | expressionevalue                  { result->integer = $1; }
                     ; 
 
 expressionevalue    : MOINS expressionevalue %prec NEG              { $$ = -$2; }
@@ -78,13 +93,16 @@ ligne               : CHAINE { $$ = $1; }
                     ;
 %%
 
-void yyerror(char** ligne, const char * msg) {
+void yyerror(resultat* ligne, const char * msg) {
    cout << "Syntax error : " << msg << endl;
 }
 
 int main(void) {
-   char* result; // allocation de prgm
-   yyparse(&result);
-   cout << result << endl;
-   return 0;
+    resultat result;
+    yyparse(&result);
+#ifdef CHAINE
+    cout << result.character << endl;
+#endif
+    cout << result.integer << endl;
+    return 0;
 }
