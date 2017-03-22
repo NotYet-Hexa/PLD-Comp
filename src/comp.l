@@ -1,6 +1,15 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include "Expression.h"
+#include "ExpressionChar.h"
+#include "ExpressionEntier.h"
+#include "ExpressionVariable.h"
+struct resultat {
+    int integer;
+    string character;
+    Expression * expression;
+};
 // #include <list>
 using namespace std;
 #include "comp.tab.h"
@@ -32,7 +41,7 @@ if                  { return IF; }
 else                { return ELSE; }
 return              { return RETURN; }
 
-{charactere}        { yylval.charactere = yytext[0]; return CHAR; }
+{charactere}        { yylval.charactere = yytext[1]; return CHAR; }
 {chaine}            { yylval.chaine = yytext; return CHAINE; }
 {nom}               { yylval.chaine = yytext; return NOM; }
 

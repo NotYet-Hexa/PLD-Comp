@@ -26,7 +26,7 @@ FLEX_RESULT = src/lex.yy.c
 SRCCPP = $(filter-out $(SRCFOLDER)/main.cpp, $(wildcard src/*.cpp))
 SRCH = $(wildcard src/*.h)
 SRC = $(BISON_FILES) $(FLEX_FILES) $(SRCCPP) $(SRCH) $(FLEX_RESULT) $(BISON_FILES:.y=.tab.h)
-OBJ_TMP = $(BISON_FILES:.y=.tab.$(OBJFILE)) $(FLEX_RESULT:.c=.$(OBJFILE)) $(SRCCPP:.cpp=.$(OBJFILE))
+OBJ_TMP = $(SRCCPP:.cpp=.$(OBJFILE)) $(BISON_FILES:.y=.tab.$(OBJFILE)) $(FLEX_RESULT:.c=.$(OBJFILE)) 
 OBJ = $(OBJ_TMP:src%=build%)
 
 $(EXEC): $(SRC) $(OBJ)

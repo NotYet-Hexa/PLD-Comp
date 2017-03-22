@@ -16,6 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
+#include "Expression.h"
 #include "ExpressionChar.h"
 
 //---------------------------------------------------- Variables de classe

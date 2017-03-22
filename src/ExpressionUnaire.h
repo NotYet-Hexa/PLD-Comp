@@ -1,36 +1,39 @@
 /*************************************************************************
 PLD Comp
-Expression.h  -  Description
+ExpressionUnaire.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe Expression (fichier Expression.h) ------
-#if ! defined ( EXPRESSION_H )
-#define EXPRESSION_H
+//---------- Interface de la classe ExpressionUnaire (fichier ExpressionUnaire.h) ------
+#if ! defined ( EXPRESSIONUNAIRE_H )
+#define EXPRESSIONUNAIRE_H
 
+using namespace std;
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include "Expression.h"
+#include <string>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Expression:
+// Role de la classe ExpressionUnaire:
 //
 
 //------------------------------------------------------------------------
 
-class Expression{
+class ExpressionUnaire : public Expression{
     public:
-        virtual void print();
-        Expression();
-        ~Expression();
+        void print();
+        ExpressionUnaire(Expression* exp, string symb);
+        ~ExpressionUnaire();
 
     private:
-
+        Expression * expression;
+        string symbole;
 };
 
-#endif // if ! defined EXPRESSION_H
+#endif // if ! defined EXPRESSIONUNAIRE_H
