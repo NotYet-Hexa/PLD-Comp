@@ -1,6 +1,11 @@
 %{
 #include <iostream>
 #include <string>
+
+#include "ExpressionChar.h"
+#include "ExpressionEntier.h"
+#include "ExpressionVariable.h"
+
 using namespace std;
 
 struct resultat {
@@ -88,6 +93,7 @@ expressionevalue    : MOINS expressionevalue %prec NEG              { $$ = -$2; 
                     | expressionevalue ETBINAIRE expressionevalue   { $$ = $1 & $3; }
                     | ENTIER                                        { $$ = $1; }
                     ;
+
 
 ligne               : CHAINE { $$ = $1; }
                     ;

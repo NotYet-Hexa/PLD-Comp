@@ -23,10 +23,10 @@ BISON_FILES = $(wildcard src/*.y)
 
 FLEX_RESULT = src/lex.yy.c
 
-SRCCPP = $(wildcard src/*.cpp)
+SRCCPP = $(filter-out $(SRCFOLDER)/main.cpp, $(wildcard src/*.cpp))
 SRCH = $(wildcard src/*.h)
 SRC = $(BISON_FILES) $(FLEX_FILES) $(SRCCPP) $(SRCH) $(FLEX_RESULT) $(BISON_FILES:.y=.tab.h)
-OBJ_TMP = $(BISON_FILES:.y=.tab.$(OBJFILE)) $(FLEX_RESULT:.c=.$(OBJFILE)) $(SRCPP:.cpp=.$(OBJFILE))
+OBJ_TMP = $(BISON_FILES:.y=.tab.$(OBJFILE)) $(FLEX_RESULT:.c=.$(OBJFILE)) $(SRCCPP:.cpp=.$(OBJFILE))
 OBJ = $(OBJ_TMP:src%=build%)
 
 $(EXEC): $(SRC) $(OBJ)
