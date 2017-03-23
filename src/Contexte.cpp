@@ -12,14 +12,14 @@ copyright            : (C)2017 par H4114
 
 //-------------------------------------------------------- Include système
 #include <iostream> //String
-
+#include <unordered_map> //unordered_map
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Contexte.h"
 
 //---------------------------------------------------- Variables de classe
-typedef unordered_map<string,string>* tableDesVariables;
+unordered_map<Contexte*,unordered_map<string,string>* > Contexte::tableDesSymboles;
 //----------------------------------------------------------- Types privés
 
 
@@ -31,17 +31,26 @@ typedef unordered_map<string,string>* tableDesVariables;
 //----- Constructeur
 Contexte::Contexte()
 {}// Bloc Vide
+
 Contexte::Contexte(string nomContexte)
 {
     this->nomContexte = nomContexte;
-    tableDesVariables table;
-    //this->tableDesSymboles.insert(this,table);
+    unordered_map<string,string >* tableDesVariables = new unordered_map<string,string>();
+    this->tableDesSymboles.insert(std::make_pair(this,tableDesVariables));
 }
 //----- Fin constructeur
 
 //----- Destructeur
 Contexte::~Contexte()
-{}// Bloc vide
+{
+    unordered_map<Contexte*,unordered_map<string,string>* >::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
+    unordered_map<string,string>* tableVariables = iterateurContexte->second;
+
+    //Nettoyage des donnees
+    tableVariables->clear(); 
+    delete(tableVariables);
+    this->tableDesSymboles.erase(this); 
+}// Bloc vide
 //----- Fin destructeur
 
 /*

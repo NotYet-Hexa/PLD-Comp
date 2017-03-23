@@ -30,16 +30,18 @@ class Contexte{
         Contexte();
         Contexte(string Name);
         ~Contexte();
+        
 
     private:
         string nomContexte;
-
+        
     protected:
+        static unordered_map<Contexte*,unordered_map<string,string>* > tableDesSymboles;
         //typedef unordered_map<Contexte*,unordered_map<string,string> > tableDesSymboles;
 
         //int ajouterVariable(Contexte*,string nomVariable,string typeVariable);
         //bool chercherVariable(Contexte*,string nomVariable); 
-        static unordered_map<Contexte*,unordered_map<string,string>* > tableDesSymboles;
+        
 
 };
 
