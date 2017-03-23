@@ -32,7 +32,7 @@ using namespace std;
 
 void Instruction::print()
 {
-    cout << "Instruction :" << endl<<"\t";
+    cout << "Instruction :" << endl<<;
     instruction->print();
 }
 
