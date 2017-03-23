@@ -17,7 +17,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 
-#include "ListInstruction.h"
+#include "Bloc.h"
 
 //---------------------------------------------------- Variables de classe
 
