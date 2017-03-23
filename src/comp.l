@@ -14,7 +14,7 @@ struct resultat {
     string character;
     Expression * expression;
     Instruction * instruction;
-    Declaration* declaration;
+   
 };
 // #include <list>
 using namespace std;
@@ -84,6 +84,7 @@ return              { return RETURN; }
 "&"                 { return ETBINAIRE; }
 "~"                 { return INV; }
 ";"                 { return POINTVIRGULE; }
+","                 { return VIRGULE; }
 "<"                 { return INF; }
 ">"                 { return SUP; }
 "<="                { return INFEG; }

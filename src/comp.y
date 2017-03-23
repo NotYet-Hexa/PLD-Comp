@@ -18,7 +18,7 @@ struct resultat {
     string character;
     Expression * expression;
     Instruction * instruction;
-    Declaration* declaration;
+    
 };
 
 void yyerror(resultat*, const char*);
@@ -35,6 +35,7 @@ int yylex(void);
     Instruction * instruction;
     char* chaine;
     Declaration* declaration;
+
 }
 
 %token <ival> ENTIER
@@ -53,7 +54,7 @@ int yylex(void);
 %token DECALGAUCHE DECALDROIT
 %token ETBINAIRE OUBINAIRE
 %token XOR INV
-%token POINTVIRGULE
+%token POINTVIRGULE VIRGULE
 
 %token EGALEGAL DIFF 
 %token INFEG INF SUP SUPEG
@@ -96,14 +97,14 @@ axiome              : ligne                             { result->character = $1
 
 
 instruction         : expression POINTVIRGULE           { $$ = new Instruction($1); }
-		    | declaration POINTVIRGULE          { $$ = new Instruction($1); } 
-		    ;
+		            | declaration POINTVIRGULE          { $$ = new Instruction($1); } 
+		            ;
 
 declaration  	    : VOID NOM 				{ $$ = new Declaration("void", $2);} 
-		    | INT32  NOM			{ $$ = new Declaration("int32", $2);}
-		    | INT64 NOM				{ $$ = new Declaration("int64", $2);}
-		    | TYPECHAR NOM			{ $$ = new Declaration("char", $2);}
-		    ;
+                    | INT32  NOM			{ $$ = new Declaration("int32", $2);}
+                    | INT64 NOM				{ $$ = new Declaration("int64", $2);}
+                    | TYPECHAR NOM			{ $$ = new Declaration("char", $2);}
+                    ;
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
                     | NOM                               { $$ = new ExpressionVariable($1); }
