@@ -169,7 +169,8 @@ args_appel_fonction : args_appel_fonction VIRGULE expression
                     | expression
                     ;
 
-RetourFunction -> return Expression
+retour_fonction     : RETURN expression
+                    ;
 
 
 Condition:
