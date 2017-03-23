@@ -14,27 +14,26 @@ using namespace std;
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
-#include "Expression.h"
+#include "ExpressionVrai.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe ExpressionBinaire:
+// Role de la classe Declaration:
 //
 
 //------------------------------------------------------------------------
 
-class ExpressionBinaire : public Instruction {
+class Declaration : public InstructionVrai {
     public:
         void print();
-        ExpressionBinaire(Expression* g, Expression* d, string symb);
-        ~ExpressionBinaire();
+        Declaration(string type, string nom);
+        ~Declaration();
 
     private:
-        string symbole;
-        Expression* gauche;
-        Expression* droite;
+        string type;
+        string nom;
 };
 
 #endif // if ! defined DECLARATION_H
