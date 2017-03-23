@@ -28,20 +28,20 @@ using namespace std;
 class Contexte{
     public:
         Contexte();
-        Contexte(string Name);
+        Contexte(string Nom);
         ~Contexte();
+        int ajouterVariable(string nomVariable,string typeVariable);
+        bool chercherVariable(string nomVariable);
         
+        string getNomContexte();
+
+        static void test_AfficherTableDesSymboles();
 
     private:
         string nomContexte;
         
     protected:
         static unordered_map<Contexte*,unordered_map<string,string>* > tableDesSymboles;
-        //typedef unordered_map<Contexte*,unordered_map<string,string> > tableDesSymboles;
-
-        //int ajouterVariable(Contexte*,string nomVariable,string typeVariable);
-        //bool chercherVariable(Contexte*,string nomVariable); 
-        
 
 };
 
