@@ -1,35 +1,38 @@
 /*************************************************************************
 PLD Comp
-InstructionVraie.h  -  Description
+Instruction.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe InstructionVraie (fichier InstructionVraie.h) ------
-#if ! defined ( INSTRUCTIONVRAIE_H )
-#define INSTRUCTIONVRAIE_H
+//---------- Interface de la classe Instruction (fichier Instruction.h) ------
+#if ! defined ( INSTRUCTION_H )
+#define INSTRUCTION_H
 
 
 //--------------------------------------------------- Interfaces utilisées
+
+#include "InstructionVraie.h"
 
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe InstructionVraie:
+// Role de la classe Instruction:
 //
 
 //------------------------------------------------------------------------
 
-class InstructionVraie{
+class Instruction{
     public:
-        virtual void print() = 0;
-        InstructionVraie();
-        ~InstructionVraie();
+        void print();
+        Instruction(InstructionVraie* monInstruction);
+        ~Instruction();
 
     private:
+    InstructionVraie* instruction;
 
 };
 

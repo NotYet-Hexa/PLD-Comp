@@ -6,11 +6,12 @@
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
-#include "InstructionVraie.h"
+#include "Instruction.h"
 struct resultat {
     int integer;
     string character;
     Expression * expression;
+    Instruction * instruction;
 };
 // #include <list>
 using namespace std;

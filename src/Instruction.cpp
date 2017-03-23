@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-InstructionVraie.cpp  -  Description
+Instruction.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe InstructionVraie (fichier InstructionVraie.cpp) --
+//---------- Réalisation de la classe Instruction (fichier Instruction.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
+
 #include "InstructionVraie.h"
+#include "Instruction.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -28,12 +30,20 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void Instruction::print()
+{
+    cout << "Instruction :" << endl<<"\t";
+    instruction->print();
+}
+
 //----- Constructeur
-InstructionVraie::InstructionVraie()
+Instruction::Instruction(InstructionVraie* monInstruction): instruction(monInstruction)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-InstructionVraie::~InstructionVraie()
-{}// Bloc vide
+Instruction::~Instruction()
+{
+    //delete instruction;
+}// Bloc vide
 //----- Fin destructeur

@@ -12,7 +12,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 
 //--------------------------------------------------- Interfaces utilisées
-
+# include "InstructionVraie.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -23,7 +23,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-class Expression{
+class Expression: public InstructionVraie{
     public:
         virtual void print();
         Expression();

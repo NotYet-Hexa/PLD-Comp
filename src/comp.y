@@ -10,13 +10,13 @@ using namespace std;
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
-#include "InstructionVraie.h"
+#include "Instruction.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
-    InstructionVraie * instructionVraie
+    Instruction * instruction;
 };
 
 void yyerror(resultat*, const char*);
@@ -33,7 +33,7 @@ int yylex(void);
     int ival;
     char charactere;
     Expression * expression;
-    InstructionVraie * instructionVraie
+    Instruction * instruction;
     char* chaine;
 }
 
@@ -63,7 +63,7 @@ int yylex(void);
 // %type <ival> expressionevalue
 %type <expression> expression
 %type <chaine> ligne
-%type <instructionVraie> instructionVraie
+%type <instruction> instruction
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
 //OPTERNAIRE
@@ -81,41 +81,19 @@ int yylex(void);
 %left PLUSPLUS MOINSMOINS
 
 
-// #ifdef CHAINE
-// %parse-param { char* resultat }
-// #endif
-
-// expressionevalue    : MOINS expressionevalue %prec NEG              { $$ = -$2; }
-//                     | expressionevalue PLUS expressionevalue        { $$ = $1 + $3; }
-//                     | expressionevalue MOINS expressionevalue       { $$ = $1 - $3; }
-//                     | expressionevalue DIV expressionevalue         { $$ = $1 / $3; }
-//                     | expressionevalue MUL expressionevalue         { $$ = $1 * $3; }
-//                     | expressionevalue MODULO expressionevalue      { $$ = $1 % $3; }
-//                     | PARENTOUV expressionevalue PARENTFERM         { $$ = $2; }
-//                     | expressionevalue PLUSPLUS                     { $$ = $1++; }
-//                     | expressionevalue MOINSMOINS                   { $$ = $1--; }
-//                     | expressionevalue DECALGAUCHE expressionevalue { $$ = $1 << $3; }
-//                     | expressionevalue DECALDROIT expressionevalue  { $$ = $1 >> $3; }
-//                     | expressionevalue XORBINAIRE expressionevalue  { $$ = $1 ^ $3; }
-//                     | expressionevalue OUBINAIRE expressionevalue   { $$ = $1 | $3; }
-//                     | expressionevalue ETBINAIRE expressionevalue   { $$ = $1 & $3; }
-//                     | ENTIER                                        { $$ = $1; }
-
-
-                    // | expressionevalue                  { result->integer = $1; }
-//                     ;
+                    ;
 
 %parse-param { resultat* result}
 
 %%
 
 axiome              : ligne                             { result->character = $1; }
-                    | InstructionVraie                  { resultat -> instructionVraie = $1; }
+                    | instruction                       { result->instruction = $1; }
                     | expression                        { result->expression = $1; }
                     ; 
 
 
-InstructionVraie    : expression POINTVIRGULE           {$$ = new }
+instruction         : expression POINTVIRGULE           { $$ = new Instruction($1); }
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
                     | NOM                               { $$ = new ExpressionVariable($1); }
@@ -151,10 +129,11 @@ void yyerror(resultat* ligne, const char * msg) {
 int main(void) {
     resultat result;
     yyparse(&result);
-    result.expression->print();
+    result.instruction->print();
 // #ifdef CHAINE
 //     cout << result.character << endl;
 // #endif
 //     cout << result.integer << endl;
     return 0;
 }
+
