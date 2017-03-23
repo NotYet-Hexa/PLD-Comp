@@ -38,7 +38,7 @@ Declaration::~Declaration()
 {}// Bloc vide
 //----- Fin destructeur
 
-Declaration::print()
+void Declaration::print()
 {
 	cout << "Declaration : type ->" << type << "  |  nom -> " << nom << endl;
 }

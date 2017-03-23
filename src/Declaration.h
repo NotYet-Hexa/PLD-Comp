@@ -14,7 +14,7 @@ using namespace std;
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
-#include "ExpressionVrai.h"
+#include "InstructionVraie.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -25,7 +25,7 @@ using namespace std;
 
 //------------------------------------------------------------------------
 
-class Declaration : public InstructionVrai {
+class Declaration : public InstructionVraie {
     public:
         void print();
         Declaration(string type, string nom);

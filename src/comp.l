@@ -7,11 +7,14 @@
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
+#include "Declaration.h"
+
 struct resultat {
     int integer;
     string character;
     Expression * expression;
     Instruction * instruction;
+    Declaration* declaration;
 };
 // #include <list>
 using namespace std;

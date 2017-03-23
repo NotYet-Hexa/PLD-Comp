@@ -11,12 +11,14 @@ using namespace std;
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
+#include "Declaration.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
     Instruction * instruction;
+    Declaration* declaration;
 };
 
 void yyerror(resultat*, const char*);
@@ -24,9 +26,6 @@ int yylex(void);
 
 %}
 
-%code requires {
-
-}
 
 // description des symboles non terminaux
 %union {
@@ -35,6 +34,7 @@ int yylex(void);
     Expression * expression;
     Instruction * instruction;
     char* chaine;
+    Declaration* declaration;
 }
 
 %token <ival> ENTIER
@@ -64,6 +64,7 @@ int yylex(void);
 %type <expression> expression
 %type <chaine> ligne
 %type <instruction> instruction
+%type <declaration> declaration
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
 //OPTERNAIRE
@@ -93,7 +94,16 @@ axiome              : ligne                             { result->character = $1
                     ; 
 
 
+
 instruction         : expression POINTVIRGULE           { $$ = new Instruction($1); }
+		    | declaration POINTVIRGULE          { $$ = new Instruction($1); } 
+		    ;
+
+declaration  	    : VOID NOM 				{ $$ = new Declaration("void", $2);} 
+		    | INT32  NOM			{ $$ = new Declaration("int32", $2);}
+		    | INT64 NOM				{ $$ = new Declaration("int64", $2);}
+		    | TYPECHAR NOM			{ $$ = new Declaration("char", $2);}
+		    ;
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
                     | NOM                               { $$ = new ExpressionVariable($1); }
