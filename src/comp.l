@@ -5,6 +5,8 @@
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
+#include "ExpressionBinaire.h"
+#include "InstructionVraie.h"
 struct resultat {
     int integer;
     string character;
@@ -78,3 +80,11 @@ return              { return RETURN; }
 "&"                 { return ETBINAIRE; }
 "~"                 { return INV; }
 ";"                 { return POINTVIRGULE; }
+"<"                 { return INF; }
+">"                 { return SUP; }
+"<="                { return INFEG; }
+">="                { return SUPEG; }
+"!="                { return DIFF; }
+"=="                { return EGALEGAL; }
+
+

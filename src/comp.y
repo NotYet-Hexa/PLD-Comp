@@ -9,11 +9,14 @@ using namespace std;
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
+#include "ExpressionBinaire.h"
+#include "InstructionVraie.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
+    InstructionVraie * instructionVraie
 };
 
 void yyerror(resultat*, const char*);
@@ -30,6 +33,7 @@ int yylex(void);
     int ival;
     char charactere;
     Expression * expression;
+    InstructionVraie * instructionVraie
     char* chaine;
 }
 
@@ -51,11 +55,15 @@ int yylex(void);
 %token XOR INV
 %token POINTVIRGULE
 
+%token EGALEGAL DIFF 
+%token INFEG INF SUP SUPEG
+
 %token VOID INT32 INT64 TYPECHAR FOR WHILE IF ELSE RETURN
 
 // %type <ival> expressionevalue
 %type <expression> expression
 %type <chaine> ligne
+%type <instructionVraie> instructionVraie
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
 //OPTERNAIRE
@@ -102,12 +110,34 @@ int yylex(void);
 %%
 
 axiome              : ligne                             { result->character = $1; }
+                    | InstructionVraie                  { resultat -> instructionVraie = $1; }
                     | expression                        { result->expression = $1; }
                     ; 
+
+
+InstructionVraie    : expression POINTVIRGULE           {$$ = new }
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
                     | NOM                               { $$ = new ExpressionVariable($1); }
                     | CHAR                              { $$ = new ExpressionChar($1); }
+                    |expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
+                    |expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
+                    |expression PLUS expression         { $$ = new ExpressionBinaire($1, $3, "+"); }
+                    |expression MUL expression          { $$ = new ExpressionBinaire($1, $3, "*"); }
+                    |expression DIV expression          { $$ = new ExpressionBinaire($1, $3, "/"); }
+                    |expression MOINS expression        { $$ = new ExpressionBinaire($1, $3, "-"); }
+                    |expression MODULO expression       { $$ = new ExpressionBinaire($1, $3, "%"); }
+                    |expression DECALGAUCHE expression  { $$ = new ExpressionBinaire($1, $3, "<<"); }
+                    |expression DECALDROIT expression   { $$ = new ExpressionBinaire($1, $3, ">>"); }
+                    |expression XORBINAIRE expression   { $$ = new ExpressionBinaire($1, $3, "^"); }
+                    |expression ETBINAIRE expression    { $$ = new ExpressionBinaire($1, $3, "&"); }
+                    |expression OUBINAIRE expression    { $$ = new ExpressionBinaire($1, $3, "|"); }
+                    |expression INF expression          { $$ = new ExpressionBinaire($1, $3, "<"); }
+                    |expression SUP expression          { $$ = new ExpressionBinaire($1, $3, ">"); }
+                    |expression INFEG expression        { $$ = new ExpressionBinaire($1, $3, "<="); }
+                    |expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
+                    |expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
+                    |expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
                     ;
 
 ligne               : CHAINE { $$ = $1; }
