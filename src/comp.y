@@ -12,13 +12,14 @@ using namespace std;
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
 #include "Declaration.h"
+#include "ListInstruction.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
     Instruction * instruction;
-    Declaration* declaration;
+    ListInstruction * listinstruction;
 };
 
 void yyerror(resultat*, const char*);
@@ -35,6 +36,7 @@ int yylex(void);
     Instruction * instruction;
     char* chaine;
     Declaration* declaration;
+    ListInstruction* listinstruction;
 }
 
 %token <ival> ENTIER
@@ -65,6 +67,7 @@ int yylex(void);
 %type <chaine> ligne
 %type <instruction> instruction
 %type <declaration> declaration
+%type <listinstruction> listinstruction
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
 //OPTERNAIRE
@@ -89,15 +92,19 @@ int yylex(void);
 %%
 
 axiome              : ligne                             { result->character = $1; }
-                    | instruction                       { result->instruction = $1; }
+                    | listinstruction                   { result->listinstruction = $1; }
                     | expression                        { result->expression = $1; }
                     ; 
 
 
+listinstruction	    : listinstruction instruction 	{ $$ = $1; $$->addInstruction($2); }
+		    | instruction			{ $$ = new ListInstruction(); $$->addInstruction($1);}
+		    ;
 
 instruction         : expression POINTVIRGULE           { $$ = new Instruction($1); }
 		    | declaration POINTVIRGULE          { $$ = new Instruction($1); } 
 		    ;
+
 
 declaration  	    : VOID NOM 				{ $$ = new Declaration("void", $2);} 
 		    | INT32  NOM			{ $$ = new Declaration("int32", $2);}
@@ -139,7 +146,8 @@ void yyerror(resultat* ligne, const char * msg) {
 int main(void) {
     resultat result;
     yyparse(&result);
-    result.instruction->print();
+    result.listinstruction->print();
+    //result.instruction->print();
 // #ifdef CHAINE
 //     cout << result.character << endl;
 // #endif

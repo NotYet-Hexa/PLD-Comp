@@ -8,13 +8,14 @@
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
 #include "Declaration.h"
+#include "ListInstruction.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
     Instruction * instruction;
-    Declaration* declaration;
+    ListInstruction * listinstruction;
 };
 // #include <list>
 using namespace std;
