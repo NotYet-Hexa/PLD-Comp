@@ -26,7 +26,7 @@ copyright            : (C)2015 par Haim Nathan
 class Bloc{
     public:
         void print();
-        Bloc();
+        Bloc(ListInstruction* maListInstruction);
         ~Bloc();
 
     private:

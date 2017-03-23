@@ -9,13 +9,15 @@
 #include "Instruction.h"
 #include "Declaration.h"
 #include "ListInstruction.h"
+#include "Bloc.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
     Instruction * instruction;
-    ListInstruction * listinstruction;
+    ListInstruction * liste_instruction;
+    Bloc * bloc;
 };
 // #include <list>
 using namespace std;

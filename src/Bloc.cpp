@@ -32,11 +32,11 @@ using namespace std;
 void Bloc::print()
 {
     cout << "Bloc :" << endl;
-    cout << listInstruction << endl;
+    listInstruction->print();
 }
 
 //----- Constructeur
-Bloc::Bloc()
+Bloc::Bloc(ListInstruction* maListInstruction): listInstruction(maListInstruction)
 {}// Bloc vide
 //----- Fin constructeur
 
