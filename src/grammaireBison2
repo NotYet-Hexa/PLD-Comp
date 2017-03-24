@@ -223,19 +223,21 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     |expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
                     |expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
                     |l_value EGALE expression 
-                    |l_value PLUSEGAL expression |
-                    |l_value MOINSEGAL expression |
-                    |l_value DIVEGAL expression |
-                    |l_value MULEGAL expression |
-                    |l_value MODULOEGAL expression |
-                    |l_value DECALGAUCHEEGALexpression |
-                    |l_value DECALDROITEGAL expression |
-                    |l_value ETEGAL expression |
-                    |l_value XOREGAL expression |
-                    |l_value OUEGAL expression |
+                    |l_value PLUSEGAL expression 
+                    |l_value MOINSEGAL expression 
+                    |l_value DIVEGAL expression 
+                    |l_value MULEGAL expression 
+                    |l_value MODULOEGAL expression 
+                    |l_value DECALGAUCHEEGALexpression 
+                    |l_value DECALDROITEGAL expression 
+                    |l_value ETEGAL expression 
+                    |l_value XOREGAL expression 
+                    |l_value OUEGAL expression 
                     |l_value PLUSPLUS
                     |l_value MOINSMOINS
                     | PARENTOUV expression PARENTFERM
                     ;
  
+
+
 
