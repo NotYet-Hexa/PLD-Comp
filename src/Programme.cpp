@@ -16,6 +16,7 @@ copyright            : (C)2017 par H4114
 using namespace std;
 
 //------------------------------------------------------ Include personnel
+#include "const.h"
 #include "Programme.h"
 
 //---------------------------------------------------- Variables de classe
@@ -27,6 +28,17 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void Programme::print()
+{
+    cout << "Debut de programme" << endl;
+    nbTab++;
+    for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
+    {
+        (*it)->print();
+    }
+    nbTab--;
+    cout << "Fin programme" << endl;
+}
 
 //----- Constructeur
 Programme::Programme():Contexte("Programme")
@@ -37,7 +49,9 @@ Programme::Programme():Contexte("Programme")
 Programme::Programme(vector <Contexte*> listeDeContexte):Contexte("Programme")
 {
     this->listeDeContexte = listeDeContexte;
-    
+    // Ajout du Parent //
+    for (std::vector<Contexte*>::iterator it = listeDeContexte.begin() ; it != listeDeContexte.end(); ++it)
+        (*it)->ajouterParent(this); 
 }// Bloc vide
 //----- Fin constructeur
 

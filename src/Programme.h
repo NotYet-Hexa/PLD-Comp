@@ -26,15 +26,13 @@ copyright            : (C)2017 par H4114
 
 class Programme: public Contexte{
     public:
+        void print();
         Programme();
         Programme(vector <Contexte*> listeDeContexte);
         ~Programme();
-
         vector <Contexte*> getListeDeContexte();
-
     private:
         vector <Contexte*> listeDeContexte;
-
 };
 
 #endif // if ! defined PROGRAMME_H
