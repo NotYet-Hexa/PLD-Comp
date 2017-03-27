@@ -29,11 +29,25 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //----- Constructeur
-Programme::Programme()
+Programme::Programme():Contexte("Programme")
 {}// Bloc vide
+//----- Fin constructeur
+
+//----- Constructeur
+Programme::Programme(vector <Contexte*> listeDeContexte):Contexte("Programme")
+{
+    this->listeDeContexte = listeDeContexte;
+    
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 Programme::~Programme()
 {}// Bloc vide
 //----- Fin destructeur
+
+
+vector <Contexte*> Programme::getListeDeContexte()
+{
+    return this->listeDeContexte;
+}
