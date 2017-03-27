@@ -30,16 +30,16 @@ OBJ_TMP = $(SRCCPP:.cpp=.$(OBJFILE)) $(BISON_FILES:.y=.tab.$(OBJFILE)) $(FLEX_RE
 OBJ = $(OBJ_TMP:src%=build%)
 
 $(EXEC): $(SRC) $(OBJ)
-	g++ $(OBJ) $(OUTBUILD)
+	g++ $(LDFLAGS) $(OBJ) $(OUTBUILD)
 
 # C++ files
 $(BUILDFOLDER)/%.$(OBJFILE): $(SRCFOLDER)/%.cpp $(SRCFOLDER)/%.h
-	g++ -c $< $(OUTBUILD)
+	g++ -c $(CFLAGS) $< $(OUTBUILD)
 
 # Bison objets
 $(BUILDFOLDER)/%.tab.$(OBJFILE): $(SRCFOLDER)/%.tab.h $(SRCFOLDER)/%.y
 	$(eval TMP=$<)
-	g++ -c $(TMP:.h=.c) $(OUTBUILD)
+	g++ -c $(CFLAGS) $(TMP:.h=.c) $(OUTBUILD)
 
 # Bison files .y
 %.tab.h: %.y
@@ -48,7 +48,7 @@ $(BUILDFOLDER)/%.tab.$(OBJFILE): $(SRCFOLDER)/%.tab.h $(SRCFOLDER)/%.y
 
 # lex.yy.o ← lex.yy.c
 $(BUILDFOLDER)/%.$(OBJFILE): $(SRCFOLDER)/%.c
-	g++ -c $< $(OUTBUILD)
+	g++ -c $(CFLAGS) $< $(OUTBUILD)
 
 # lex.yy.c ← *.l
 $(FLEX_RESULT): $(FLEX_FILES)
