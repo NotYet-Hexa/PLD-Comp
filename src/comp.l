@@ -40,15 +40,17 @@ nom [a-zA-Z_]+
 
 {entier}            { yylval.ival = atoi(yytext); return ENTIER; }
 
-void                { return VOID; }
-int32_t             { return INT32; }
-int64_t             { return INT64; }
-char                { return TYPECHAR; }
-for                 { return FOR; }
-while               { return WHILE; }
-if                  { return IF; }
-else                { return ELSE; }
-return              { return RETURN; }
+"void"                { return VOID; }
+"int32_t"             { return INT32; }
+"int64_t"             { return INT64; }
+"char"                { return TYPECHAR; }
+"for"                 { return FOR; }
+"while"               { return WHILE; }
+"if"                  { return IF; }
+"else"                { return ELSE; }
+"return"              { return RETURN; }
+"putchar"             { return PUTCHAR; }
+"getchar"             { return GETCHAR; }
 
 {charactere}        { yylval.charactere = yytext[1]; return CHAR; }
 {chaine}            { yylval.chaine = yytext; return CHAINE; }
