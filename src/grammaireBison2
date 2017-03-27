@@ -241,3 +241,338 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
 
 
 
+
+
+Grammaire PLD Compilateur
+
+	Pour la présentation nous avons choisi de garder le guide de style de bison. Nous avonstoute fois explicité le mon de longueur nul par eps pour plus de lisibilité.
+
+Liste des symbole terminaux:
+
+VOID 
+INT32 
+INT64 
+TYPECHAR 
+FOR 
+WHILE 
+IF 
+ELSE 
+RETURN 
+
+PLUS 
+MOINS 
+DIV 
+MUL 
+MODULO 
+EGALE 
+PARENTOUV 
+PARENTFERM 
+ACCOLOUV 
+ACCOLFERM 
+CROCHETOUV 
+CROCHETFERM 
+PLUSPLUS 
+MOINSMOINS 
+PLUSEGAL 
+MOINSEGAL 
+DIVEGAL 
+MULEGAL 
+MODULOEGAL 
+DECALGAUCHEEGAL 
+DECALDROITEGAL 
+ETEGAL 
+OUEGAL 
+XOREGAL 
+ETLOGIQUE 
+OULOGIQUE 
+DECALGAUCHE 
+DECALDROIT 
+XORBINAIRE 
+OUBINAIRE 
+ETBINAIRE 
+INV 
+POINTVIRGULE 
+VIRGULE 
+INF 
+SUP 
+INFEG 
+SUPEG 
+DIFF 
+EGALEGAL
+PUTCHAR
+GETCHAR
+
+
+Liste des  symbole non-terminaux:
+
+ENTIER
+CHAR 
+CHAINE 
+NOM 
+
+programme
+liste
+brique
+definition_de_fonction
+declaration_de_fonction
+declaration
+type_retour_fonction
+nom_fonction
+args_def
+bloc
+type
+args_def_function
+parametre
+liste_instruction
+instruction
+expression
+loop_statement
+cond 
+retour_fonction
+nom_parametre
+nom_variable
+liste_nom
+nom
+aff
+l_value
+appel_function
+nom_function
+args_appel_fonction
+cond
+fin_cond
+for_loop
+while_loop
+lecture_ecriture
+suite_lecture
+suite_ecriture
+
+
+Grammaire :
+
+
+programme		: liste
+			; 
+
+
+liste			: brique 
+			| liste brique
+			;
+
+brique			: definition_de_fonction 
+			| declaration_de_fonction 
+			| declaration 
+			;
+
+
+declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE
+                           		;
+
+definition_de_fonction    	: type_retour_fonction PARENTOUV nom_fonction PARENTOUV args_def PARENTFERM bloc
+                           		;
+
+type_retour_fonction        	: type
+                            	| VOID	
+                                ;
+
+args_def                    		: args_def_fonction 
+                           		| VOID 
+                          	 	| eps
+                            		;
+
+args_def_fonction           	: parametre 
+                            		| args_def_function VIRGULE parametre
+                            		;
+
+bloc                        		:  ACCOLOUV liste_instruction  ACCOLFERM
+                            		;
+
+liste_instruction           	: liste_instruction instruction 
+                            		| instruction
+                            		| eps
+                            		;                 
+
+
+parametre                   	: type nom_parametre
+                            		;
+
+nom_parametre               	: nom_variable 
+                            		| nom_variable CROCHETOUV CROCHETFERM
+                            		;
+
+declaration                 	: type liste_nom
+                            		;
+
+type 	                    		: INT32 
+                            		| INT64 
+                           	 	    | TYPECHAR 
+                            		;
+
+liste_nom                   		: liste_nom VIRGULE nom
+                            		| nom
+                            		;
+
+nom                         		: NOM aff 
+                            		| NOM  [ENTIER]
+                            		;
+
+aff 	                    		: EGALE expression 
+                            		| eps
+                            		;
+
+
+expression          		: ENTIER                           
+                    			| NOM                              
+                    			| CHAR                              
+                    			| appel_function
+                    			|expression ETLOGIQUE expression    
+                    			|expression OULOGIQUE expression    
+                    			|expression PLUS expression         
+                    			|expression MUL expression          
+                    			|expression DIV expression         
+                    			|expression MOINS expression       
+                    			|expression MODULO expression      
+                    			|expression DECALGAUCHE expression   
+                    			|expression DECALDROIT expression  
+                    			|expression XORBINAIRE expression  
+                    			|expression ETBINAIRE expression   
+                   			|expression OUBINAIRE expression    
+                    			|expression INF expression         
+                    			|expression SUP expression         
+                    			|expression INFEG expression        
+                    			|expression SUPEG expression        
+                    			|expression DIFF expression         
+                    			|expression EGALEGAL expression     
+                    			|l_value EGALE expression 
+                    			|l_value PLUSEGAL expression |
+                    			|l_value MOINSEGAL expression |
+                   			 |l_value DIVEGAL expression |
+                    			|l_value MULEGAL expression |
+                    			|l_value MODULOEGAL expression |
+                    			|l_value DECALGAUCHEEGALexpression |
+                    			|l_value DECALDROITEGAL expression |
+                    			|l_value ETEGAL expression |
+                    			|l_value XOREGAL expression |
+                   	 		|l_value OUEGAL expression |
+                    			|l_value PLUSPLUS
+                    			|l_value MOINSMOINS
+                   			| PARENTOUV expression PARENTFERM
+                    			;
+ 
+
+
+
+
+
+l_value             		: nom_variable CROCHETOUV ENTIER CROCHETFERM 
+                    			| nom_variable
+                    			;
+
+nom_variable        		: NOM
+                    			;
+
+
+
+
+appel_function      		: nom_function PARENTOUV args_appel_fonction PARENTFERM
+                    			;
+
+args_appel_fonction 		: args_appel_fonction VIRGULE expression 
+                    			| expression
+                   			;
+
+retour_fonction     		: RETURN expression
+                    			;
+
+
+
+cond                		: IF PARENTOUV expression PARENTFERM instruction fin_cond
+                    			;
+
+fin_cond            		:ELSE instruction 
+                    			| eps
+                    			;
+
+
+
+
+
+loop_statement      		: while_loop 
+                    			| for_loop
+                    			;
+
+
+
+
+While_loop          		: WHILE PARENTOUV expression PARENTFERM instruction
+                    			;
+
+
+for_loop            		: FOR PARENTOUV expression POINTVIRGULE expression POINTVIRGULE expression PARENTFERM instruction
+                    			;
+
+
+instruction         		:  expression POINTVIRGULE 
+                    			| bloc
+                    			| loop_statement 
+                    			| cond 
+                    			| retour_fonction 
+                    			| declaration POINTVIRGULE
+				| lecture_ecriture POINTVIRGULE
+                   			;
+
+expression          		: ENTIER                         
+                    			| NOM                               
+                    			| CHAR                              
+                    			| appel_function
+                    			|expression ETLOGIQUE expression    
+                    			|expression OULOGIQUE expression    
+                    			|expression PLUS expression         
+                    			|expression MUL expression          
+                    			|expression DIV expression         
+                   			|expression MOINS expression       
+                    			|expression MODULO expression       
+                    			|expression DECALGAUCHE expression  
+                    			|expression DECALDROIT expression  
+                    			|expression XORBINAIRE expression   
+                    			|expression ETBINAIRE expression    
+                    			|expression OUBINAIRE expression    
+                    			|expression INF expression          
+                    			|expression SUP expression          
+                    			|expression INFEG expression        
+                    			|expression SUPEG expression       
+                    			|expression DIFF expression         
+                    			|expression EGALEGAL expression    
+                    			|l_value EGALE expression 
+                    			|l_value PLUSEGAL expression
+                    			|l_value MOINSEGAL expression
+                    			|l_value DIVEGAL expression
+                    			|l_value MULEGAL expression
+                    			|l_value MODULOEGAL expression
+                    			|l_value DECALGAUCHEEGALexpression
+                    			|l_value DECALDROITEGAL expression
+                    			|l_value ETEGAL expression
+                    			|l_value XOREGAL expression
+                    			|l_value OUEGAL expression
+                    			|l_value PLUSPLUS
+                    			|l_value MOINSMOINS
+                    			| PARENTOUV expression PARENTFERM
+                   			;
+ 
+lecture_ecriture		: GETCHAR suite_lecture
+				| PUTCHAR suite_ecriture
+				;
+
+
+
+suite_ecriture			: PARENTOUV NOM PARENTFERM
+				: PARENTOUV CHAR PARENTFERM
+				;
+
+suite_lecture			: PARENTOUV NOM PARENTFERM
+				;
+
+
+3 402 6
+
+
+liste_nom VIRGULE nom
