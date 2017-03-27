@@ -32,11 +32,13 @@ class Contexte{
         ~Contexte();
         int ajouterVariable(string nomVariable,string typeVariable);
         bool chercherVariable(string nomVariable);
+        void ajouterParent(Contexte*);
         string getNomContexte();
         static void test_AfficherTableDesSymboles();
 
     private:
         string nomContexte;
+        Contexte* parent;
         
     protected:
         static unordered_map<Contexte*,unordered_map<string,string>* > tableDesSymboles;
