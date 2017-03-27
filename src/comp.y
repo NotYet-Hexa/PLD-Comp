@@ -131,28 +131,32 @@ int yylex(void);
 
 %%
 
-axiome              : ligne                             { result->character = $1; }
-                    | liste_instruction                 { result->liste_instruction = $1; }
-                    | bloc                              { result->bloc = $1; }
-                    | expression                        { result->expression = $1; }
-                    ; 
+axiome              : programme     { cout<<" axi -> prgm "<<endl; }
+                    ;
 
-programme		    : liste
+                    // ligne                               { result->character = $1; }
+                    // | liste_instruction                 { result->liste_instruction = $1; }
+                    // | bloc                              { result->bloc = $1; }
+                    // | expression                        { result->expression = $1; }
+                    // ; 
+
+programme		    : liste         { cout<<" prgm -> liste"<<endl; } 
 			        ;
 
-liste			    : brique 
-			        | liste brique
+liste			    : brique        { cout<<" liste -> brique"<<endl; } 
+			        | liste brique  { cout<<" liste -> liste brique "<<endl; } 
 			        ;
 
-brique			    : definition_de_fonction 
-			        | declaration_de_fonction 
-			        | declaration 
+brique			    : definition_de_fonction { cout<<" brique  -> def fonc"<<endl; } 
+			        | declaration_de_fonction { cout<<" brique  -> decl fonc"<<endl; } 
+			        | declaration               { cout<<" brique -> declaration"<<endl; } 
+                    |                           { cout<<" shit "<<endl; } 
 			        ;
 
 declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE
                            	;
 
-definition_de_fonction    	: type_retour_fonction PARENTOUV nom_fonction PARENTOUV args_def PARENTFERM bloc
+definition_de_fonction    	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM bloc
                            	;
 
 
@@ -170,8 +174,8 @@ args_def_fonction           : parametre
                             ;
 
 
-bloc                :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = new Bloc($2); }
-                    ;
+bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = new Bloc($2); }
+                            ;
 
 
 liste_instruction	    : liste_instruction instruction 	{ $$ = $1; $$->addInstruction($2); }
