@@ -1,6 +1,7 @@
 #!/bin/bash
 
 exe="build/exe"
+
 if ! [ -f "$exe" ]
 then
     if [ -f "../$exe" ]
@@ -14,25 +15,27 @@ then
     fi
 fi
 
+result_from_test() {
+    name="$1"
+    resultnumber=`echo "$1" | sed -n "s/.*test\(.*\)$/\1/p"`
+    path=`echo "$1" | sed -n "s/^\(.*\)\/test.*$/\1/p"`
+    resultname="$path""/result""$resultnumber"
+    echo $resultname
+}
+
+
 run_test() {
-    expression=`sed '1!d' $1`
-    resulthope=`sed '2!d' $1 | tr -d '\r' | tr -d '\n'`
 
-    if [ -z "$resulthope" ]
-    then
-        echo "Missing new line in $1"
-        exit 1
-    fi
+    result=`$exe < "$1"`
 
-    result=`$exe <<< "$expression"`
+    diff=`diff $2 <(echo $1)`
 
-    result=`echo "$result" | tr -d '\r' | tr -d '\n'`
-
-    if [ "$result" = "$resulthope" ]
+    if [ "$diff" == "" ]
     then
         echo "`basename $1` OK"
     else
-        echo -e "$1 fail \n\t→ expected : '$resulthope' - actual : '$result'"
+        echo "$1 fail"
+        echo "$diff"
         exit 1
     fi
 }
@@ -41,12 +44,13 @@ if [ $# -gt 0 ]
 then
     for param in $*
     do
-        if [ -f $param ]
+        resultname=$(result_from_test "$test")
+        if [[ -f $param  && -f $resultname ]]
         then
-            run_test $param
-        elif [ -f "./tests/$param" ]
+            run_test $param $resultname
+        elif [[ -f "./tests/$param" && -f "./tests/$resultname" ]]
         then
-            run_test "./tests/$param"
+            run_test "./tests/$param" "./tests/$resultname"
         else
             echo "Aucun fichier $param"
             exit 1
@@ -56,6 +60,12 @@ else
     tests=`find . -type f -name 'test*'`
     for test in $tests
     do
-        run_test $test
+        resultname=$(result_from_test "$test")
+        if [ -f $resultname ]
+        then
+            run_test $test $resultname
+        else
+            echo -e "$test \t was ignored → $resultname \t missing"
+        fi
     done
 fi
