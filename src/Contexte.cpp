@@ -28,6 +28,11 @@ unordered_map<Contexte*,unordered_map<string,string>* > Contexte::tableDesSymbol
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void Contexte::print()
+{
+    cout << "Probleme implémenter print pour ce context" << endl;
+}
+
 
 //----- Constructeur
 Contexte::Contexte()

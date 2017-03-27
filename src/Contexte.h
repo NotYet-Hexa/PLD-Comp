@@ -30,6 +30,7 @@ class Contexte{
         Contexte();
         Contexte(string Nom);
         ~Contexte();
+        virtual void print();
         int ajouterVariable(string nomVariable,string typeVariable);
         bool chercherVariable(string nomVariable);
         string getNomContexte();
