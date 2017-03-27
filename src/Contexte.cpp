@@ -40,8 +40,8 @@ Contexte::Contexte()
 
 Contexte::Contexte(string nomContexte)
 {
-    cout << "Constructeur" << endl;
     this->nomContexte = nomContexte;
+    this->parent = nullptr;
     unordered_map<string,string >* tableDesVariables = new unordered_map<string,string>();
     this->tableDesSymboles.insert(std::make_pair(this,tableDesVariables));
 }
@@ -57,10 +57,13 @@ Contexte::~Contexte()
     tableVariables->clear(); 
     delete(tableVariables);
     this->tableDesSymboles.erase(this); 
-
-    cout << "Destructeur" << endl;
 }// Bloc vide
 //----- Fin destructeur
+
+string Contexte::getNomContexte()
+{
+    return this->nomContexte;
+}
 
 
 int Contexte::ajouterVariable(string nomVariable,string typeVariable)
@@ -94,11 +97,14 @@ bool Contexte::chercherVariable(string nomVariable)
             return true;
     }
 }
-string Contexte::getNomContexte()
-{
-    return this->nomContexte;
-}
 
+void Contexte::ajouterParent(Contexte* contexte)
+{
+    this->parent = contexte;
+}
+// ---------------------------------------------------------------------------------------- //
+// ----------------------------------- FONCTION DE TEST ----------------------------------- //
+// ---------------------------------------------------------------------------------------- //
 void Contexte::test_AfficherTableDesSymboles()
 {
     if(tableDesSymboles.empty())

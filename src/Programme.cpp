@@ -49,7 +49,9 @@ Programme::Programme():Contexte("Programme")
 Programme::Programme(vector <Contexte*> listeDeContexte):Contexte("Programme")
 {
     this->listeDeContexte = listeDeContexte;
-    
+    // Ajout du Parent //
+    for (std::vector<Contexte*>::iterator it = listeDeContexte.begin() ; it != listeDeContexte.end(); ++it)
+        (*it)->ajouterParent(this); 
 }// Bloc vide
 //----- Fin constructeur
 

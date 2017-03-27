@@ -30,12 +30,9 @@ class Programme: public Contexte{
         Programme();
         Programme(vector <Contexte*> listeDeContexte);
         ~Programme();
-
         vector <Contexte*> getListeDeContexte();
-
     private:
         vector <Contexte*> listeDeContexte;
-
 };
 
 #endif // if ! defined PROGRAMME_H
