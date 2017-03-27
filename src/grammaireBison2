@@ -1,0 +1,243 @@
+programme
+liste
+brique
+definition_de_fonction
+declaration_de_fonction
+declaration
+type_retour_fonction
+nom_fonction
+args_def
+bloc
+type
+args_def_function
+parametre
+liste_instruction
+instruction
+expression
+loop_statement
+cond 
+retour_fonction
+nom_parametre
+nom_variable
+liste_nom
+nom
+aff
+l_value
+appel_function
+nom_function
+args_appel_fonction
+cond
+fin_cond
+for_loop
+while_loop
+
+
+
+
+programme	: liste
+		; 
+
+
+liste		: brique 
+		| liste brique
+		;
+
+brique		: definition_de_fonction 
+		| declaration_de_fonction 
+		| declaration 
+		;
+
+
+declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE
+                            ;
+
+definition_de_fonction    	: type_retour_fonction PARENTOUV nom_fonction PARENTOUV args_def PARENTFERM bloc
+                            ;
+
+type_retour_fonction        : type
+                            ;
+
+args_def                    : args_def_fonction 
+                            | void 
+                            | eps
+                            ;
+
+args_def_fonction           : parametre 
+                            | args_def_function VIRGULE parametre
+                            ;
+
+bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM
+                            ;
+
+liste_instruction           : liste_instruction instruction 
+                            | instruction
+                            | eps
+                            ;                 
+
+
+parametre                   : type nom_parametre
+                            ;
+
+nom_parametre               : nom_variable 
+                            | nom_variable CROCHETOUV CROCHETFERM
+                            ;
+
+declaration                 : type liste_nom
+                            ;
+
+type 	                    : INT32 
+                            | INT64 
+                            | TYPECHAR 
+                            | VOID
+                            ;
+
+liste_nom                   : liste_nom VIRGULE nom
+                            | nom
+                            ;
+
+nom                         : NOM aff 
+                            | NOM  [ENTIER]
+                            ;
+
+aff 	                    : EGALE expression 
+                            | eps
+                            ;
+
+
+expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
+                    | NOM                               { $$ = new ExpressionVariable($1); }
+                    | CHAR                              { $$ = new ExpressionChar($1); }
+                    | appel_function
+                    |expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
+                    |expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
+                    |expression PLUS expression         { $$ = new ExpressionBinaire($1, $3, "+"); }
+                    |expression MUL expression          { $$ = new ExpressionBinaire($1, $3, "*"); }
+                    |expression DIV expression          { $$ = new ExpressionBinaire($1, $3, "/"); }
+                    |expression MOINS expression        { $$ = new ExpressionBinaire($1, $3, "-"); }
+                    |expression MODULO expression       { $$ = new ExpressionBinaire($1, $3, "%"); }
+                    |expression DECALGAUCHE expression  { $$ = new ExpressionBinaire($1, $3, "<<"); }
+                    |expression DECALDROIT expression   { $$ = new ExpressionBinaire($1, $3, ">>"); }
+                    |expression XORBINAIRE expression   { $$ = new ExpressionBinaire($1, $3, "^"); }
+                    |expression ETBINAIRE expression    { $$ = new ExpressionBinaire($1, $3, "&"); }
+                    |expression OUBINAIRE expression    { $$ = new ExpressionBinaire($1, $3, "|"); }
+                    |expression INF expression          { $$ = new ExpressionBinaire($1, $3, "<"); }
+                    |expression SUP expression          { $$ = new ExpressionBinaire($1, $3, ">"); }
+                    |expression INFEG expression        { $$ = new ExpressionBinaire($1, $3, "<="); }
+                    |expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
+                    |expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
+                    |expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
+                    |l_value EGALE expression 
+                    |l_value PLUSEGAL expression |
+                    |l_value MOINSEGAL expression |
+                    |l_value DIVEGAL expression |
+                    |l_value MULEGAL expression |
+                    |l_value MODULOEGAL expression |
+                    |l_value DECALGAUCHEEGALexpression |
+                    |l_value DECALDROITEGAL expression |
+                    |l_value ETEGAL expression |
+                    |l_value XOREGAL expression |
+                    |l_value OUEGAL expression |
+                    |l_value PLUSPLUS
+                    |l_value MOINSMOINS
+                    | PARENTOUV expression PARENTFERM
+                    ;
+ 
+
+
+
+l_value             : nom_variable CROCHETOUV ENTIER CROCHETFERM 
+                    | nom_variable
+                    ;
+
+nom_variable        : NOM
+                    ;
+
+
+
+
+appel_function      : nom_function PARENTOUV args_appel_fonction PARENTFERM
+                    ;
+
+args_appel_fonction : args_appel_fonction VIRGULE expression 
+                    | expression
+                    ;
+
+retour_fonction     : RETURN expression
+                    ;
+
+
+Condition:
+
+cond                : IF PARENTOUV expression PARENTFERM instruction fin_cond
+                    ;
+
+fin_cond            :ELSE instruction 
+                    | eps
+                    ;
+
+
+
+
+
+loop_statement      : while_loop 
+                    | for_loop
+                    ;
+
+
+While_loop          : WHILE PARENTOUV expression PARENTFERM instruction
+                    ;
+
+
+for_loop            : FOR PARENTOUV expression POINTVIRGULE expression POINTVIRGULE expression PARENTFERM instruction
+                    ;
+
+
+instruction         :  expression POINTVIRGULE 
+                    | bloc
+                    | loop_statement 
+                    | cond 
+                    | retour_fonction 
+                    | declaration POINTVIRGULE
+                    ;
+
+expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
+                    | NOM                               { $$ = new ExpressionVariable($1); }
+                    | CHAR                              { $$ = new ExpressionChar($1); }
+                    | appel_function
+                    |expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
+                    |expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
+                    |expression PLUS expression         { $$ = new ExpressionBinaire($1, $3, "+"); }
+                    |expression MUL expression          { $$ = new ExpressionBinaire($1, $3, "*"); }
+                    |expression DIV expression          { $$ = new ExpressionBinaire($1, $3, "/"); }
+                    |expression MOINS expression        { $$ = new ExpressionBinaire($1, $3, "-"); }
+                    |expression MODULO expression       { $$ = new ExpressionBinaire($1, $3, "%"); }
+                    |expression DECALGAUCHE expression  { $$ = new ExpressionBinaire($1, $3, "<<"); }
+                    |expression DECALDROIT expression   { $$ = new ExpressionBinaire($1, $3, ">>"); }
+                    |expression XORBINAIRE expression   { $$ = new ExpressionBinaire($1, $3, "^"); }
+                    |expression ETBINAIRE expression    { $$ = new ExpressionBinaire($1, $3, "&"); }
+                    |expression OUBINAIRE expression    { $$ = new ExpressionBinaire($1, $3, "|"); }
+                    |expression INF expression          { $$ = new ExpressionBinaire($1, $3, "<"); }
+                    |expression SUP expression          { $$ = new ExpressionBinaire($1, $3, ">"); }
+                    |expression INFEG expression        { $$ = new ExpressionBinaire($1, $3, "<="); }
+                    |expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
+                    |expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
+                    |expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
+                    |l_value EGALE expression 
+                    |l_value PLUSEGAL expression 
+                    |l_value MOINSEGAL expression 
+                    |l_value DIVEGAL expression 
+                    |l_value MULEGAL expression 
+                    |l_value MODULOEGAL expression 
+                    |l_value DECALGAUCHEEGALexpression 
+                    |l_value DECALDROITEGAL expression 
+                    |l_value ETEGAL expression 
+                    |l_value XOREGAL expression 
+                    |l_value OUEGAL expression 
+                    |l_value PLUSPLUS
+                    |l_value MOINSMOINS
+                    | PARENTOUV expression PARENTFERM
+                    ;
+ 
+
+
+

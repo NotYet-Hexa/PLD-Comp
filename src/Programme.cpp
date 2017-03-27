@@ -1,12 +1,12 @@
 /*************************************************************************
-PLD Comp
-Instruction.cpp  -  Description
+PLD COMP
+Programme.cpp  -  Description
 -------------------
-début                : 15/02/2017
-copyright            : (C)2015 par Haim Nathan
+début                : 20/03/2017
+copyright            : (C)2017 par H4114
 *************************************************************************/
 
-//---------- Réalisation de la classe Bloc (fichier Bloc.cpp) --
+//---------- Réalisation de la classe Programme (fichier Programme.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +16,7 @@ copyright            : (C)2015 par Haim Nathan
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-
-#include "Bloc.h"
+#include "Programme.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -29,20 +28,26 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void Bloc::print()
-{
-    cout << "Bloc :" << endl;
-    listInstruction->print();
-}
-
 //----- Constructeur
-Bloc::Bloc(ListInstruction* maListInstruction): listInstruction(maListInstruction)
+Programme::Programme():Contexte("Programme")
 {}// Bloc vide
 //----- Fin constructeur
 
-//----- Destructeur
-Bloc::~Bloc()
+//----- Constructeur
+Programme::Programme(vector <Contexte*> listeDeContexte):Contexte("Programme")
 {
-    //delete instruction;
+    this->listeDeContexte = listeDeContexte;
+    
 }// Bloc vide
+//----- Fin constructeur
+
+//----- Destructeur
+Programme::~Programme()
+{}// Bloc vide
 //----- Fin destructeur
+
+
+vector <Contexte*> Programme::getListeDeContexte()
+{
+    return this->listeDeContexte;
+}

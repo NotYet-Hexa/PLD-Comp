@@ -13,13 +13,18 @@ using namespace std;
 #include "Instruction.h"
 #include "Declaration.h"
 #include "ListInstruction.h"
+#include "Bloc.h"
+
+//AJOUT
+#include "Contexte.h"
 
 struct resultat {
     int integer;
     string character;
     Expression * expression;
     Instruction * instruction;
-    ListInstruction * listinstruction;
+    ListInstruction * liste_instruction;
+    Bloc * bloc;
 };
 
 void yyerror(resultat*, const char*);
@@ -36,7 +41,8 @@ int yylex(void);
     Instruction * instruction;
     char* chaine;
     Declaration* declaration;
-    ListInstruction* listinstruction;
+    ListInstruction* liste_instruction;
+    Bloc * bloc;
 }
 
 %token <ival> ENTIER
@@ -55,7 +61,7 @@ int yylex(void);
 %token DECALGAUCHE DECALDROIT
 %token ETBINAIRE OUBINAIRE
 %token XOR INV
-%token POINTVIRGULE
+%token POINTVIRGULE VIRGULE
 
 %token EGALEGAL DIFF 
 %token INFEG INF SUP SUPEG
@@ -67,7 +73,8 @@ int yylex(void);
 %type <chaine> ligne
 %type <instruction> instruction
 %type <declaration> declaration
-%type <listinstruction> listinstruction
+%type <liste_instruction> liste_instruction
+%type <bloc> bloc
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
 //OPTERNAIRE
@@ -92,25 +99,28 @@ int yylex(void);
 %%
 
 axiome              : ligne                             { result->character = $1; }
-                    | listinstruction                   { result->listinstruction = $1; }
+                    | liste_instruction                 { result->liste_instruction = $1; }
+                    | bloc                              { result->bloc = $1; }
                     | expression                        { result->expression = $1; }
                     ; 
 
+bloc                :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = new Bloc($2); }
+                    ;
 
-listinstruction	    : listinstruction instruction 	{ $$ = $1; $$->addInstruction($2); }
+liste_instruction	    : liste_instruction instruction 	{ $$ = $1; $$->addInstruction($2); }
 		    | instruction			{ $$ = new ListInstruction(); $$->addInstruction($1);}
 		    ;
 
 instruction         : expression POINTVIRGULE           { $$ = new Instruction($1); }
-		    | declaration POINTVIRGULE          { $$ = new Instruction($1); } 
-		    ;
+		            | declaration POINTVIRGULE          { $$ = new Instruction($1); } 
+		            ;
 
 
 declaration  	    : VOID NOM 				{ $$ = new Declaration("void", $2);} 
-		    | INT32  NOM			{ $$ = new Declaration("int32", $2);}
-		    | INT64 NOM				{ $$ = new Declaration("int64", $2);}
-		    | TYPECHAR NOM			{ $$ = new Declaration("char", $2);}
-		    ;
+                    | INT32  NOM			{ $$ = new Declaration("int32", $2);}
+                    | INT64 NOM				{ $$ = new Declaration("int64", $2);}
+                    | TYPECHAR NOM			{ $$ = new Declaration("char", $2);}
+                    ;
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
                     | NOM                               { $$ = new ExpressionVariable($1); }
@@ -144,10 +154,42 @@ void yyerror(resultat* ligne, const char * msg) {
 }
 
 int main(void) {
-    resultat result;
-    yyparse(&result);
-    result.listinstruction->print();
+    //resultat result;
+    //yyparse(&result);
+    //result.bloc->print();
+    //result.liste_instruction->print();
     //result.instruction->print();
+
+    /* VALGRIND A VOIR
+
+    Contexte* contexte1 = new Contexte("Programme");
+    Contexte* contexte2 = new Contexte("Bloc");
+    contexte1->ajouterVariable("a","int");
+    contexte1->ajouterVariable("b","char");
+    cout << "Variable Ajoutee" << endl;
+
+    if(contexte1->chercherVariable("a"))
+        cout << "Variable Trouvee" << endl;
+    else
+        cout << "Variable Non Trouvee" << endl;
+
+    if(contexte2->chercherVariable("a"))
+        cout << "Variable Trouvee" << endl;
+    else
+        cout << "Variable Non Trouvee" << endl;
+    contexte2->ajouterVariable("a","int");
+    contexte2->ajouterVariable("b","int");
+    contexte2->ajouterVariable("c","int");
+    if(contexte1->chercherVariable("a"))
+        cout << "Variable Trouvee" << endl;
+    else
+        cout << "Variable Non Trouvee" << endl;
+    Contexte::test_AfficherTableDesSymboles();   
+    delete(contexte1);
+    delete(contexte2);
+    cout << "Contexte Suprime" << endl;
+
+    */
 // #ifdef CHAINE
 //     cout << result.character << endl;
 // #endif

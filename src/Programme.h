@@ -1,37 +1,40 @@
 /*************************************************************************
-PLD Comp
-Bloc.h  -  Description
+PLD COMP
+Programme.h  -  Description
 -------------------
-début                : 23/02/2017
-copyright            : (C)2015 par Haim Nathan
+début                : 20/03/2017
+copyright            : (C)2017 par H4114
 *************************************************************************/
 
-//---------- Interface de la classe Bloc (fichier Bloc.h) ------
-#if ! defined ( BLOC_H )
-#define BLOC_H
-
+//---------- Interface de la classe Programme (fichier Programme.h) ------
+#if ! defined ( PROGRAMME_H )
+#define PROGRAMME_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "ListInstruction.h"
+
+#include "Contexte.h"
+#include <vector>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Bloc:
+// Role de la classe Programme:
 //
 
 //------------------------------------------------------------------------
 
-class Bloc{
+class Programme: public Contexte{
     public:
-        void print();
-        Bloc(ListInstruction* maListInstruction);
-        ~Bloc();
+        Programme();
+        Programme(vector <Contexte*> listeDeContexte);
+        ~Programme();
+
+        vector <Contexte*> getListeDeContexte();
 
     private:
-    ListInstruction* listInstruction;
+        vector <Contexte*> listeDeContexte;
 
 };
 
-#endif // if ! defined BLOC_H
+#endif // if ! defined PROGRAMME_H
