@@ -10,9 +10,10 @@ copyright            : (C)2017 par H4114
 #if ! defined ( PROGRAMME_H )
 #define PROGRAMME_H
 
-
 //--------------------------------------------------- Interfaces utilisées
 
+#include "Contexte.h"
+#include <vector>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -23,12 +24,16 @@ copyright            : (C)2017 par H4114
 
 //------------------------------------------------------------------------
 
-class Programme{
+class Programme: public Contexte{
     public:
         Programme();
+        Programme(vector <Contexte*> listeDeContexte);
         ~Programme();
 
+        vector <Contexte*> getListeDeContexte();
+
     private:
+        vector <Contexte*> listeDeContexte;
 
 };
 

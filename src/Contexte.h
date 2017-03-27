@@ -32,9 +32,7 @@ class Contexte{
         ~Contexte();
         int ajouterVariable(string nomVariable,string typeVariable);
         bool chercherVariable(string nomVariable);
-        
         string getNomContexte();
-
         static void test_AfficherTableDesSymboles();
 
     private:
