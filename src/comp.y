@@ -160,7 +160,8 @@ liste			    : definition_de_fonction            { $$ = new Briques(); $$->add($1
 			        | liste definition_de_fonction      { $$ = $1; $$->add($2); } 
 			        | liste declaration_de_fonction     { $$ = $1; $$->add($2); } 
 			        | liste declaration                 { $$ = $1; $$->add($2); } 
-			        ;
+			        |
+                    ;
 
 declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE 
                             { DeclarationFonction($2, $1, $4); }
