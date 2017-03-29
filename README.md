@@ -1,5 +1,7 @@
 # Makefile
 
+[![Build Status](https://travis-ci.org/NotYet-Hexa/PLD-Comp.svg?branch=master)](https://travis-ci.org/NotYet-Hexa/PLD-Comp)
+
 ## Compilation
 
 2 méthodes de compilation maintenant disponible :
@@ -40,6 +42,7 @@ Plus besoin de chercher dans quel dossier se cache l'executable
 
 	$ make run < program.txt
 	$ make run <<< ""
+    $ make run mode=debug <<< ""
 
 ## Nettoyage
 
