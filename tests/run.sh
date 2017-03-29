@@ -27,7 +27,7 @@ run_test() {
 
     result=`$exe < "$1"`
 
-    diff=`diff -w $2 <(echo -e "$result")`
+    diff=`diff -u -w $2 <(echo -e "$result")`
 
 
     if [ "$diff" == "" ]
