@@ -19,7 +19,9 @@ using namespace std;
 #include "Contexte.h"
 
 //---------------------------------------------------- Variables de classe
-unordered_map<Contexte*,unordered_map<string,string>* > Contexte::tableDesSymboles;
+typedef unordered_map<Contexte*,unordered_map<string,string>* > MapContexte;
+typedef unordered_map<string,string> MapVariable;
+MapContexte Contexte::tableDesSymboles;
 
 //----------------------------------------------------------- Types privés
 
@@ -42,7 +44,7 @@ Contexte::Contexte(string nomContexte)
 {
     this->nomContexte = nomContexte;
     this->parent = nullptr;
-    unordered_map<string,string >* tableDesVariables = new unordered_map<string,string>();
+    MapVariable* tableDesVariables = new unordered_map<string,string>();
     this->tableDesSymboles.insert(std::make_pair(this,tableDesVariables));
 }
 //----- Fin constructeur
@@ -50,8 +52,8 @@ Contexte::Contexte(string nomContexte)
 //----- Destructeur
 Contexte::~Contexte()
 {
-    unordered_map<Contexte*,unordered_map<string,string>* >::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
-    unordered_map<string,string>* tableVariables = iterateurContexte->second;
+    MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
+    MapVariable* tableVariables = iterateurContexte->second;
 
     //Nettoyage des donnees
     tableVariables->clear(); 
@@ -74,8 +76,8 @@ int Contexte::ajouterVariable(string nomVariable,string typeVariable)
     }
     else
     {
-        unordered_map<Contexte*,unordered_map<string,string>* >::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
-        unordered_map<string,string>* tableVariables = iterateurContexte->second;
+        MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
+        MapVariable* tableVariables = iterateurContexte->second;
         pair<string,string> variable (nomVariable,typeVariable);
         tableVariables->insert(variable);
         return 0; // Succes
@@ -84,13 +86,13 @@ int Contexte::ajouterVariable(string nomVariable,string typeVariable)
 }
 bool Contexte::chercherVariable(string nomVariable)
 {
-    unordered_map<Contexte*,unordered_map<string,string>* >::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
+    MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
     if (iterateurContexte == this->tableDesSymboles.end())
         return false; // Le Contexte n'existe pas
     else
     {
-        unordered_map<string,string>* tableVariable = iterateurContexte->second;
-        unordered_map<string,string> ::const_iterator iterateurVariable = tableVariable->find(nomVariable);
+        MapVariable* tableVariable = iterateurContexte->second;
+        MapVariable::const_iterator iterateurVariable = tableVariable->find(nomVariable);
         if(iterateurVariable == tableVariable->end())
             return false; // La variable n'existe pas dans le contexte
         else
@@ -102,21 +104,23 @@ void Contexte::ajouterParent(Contexte* contexte)
 {
     this->parent = contexte;
 }
+
 // ---------------------------------------------------------------------------------------- //
 // ----------------------------------- FONCTION DE TEST ----------------------------------- //
 // ---------------------------------------------------------------------------------------- //
+
 void Contexte::test_AfficherTableDesSymboles()
 {
     if(tableDesSymboles.empty())
         cout << "Aucun Contexte Instancie";
     else
     {
-        for (unordered_map<Contexte*,unordered_map<string,string>* >::iterator itContexte= tableDesSymboles.begin(); itContexte!= tableDesSymboles.end(); ++itContexte)
+        for (MapContexte::iterator itContexte= tableDesSymboles.begin(); itContexte!= tableDesSymboles.end(); ++itContexte)
         {
             cout << itContexte->first->getNomContexte() << endl;
             cout << "=========================" << endl;
-            unordered_map<string,string> mapdd = *itContexte->second;
-            for (unordered_map<string,string>::iterator itVariable= itContexte->second->begin(); itVariable!= itContexte->second->end(); ++itVariable)
+            MapVariable mapdd = *itContexte->second;
+            for (MapVariable::iterator itVariable= itContexte->second->begin(); itVariable!= itContexte->second->end(); ++itVariable)
             {
                 cout << itVariable->first << "|" << itVariable->second << endl;
             }
