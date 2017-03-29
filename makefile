@@ -83,5 +83,5 @@ test: $(EXEC_PATH)
 	@echo "Lancement des tests ..."
 	@tests/run.sh $(EXEC_PATH)
 
-run:
+run: $(EXEC_PATH)
 	@$(EXEC_PATH)
