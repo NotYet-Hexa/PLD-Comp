@@ -1,9 +1,14 @@
 notifications:
   slack: notyet-hexa:pYcmfHQygnnf8vFtwrUGhnL9
 language: cpp
+compiler: g++
 before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get -qq update
-  - sudo apt-get install -y make flex bison 
+install:
+  - sudo apt-get install -y make flex bison
+  - sudo apt-get install -qq g++-4.8
+  - export CXX="g++-4.8"
 script:
   - chmod a+x tests/run.sh
   - make test
