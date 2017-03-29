@@ -32,6 +32,7 @@ class Programme : public Contexte {
         Programme(std::vector <Contexte*> listeDeContexte, Briques* briques);
         ~Programme();
         std::vector <Contexte*> getListeDeContexte();
+        Briques* getBriques();
     private:
         std::vector <Contexte*> listeDeContexte;
         Briques* brique;
