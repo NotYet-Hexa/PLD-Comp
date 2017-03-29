@@ -70,3 +70,8 @@ vector <Contexte*> Programme::getListeDeContexte()
 {
     return this->listeDeContexte;
 }
+
+Briques* Programme::getBriques()
+{
+    return this->brique;
+}
