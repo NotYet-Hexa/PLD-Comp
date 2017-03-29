@@ -57,7 +57,7 @@ void Briques::add(Declaration* d)
 
 void Briques::print()
 {
-	cout << "Briques :" << endl;
+	cout << "Debut de briques" << endl;
     /*for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
     {
     	(*it)->print();
@@ -68,11 +68,10 @@ void Briques::print()
     }*/
      if( !vectorDeclaration.empty() )
         {
-            cout<<"aaa"<<endl;
             for(std::vector<Declaration*>::iterator it = vectorDeclaration.begin(); it != vectorDeclaration.end(); ++it)
             {
                     (*it)->print();
             }
         }
-    cout << "fin Brique" << endl;
+    cout << "Fin de briques" << endl;
 }
