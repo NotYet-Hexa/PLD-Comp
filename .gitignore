@@ -33,3 +33,4 @@
 *.tab.*
 exe
 lex.*
+log.txt

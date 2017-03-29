@@ -3,6 +3,7 @@
 using namespace std;
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -153,7 +154,7 @@ int yylex(void);
 axiome              :programme      {  *result = $1;  }  
                     ;
 
-programme		    : liste         {  $$ = new Programme(vector<Contexte*>(),$1); } 
+programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); } 
 			        ;
 
 liste			    : definition_de_fonction            { $$ = new Briques(); $$->add($1); } 
@@ -334,18 +335,21 @@ ligne               : CHAINE { $$ = $1; }
 %%
 
 void yyerror(Programme** pgm, const char * msg) {
-   cout << "Syntax error : " << msg << endl;
+   cerr << "Syntax error : " << msg << endl;
 }
 
 int main(void) {
     Programme** result = new Programme* ;
 
+
 #ifndef DEBUG
-    // std::ofstream out("log.txt");
+    string filename = "log.txt";
+    std::ofstream output(filename.c_str());
     std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
-    std::cout.rdbuf(); //redirect std::cout to null or use out to log.txt!
+    std::cout.rdbuf(output.rdbuf()); //redirect std::cout to log.txt!
 #endif
 
+    // les cout de yyparse sont jeté à la corbeille
     yyparse(result);
 
 #ifndef DEBUG

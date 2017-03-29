@@ -1,4 +1,4 @@
-.PHONY : clean test
+.PHONY : clean test all run
 
 VPATH = src:build
 
@@ -11,7 +11,10 @@ EXEC = exe
 LINK = -o
 OUTPUT = -o
 
-BUILDFOLDER = build
+BUILDSTARTFOLDER = build
+DEBUG_FOLDER = $(BUILDSTARTFOLDER)/debug
+RELEASE_FOLDER = $(BUILDSTARTFOLDER)/release
+
 SRCFOLDER = src
 
 OUTBUILD = $(OUTPUT) $(BUILDFOLDER)/$(shell basename $@)
@@ -27,9 +30,27 @@ SRCCPP = $(filter-out $(SRCFOLDER)/main.cpp, $(wildcard src/*.cpp))
 SRCH = $(wildcard src/*.h)
 SRC = $(BISON_FILES) $(FLEX_FILES) $(SRCCPP) $(SRCH) $(FLEX_RESULT) $(BISON_FILES:.y=.tab.h)
 OBJ_TMP = $(SRCCPP:.cpp=.$(OBJFILE)) $(BISON_FILES:.y=.tab.$(OBJFILE)) $(FLEX_RESULT:.c=.$(OBJFILE)) 
-OBJ = $(OBJ_TMP:src%=build%)
 
-$(EXEC): $(SRC) $(OBJ)
+OBJ = $(OBJ_TMP:src/%=$(BUILDFOLDER)/%)
+
+EXEC_PATH = $(BUILDFOLDER)/$(EXEC)
+
+ifeq ($(mode),debug)
+	CFLAGS += $(DEBUG_FLAG)
+	LDFLAGS += $(DEBUG_FLAG)
+	BUILDFOLDER = $(DEBUG_FOLDER)
+else
+	BUILDFOLDER = $(RELEASE_FOLDER)
+endif
+
+
+all: $(EXEC_PATH)
+
+# debug: $(eval BUILDFOLDER=$(BUILDFOLDERSTART)/debug)
+# debug: $(EXEC)
+
+
+$(EXEC_PATH): $(SRC) $(OBJ)
 	g++ $(LDFLAGS) $(OBJ) $(OUTBUILD)
 
 # C++ files
@@ -55,10 +76,12 @@ $(FLEX_RESULT): $(FLEX_FILES)
 	flex -o $@ $(FLEX_FILES) 
 
 clean:
-	cd build; $(REMOVE) *.$(OBJFILE) $(EXEC) 
+	cd $(BUILDFOLDER); $(REMOVE) *.$(OBJFILE) $(EXEC) 
 	cd src; $(REMOVE) *.tab.* *.output lex.*
 
-
-test: $(EXEC)
+test: $(EXEC_PATH)
 	@echo "Lancement des tests ..."
-	@tests/run.sh
+	@tests/run.sh $(EXEC_PATH)
+
+run:
+	@$(EXEC_PATH)

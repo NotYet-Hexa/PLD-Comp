@@ -1,6 +1,14 @@
 #!/bin/bash
 
-exe="build/exe"
+nbArgs=`wc -w <<< "${*:2}"`
+
+if [ $# -eq 0 ]
+then
+    echo "Please pass the executable as first parameter"
+    exit 1
+fi
+
+exe="$1"
 
 if ! [ -f "$exe" ]
 then
@@ -40,19 +48,33 @@ run_test() {
     fi
 }
 
-if [ $# -gt 0 ]
+if [ $nbArgs -gt 0 ]
 then
-    for param in $*
+    for param in ${*:2}
     do
-        resultname=$(result_from_test "$test")
-        if [[ -f $param  && -f $resultname ]]
+        if [ -f $param ]
         then
-            run_test $param $resultname
-        elif [[ -f "./tests/$param" && -f "./tests/$resultname" ]]
+            resultname=$(result_from_test "$param")
+            if [ -f $resultname ]
+            then
+                run_test "$param" "$resultname"
+            else
+                echo -e "$param \t was ignored → $resultname \t missing"
+            fi
+        elif [ -f "./tests/$param" ]
         then
-            run_test "./tests/$param" "./tests/$resultname"
+            param="./tests/$param"
+            resultname=$(result_from_test "$param")
+            if [ -f "$resultname" ]
+            then
+                run_test "$param" "$resultname"
+            else
+                echo -e "$param \t was ignored → $resultname \t missing"
+            fi
         else
-            echo "Aucun fichier $param"
+            echo "Aucun fichier $param, chemin essayé :"
+            echo -e "\t → $param"
+            echo -e "\t → ./tests/$param"
             exit 1
         fi
     done
