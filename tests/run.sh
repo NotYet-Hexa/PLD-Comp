@@ -32,7 +32,7 @@ run_test() {
 
     if [ "$diff" == "" ]
     then
-        echo -e "→ `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` \u2713"
+        echo -e "→ `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` \xE2\x9C\x93"
     else
         echo "$1 fail"
         echo "$diff"
