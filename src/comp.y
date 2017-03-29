@@ -14,20 +14,21 @@ using namespace std;
 #include "Declaration.h"
 #include "ListInstruction.h"
 #include "Bloc.h"
+#include "Programme.h"
 
 //AJOUT
 #include "Contexte.h"
 
-struct resultat {
-    int integer;
-    string character;
-    Expression * expression;
-    Instruction * instruction;
-    ListInstruction * liste_instruction;
-    Bloc * bloc;
-};
+// struct resultat {
+//     int integer;
+//     string character;
+//     Expression * expression;
+//     Instruction * instruction;
+//     ListInstruction * liste_instruction;
+//     Bloc * bloc;
+// };
 
-void yyerror(resultat*, const char*);
+void yyerror(Programme*, const char*);
 int yylex(void);
 
 %}
@@ -125,35 +126,25 @@ int yylex(void);
 %left PLUSPLUS MOINSMOINS
 
 
-                    ;
-
-%parse-param { resultat* result}
+%parse-param { Programme* result}
 
 %%
 
-axiome              : programme     { cout<<" axi -> prgm "<<endl; }
+axiome              : programme     { $$ = $1; }
                     ;
 
-                    // ligne                               { result->character = $1; }
-                    // | liste_instruction                 { result->liste_instruction = $1; }
-                    // | bloc                              { result->bloc = $1; }
-                    // | expression                        { result->expression = $1; }
-                    // ; 
-
-programme		    : liste         { cout<<" prgm -> liste"<<endl; } 
+programme		    : liste         { $$ = new Programme($1); } 
 			        ;
 
-liste			    : brique        { cout<<" liste -> brique"<<endl; } 
-			        | liste brique  { cout<<" liste -> liste brique "<<endl; } 
+liste			    : definition_de_fonction            { $$ = new Briques(); $$.Add($1) } 
+                    | declaration_de_fonction           { $$ = new Briques(); $$.Add($1) } 
+                    | declaration                       { $$ = new Briques(); $$.Add($1) } 
+			        | liste definition_de_fonction      { $$ = $1; $$.Add($2); } 
+			        | liste declaration_de_fonction     { $$ = $1; $$.Add($2); } 
+			        | liste declaration                 { $$ = $1; $$.Add($2); } 
 			        ;
 
-brique			    : definition_de_fonction { cout<<" brique  -> def fonc"<<endl; } 
-			        | declaration_de_fonction { cout<<" brique  -> decl fonc"<<endl; } 
-			        | declaration               { cout<<" brique -> declaration"<<endl; } 
-                    |                           { cout<<" shit "<<endl; } 
-			        ;
-
-declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE
+declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE {  }
                            	;
 
 definition_de_fonction    	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM bloc
@@ -205,8 +196,8 @@ type 	                : INT32	    		{ $$ = "int32"; }
 liste_nom               : nom       
                         ;
 
-nom                     : NOM aff           { $$ = $1; }
-                        | NOM  [ENTIER]     { $$ = $1; }
+nom                     : NOM aff           
+                        | NOM CROCHETOUV ENTIER CROCHETFERM 
                         ;
 
 aff 	                : EGALE expression 
@@ -232,7 +223,7 @@ retour_fonction     	: RETURN expression
 cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond
                 		;
 
-fin_cond           		:ELSE instruction 
+fin_cond           		: ELSE instruction 
               			|
                 		;
 
@@ -323,14 +314,14 @@ ligne               : CHAINE { $$ = $1; }
                     ;
 %%
 
-void yyerror(resultat* ligne, const char * msg) {
+void yyerror(Programme* ligne, const char * msg) {
    cout << "Syntax error : " << msg << endl;
 }
 
 int main(void) {
-    resultat result;
+    Programme result;
     yyparse(&result);
-    result.bloc->print();
+    result.print();
     //result.liste_instruction->print();
     //result.instruction->print();
 

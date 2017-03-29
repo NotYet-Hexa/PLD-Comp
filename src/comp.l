@@ -10,15 +10,18 @@
 #include "Declaration.h"
 #include "ListInstruction.h"
 #include "Bloc.h"
+#include "Programme.h"
 
-struct resultat {
-    int integer;
-    string character;
-    Expression * expression;
-    Instruction * instruction;
-    ListInstruction * liste_instruction;
-    Bloc * bloc;
-};
+#include "Contexte.h"
+
+// struct resultat {
+//     int integer;
+//     string character;
+//     Expression * expression;
+//     Instruction * instruction;
+//     ListInstruction * liste_instruction;
+//     Bloc * bloc;
+// };
 // #include <list>
 using namespace std;
 #include "comp.tab.h"
