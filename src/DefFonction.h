@@ -34,6 +34,7 @@ class DefFonction : public Contexte {
         ~DefFonction();
 
     private:
+    	string type;
         string nomFonction;
         Bloc* bloc;
         ArgsDef* args;

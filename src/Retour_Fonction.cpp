@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-DefFonction.cpp  -  Description
+Expression.cpp  -  Description
 -------------------
-début                : 27/03/2017
-copyright            : (C)2015 par Haim Nathan
+début                : 15/02/2017
+copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe DefFonction (fichier DefFonction.cpp) --
+//---------- Réalisation de la classe Expression (fichier Expression.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +16,7 @@ copyright            : (C)2015 par Haim Nathan
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "DefFonction.h"
-
+#include "Expression.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -28,27 +27,16 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-
-//----- Constructeur
-DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction):Contexte("DefFonction"),nomFonction(nom),type(type)
+void Expression::print()
 {
-	this->bloc = bloc;
-	this->args = args;
-}// Bloc vide
+    cout << "salut" << endl;
+}
+//----- Constructeur
+Expression::Expression()
+{}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-DefFonction::~DefFonction()
+Expression::~Expression()
 {}// Bloc vide
 //----- Fin destructeur
-
-void DefFonction::print()
-{
-	cout << "DefFonction : nom ->" << nomFonction << endl;
-}
-
-string DefFonction::getNomFonction() { return this->nomFonction; }
-
-Bloc* DefFonction::getBloc(){ return this->bloc; }
-
-ArgsDef* DefFonction::getArgs(){ return this->args; }

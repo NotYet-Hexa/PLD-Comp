@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-DefFonction.cpp  -  Description
+Brique.cpp  -  Description
 -------------------
 début                : 27/03/2017
 copyright            : (C)2015 par Haim Nathan
 *************************************************************************/
 
-//---------- Réalisation de la classe DefFonction (fichier DefFonction.cpp) --
+//---------- Réalisation de la classe Brique (fichier Brique.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +16,7 @@ copyright            : (C)2015 par Haim Nathan
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "DefFonction.h"
-
+#include "Brique.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -30,25 +29,44 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //----- Constructeur
-DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction):Contexte("DefFonction"),nomFonction(nom),type(type)
-{
-	this->bloc = bloc;
-	this->args = args;
-}// Bloc vide
+Brique::Brique()
+{}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-DefFonction::~DefFonction()
+Brique::~Brique()
 {}// Bloc vide
 //----- Fin destructeur
 
-void DefFonction::print()
+Brique::add(DefFonction* d)
 {
-	cout << "DefFonction : nom ->" << nomFonction << endl;
+	vectorDefinitionFonction.push_back(d);
 }
 
-string DefFonction::getNomFonction() { return this->nomFonction; }
+Brique::add(DefFonction* d)
+{
+	vectorDeclarationFonction.push_back(d);
+}
 
-Bloc* DefFonction::getBloc(){ return this->bloc; }
+Brique::add(DefFonction* d)
+{
+	vectorDeclaration.push_back(d);
+}
 
-ArgsDef* DefFonction::getArgs(){ return this->args; }
+Brique::print()
+{
+	cout << "Brique :" << endl;
+    for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
+    {
+    	(*it)->print();
+    }
+    for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
+    {
+    	(*it)->print();
+    }
+    for(std::vector<Declaration*>::iterator it = vectorDeclaration.begin() ; it != vectorDeclaration.end() ; it++)
+    {
+    	(*it)->print();
+    }
+
+}
