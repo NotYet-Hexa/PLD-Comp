@@ -339,45 +339,20 @@ void yyerror(Programme** pgm, const char * msg) {
 
 int main(void) {
     Programme** result = new Programme* ;
+
+#ifndef DEBUG
+    // std::ofstream out("log.txt");
+    std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
+    std::cout.rdbuf(); //redirect std::cout to null or use out to log.txt!
+#endif
+
     yyparse(result);
+
+#ifndef DEBUG
+    std::cout.rdbuf(coutbuf); //reset to standard output again
+#endif
+
     (*result)->print();
-    //result.liste_instruction->print();
-    //result.instruction->print();
-
-    /* VALGRIND A VOIR
-
-    Contexte* contexte1 = new Contexte("Programme");
-    Contexte* contexte2 = new Contexte("Bloc");
-    contexte1->ajouterVariable("a","int");
-    contexte1->ajouterVariable("b","char");
-    cout << "Variable Ajoutee" << endl;
-
-    if(contexte1->chercherVariable("a"))
-        cout << "Variable Trouvee" << endl;
-    else
-        cout << "Variable Non Trouvee" << endl;
-
-    if(contexte2->chercherVariable("a"))
-        cout << "Variable Trouvee" << endl;
-    else
-        cout << "Variable Non Trouvee" << endl;
-    contexte2->ajouterVariable("a","int");
-    contexte2->ajouterVariable("b","int");
-    contexte2->ajouterVariable("c","int");
-    if(contexte1->chercherVariable("a"))
-        cout << "Variable Trouvee" << endl;
-    else
-        cout << "Variable Non Trouvee" << endl;
-    Contexte::test_AfficherTableDesSymboles();   
-     (contexte1);
-    delete(contexte2);
-    cout << "Contexte Suprime" << endl;
-
-    */
-// #ifdef CHAINE
-//     cout << result.character << endl;
-// #endif
-//     cout << result.integer << endl;
     return 0;
 }
 
