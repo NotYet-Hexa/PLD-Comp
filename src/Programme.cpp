@@ -30,7 +30,8 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void Programme::print()
 {
-    cout << "Programme :" << endl;
+    cout << "Debut du programme" << endl;
+
     nbTab++;
     this->brique->print();
     for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
@@ -38,7 +39,7 @@ void Programme::print()
         (*it)->print();
     }
     nbTab--;
-    cout << "fin programme" << endl;
+    cout << "Fin du programme" << endl;
 }
 
 //----- Constructeur
