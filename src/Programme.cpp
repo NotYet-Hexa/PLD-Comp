@@ -30,14 +30,14 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void Programme::print()
 {
-    cout << "Debut de programme" << endl;
+    cout << "Debut du programme" << endl;
     nbTab++;
     for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
     {
         (*it)->print();
     }
     nbTab--;
-    cout << "Fin programme" << endl;
+    cout << "Fin du programme" << endl;
 }
 
 //----- Constructeur
