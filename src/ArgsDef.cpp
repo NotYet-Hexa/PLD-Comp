@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Variable.cpp  -  Description
+ArgsDef.cpp  -  Description
 -------------------
-début                : 27/03/2017
-copyright            : (C)2017
+début                : 15/02/2017
+copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Variable (fichier Variable.cpp) --
+//---------- Réalisation de la classe ArgsDef (fichier ArgsDef.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +16,8 @@ copyright            : (C)2017
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Variable.h"
-
+#include "ArgsDef.h"
+#include "Declaration.h"
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
@@ -27,16 +27,26 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Variable::print()
+void ArgsDef::print()
 {
-    
+    cout << "ArgumentDef : ";
+    for(vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+    {
+        (*it)->print();
+    }
 }
+
+void ArgsDef::add(Declaration* declaration)
+{
+    args.push_back(declaration);
+}
+
 //----- Constructeur
-Variable::Variable()
+ArgsDef::ArgsDef()
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Variable::~Variable()
+ArgsDef::~ArgsDef()
 {}// Bloc vide
 //----- Fin destructeur

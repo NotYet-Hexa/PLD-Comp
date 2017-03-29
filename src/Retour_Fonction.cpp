@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Expression.cpp  -  Description
+Retour_Fonction.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Expression (fichier Expression.cpp) --
+//---------- Réalisation de la classe Expression (fichier Retour_Fonction.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Expression.h"
+#include "Retour_Fonction.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,16 +27,16 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Expression::print()
+void Retour_Fonction::print()
 {
     cout << "salut" << endl;
 }
 //----- Constructeur
-Expression::Expression()
+Retour_Fonction::Retour_Fonction()
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Expression::~Expression()
+Retour_Fonction::~Retour_Fonction()
 {}// Bloc vide
 //----- Fin destructeur

@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Brique.cpp  -  Description
+Briques.cpp  -  Description
 -------------------
 début                : 27/03/2017
 copyright            : (C)2015 par Haim Nathan
 *************************************************************************/
 
-//---------- Réalisation de la classe Brique (fichier Brique.cpp) --
+//---------- Réalisation de la classe Briques (fichier Briques.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ copyright            : (C)2015 par Haim Nathan
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Brique.h"
+#include "Briques.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -29,33 +29,33 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //----- Constructeur
-Brique::Brique()
+Briques::Briques()
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Brique::~Brique()
+Briques::~Briques()
 {}// Bloc vide
 //----- Fin destructeur
 
-Brique::add(DefFonction* d)
+void Briques::add(DefFonction* d)
 {
 	vectorDefinitionFonction.push_back(d);
 }
 
-Brique::add(DefFonction* d)
+void Briques::add(DeclarationFonction* d)
 {
 	vectorDeclarationFonction.push_back(d);
 }
 
-Brique::add(DefFonction* d)
+void Briques::add(Declaration* d)
 {
 	vectorDeclaration.push_back(d);
 }
 
-Brique::print()
+void Briques::print()
 {
-	cout << "Brique :" << endl;
+	cout << "Briques :" << endl;
     for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
     {
     	(*it)->print();

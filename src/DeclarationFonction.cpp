@@ -27,13 +27,17 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void DeclarationFonction::print()
+{
+	
+}
+
 string DeclarationFonction::getNomFonction()
 {
-
-	return this.nomFonction;
+	return nomFonction;
 }
 //----- Constructeur
-DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
+DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
 {}
 //-----Bloc vide
 //----- Fin constructeur

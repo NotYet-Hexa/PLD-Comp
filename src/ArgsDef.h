@@ -1,37 +1,38 @@
 /*************************************************************************
 PLD Comp
-Retour_Fonction.h  -  Description
+ArgsDef.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe Retour_Fonction (fichier Retour_Fonction.h) ------
-#if ! defined ( RETOUR_FONCTION_H )
-#define RETOUR_FONCTION_H
+//---------- Interface de la classe ArgsDef (fichier ArgsDef.h) ------
+#if ! defined ( ARGSDEF_H )
+#define ARGSDEF_H
 
-
+#include <vector>
 //--------------------------------------------------- Interfaces utilisées
-# include "Expression.h"
+#include "Declaration.h"
+
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Expression:
+// Role de la classe ArgsDef:
 //
 
 //------------------------------------------------------------------------
 
-class Retour_Fonction : public Expression{
+class ArgsDef{
     public:
-        virtual void print();
-        Retour_Fonction();
-        ~Retour_Fonction();
+        ArgsDef();
+        ~ArgsDef();
+        void add(Declaration* declaration);
+        void print();
 
     private:
-    	Expression *exp;
-
+        std::vector <Declaration*> args;
 };
 
-#endif // if ! defined RETOUR_FONCTION_H
+#endif // if ! defined ARGSDEF_H

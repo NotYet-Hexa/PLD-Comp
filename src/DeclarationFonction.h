@@ -26,16 +26,18 @@ using namespace std;
 
 //------------------------------------------------------------------------
 
-class Declaration : public Programme {
+class DeclarationFonction
+{
     public:
-        DeclarationFonction(string nf, string tr, ArgsDef ad);
+        void print();
+        DeclarationFonction(string nom_fonction, string type_retour, ArgsDef* args);
         ~DeclarationFonction();
-        getNomFonction();
+        string getNomFonction();
 
     private:
         string nomFonction;
         string typeRetour;
-        ArgsDef argsDef;
+        ArgsDef* argsDef;
 };
 
 #endif // if ! defined DECLARATIONFONCTION_H

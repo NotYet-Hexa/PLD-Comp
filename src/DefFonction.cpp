@@ -12,6 +12,7 @@ copyright            : (C)2015 par Haim Nathan
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -30,7 +31,8 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //----- Constructeur
-DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction):Contexte("DefFonction"),nomFonction(nom),type(type)
+DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction):
+	Contexte("DefFonction"), nomFonction(nomFonction), type(type)
 {
 	this->bloc = bloc;
 	this->args = args;

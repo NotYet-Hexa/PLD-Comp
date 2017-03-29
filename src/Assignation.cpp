@@ -26,7 +26,11 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- Méthodes publique
+void Assignation::print()
+{
+    
+}
 //----- Constructeur
 Assignation::Assignation()
 {}// Bloc vide

@@ -14,7 +14,7 @@ copyright            : (C)2017 par H4114
 
 #include "Contexte.h"
 #include <vector>
-#include "Brique.h"
+#include "Briques.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -22,19 +22,19 @@ copyright            : (C)2017 par H4114
 //------------------------------------------------------------------------
 // Role de la classe Programme:
 //
-
+class Briques;
 //------------------------------------------------------------------------
 
-class Programme: public Contexte{
+class Programme : public Contexte {
     public:
         void print();
         Programme();
-        Programme(vector <Contexte*> listeDeContexte, Brique* brique);
+        Programme(std::vector <Contexte*> listeDeContexte, Briques* briques);
         ~Programme();
-        vector <Contexte*> getListeDeContexte();
+        std::vector <Contexte*> getListeDeContexte();
     private:
-        vector <Contexte*> listeDeContexte;
-        Brique* brique;
+        std::vector <Contexte*> listeDeContexte;
+        Briques* brique;
 };
 
 #endif // if ! defined PROGRAMME_H

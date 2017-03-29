@@ -4,6 +4,9 @@ using namespace std;
 
 #include <iostream>
 #include <string>
+#include <vector>
+
+#include "Contexte.h"
 
 #include "Expression.h"
 #include "ExpressionChar.h"
@@ -11,7 +14,15 @@ using namespace std;
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
+
 #include "Declaration.h"
+#include "DeclarationFonction.h"
+#include "DefFonction.h"
+
+#include "Retour_Fonction.h"
+
+#include "ArgsDef.h"
+
 #include "ListInstruction.h"
 #include "Bloc.h"
 #include "Programme.h"
@@ -41,9 +52,20 @@ int yylex(void);
     Expression * expression;
     Instruction * instruction;
     char* chaine;
+
     Declaration* declaration;
+    DeclarationFonction* declaration_fonction;
+    DefFonction*  definition_fonction;
+
+    Retour_Fonction* retour_fonction;
+
+    Briques* briques;
+
+    ArgsDef * args;
+
     ListInstruction* liste_instruction;
     Bloc * bloc;
+    Programme* program;
 }
 
 %token <ival> ENTIER
@@ -73,25 +95,28 @@ int yylex(void);
 %type <expression> expression
 %type <chaine> ligne
 %type <instruction> instruction
-%type <declaration> declaration
 %type <liste_instruction> liste_instruction
 %type <bloc> bloc
-%type<ival> programme
-%type<ival> liste
-%type<ival> brique
-%type<ival> definition_de_fonction
-%type<ival> declaration_de_fonction
-%type<ival> type_retour_fonction
-%type<ival> nom_fonction
-%type<ival> args_def
+
+%type<program> programme
+
+%type<briques> liste
+
+%type<declaration> declaration
+%type<definition_fonction> definition_de_fonction
+%type<declaration_fonction> declaration_de_fonction
+
+%type<chaine> type_retour_fonction
+%type<chaine> nom_fonction
+%type<args> args_def
 %type<chaine> type
-%type<ival> args_def_fonction
-%type<ival> parametre
+
+%type<declaration> parametre
 %type<ival> loop_statement
 %type<ival> cond 
-%type<ival> retour_fonction
-%type<ival> nom_parametre
-%type<ival> nom_variable
+%type<retour_fonction> retour_fonction
+%type<chaine> nom_parametre
+%type<chaine> nom_variable
 %type<ival> liste_nom
 %type<chaine> nom
 %type<ival> aff
@@ -104,10 +129,6 @@ int yylex(void);
 %type<ival> lecture_ecriture
 %type<ival> suite_lecture
 %type<ival> suite_ecriture
-
-
-
-
 
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
@@ -130,38 +151,33 @@ int yylex(void);
 
 %%
 
-axiome              : programme     { $$ = $1; }
-                    ;
-
-programme		    : liste         { $$ = new Programme($1); } 
+programme		    : liste         { $$ = new Programme(vector<Contexte*>(), $1); } 
 			        ;
 
-liste			    : definition_de_fonction            { $$ = new Briques(); $$.Add($1) } 
-                    | declaration_de_fonction           { $$ = new Briques(); $$.Add($1) } 
-                    | declaration                       { $$ = new Briques(); $$.Add($1) } 
-			        | liste definition_de_fonction      { $$ = $1; $$.Add($2); } 
-			        | liste declaration_de_fonction     { $$ = $1; $$.Add($2); } 
-			        | liste declaration                 { $$ = $1; $$.Add($2); } 
+liste			    : definition_de_fonction            { $$ = new Briques(); $$->add($1); } 
+                    | declaration_de_fonction           { $$ = new Briques(); $$->add($1); } 
+                    | declaration                       { $$ = new Briques(); $$->add($1); } 
+			        | liste definition_de_fonction      { $$ = $1; $$->add($2); } 
+			        | liste declaration_de_fonction     { $$ = $1; $$->add($2); } 
+			        | liste declaration                 { $$ = $1; $$->add($2); } 
 			        ;
 
-declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE {  }
-                           	;
+declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE 
+                            { DeclarationFonction($2, $1, $4); }
+                            ;
 
 definition_de_fonction    	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM bloc
                            	;
 
 
-type_retour_fonction        : type
-                            | VOID	
+type_retour_fonction        : type          { $$ = $1; }
+                            | VOID	        { $$ = "void"; }
                             ;
 
-args_def                    : args_def_fonction 
-                           	| VOID 
-                            |
-                            ;
-
-args_def_fonction           : parametre 
-                            | args_def_fonction VIRGULE parametre
+args_def                    : parametre         { $$ = new ArgsDef(); $$->add($1); }
+                            | args_def VIRGULE parametre { $$ = $1 ; $$->add($3); }
+                           	| VOID              { $$ = new ArgsDef(); }
+                            |                   { $$ = new ArgsDef(); }
                             ;
 
 
@@ -174,12 +190,12 @@ liste_instruction	    : liste_instruction instruction 	{ $$ = $1; $$->addInstruc
                         |
                         ;
 
-parametre               : type nom_parametre
+parametre               : declaration   { $$ = $1; }
                         ;
 
 
-nom_parametre           : nom_variable 
-                        | nom_variable CROCHETOUV CROCHETFERM
+nom_parametre           : nom_variable                              
+                        | nom_variable CROCHETOUV CROCHETFERM       
                         ;
 
 declaration             : type nom       { $$ = new Declaration( $1 , $2);}
@@ -209,7 +225,7 @@ appel_fonction      : nom_fonction PARENTOUV args_appel_fonction PARENTFERM
         			;
 
 
-nom_fonction        : NOM
+nom_fonction        : NOM               { $$ = $1; }
                     ;
 
 
@@ -306,7 +322,7 @@ suite_ecriture		: PARENTOUV NOM PARENTFERM
 suite_lecture		: PARENTOUV NOM PARENTFERM
 				    ;
 
-nom_variable        : NOM
+nom_variable        : NOM               { $$ = $1; }
         			;
 
 

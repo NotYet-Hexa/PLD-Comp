@@ -27,6 +27,10 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void Entier::print()
+{
+    
+}
 //----- Constructeur
 Entier::Entier()
 {}// Bloc vide

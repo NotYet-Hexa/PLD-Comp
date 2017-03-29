@@ -46,7 +46,7 @@ Programme::Programme():Contexte("Programme")
 //----- Fin constructeur
 
 //----- Constructeur
-Programme::Programme(vector <Contexte*> listeDeContexte,Brique* brique):Contexte("Programme")
+Programme::Programme(vector <Contexte*> listeDeContexte,Briques* brique):Contexte("Programme")
 {
     this->listeDeContexte = listeDeContexte;
     this->brique = brique;

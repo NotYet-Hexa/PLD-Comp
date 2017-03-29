@@ -17,6 +17,7 @@ using namespace std;
 #include <vector>
 #include "Contexte.h"
 #include "Bloc.h"
+#include "ArgsDef.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -30,8 +31,11 @@ using namespace std;
 class DefFonction : public Contexte {
     public:
         void print();
-        DefFonction(Bloc* bloc, ArgsDef* args, string nomFonction);
+        DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction);
         ~DefFonction();
+        string getNomFonction();
+        Bloc* getBloc();
+        ArgsDef* getArgs();
 
     private:
     	string type;

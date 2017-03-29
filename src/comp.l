@@ -1,18 +1,34 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
+using namespace std;
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "Contexte.h"
+
 #include "Expression.h"
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
+
 #include "Declaration.h"
+#include "DeclarationFonction.h"
+#include "DefFonction.h"
+
+#include "Retour_Fonction.h"
+
+#include "ArgsDef.h"
+
 #include "ListInstruction.h"
 #include "Bloc.h"
 #include "Programme.h"
 
+//AJOUT
 #include "Contexte.h"
+
 
 // struct resultat {
 //     int integer;

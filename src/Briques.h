@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Brique.h  -  Description
+Briques.h  -  Description
 -------------------
 début                : 29/03/2017
 copyright            : (C)2015 par Haim Nathan
 *************************************************************************/
 
-//---------- Interface de la classe Brique (fichier Brique.h) ------
+//---------- Interface de la classe Briques (fichier Briques.h) ------
 #if ! defined ( BRIQUE_H )
 #define BRIQUE_H
 
@@ -22,19 +22,20 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Brique:
+// Role de la classe Briques:
 //
 
 //------------------------------------------------------------------------
+class DeclarationFonction;
 
-class Brique{
+class Briques{
     public:
     	void print();
-        Brique();
-        ~Brique();
-        void addDefFonction(DefFonction* d);
-        void addDecFonction(DeclarationFonction* d);
-        void addDeclaration(Declaration* d);
+        Briques();
+        ~Briques();
+        void add(DefFonction* d);
+        void add(DeclarationFonction* d);
+        void add(Declaration* d);
 
     private:
     	std::vector<DefFonction*> vectorDefinitionFonction;
