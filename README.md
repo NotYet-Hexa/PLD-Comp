@@ -1,36 +1,52 @@
-# PLD Compilateur
+# Makefile
 
-[![Build Status](https://travis-ci.org/NotYet-Hexa/PLD-Comp.svg?branch=master)](https://travis-ci.org/NotYet-Hexa/PLD-Comp)
+## Compilation
 
-## TODO
+2 méthodes de compilation maintenant disponible :
 
-- [x] Ecriture de la grammaire
-- [ ] Identification des expressions régulières J+Q
-- [ ] Conception des structures de données 
-    + Programme + declaration et definition fonction → N+C
-    + boucle + structure conditionnelle + appel de function → M+T+T
-- [ ] Implémentation de l'analyseur avec flex/bison J+Q
-- [ ] Construction et représentation en mémoire : programme de test → sur papier, représentation de la mémoire et du parcours du compilateur
-    + Programme + declaration et definition fonction → N+C
-    + boucle + structure conditionnelle + appel de function → M+T+T
+- DEBUG : Le mode debug permet d'écrire des cout dans le code bison
+qui ne seront afficher qu'en mode debug
 
-## grammaire
+- RELEASE : Le mode release n'affiche pas les cout dans le code bison
+mais créé un fichier log.txt qui les contient (au cas ou)
 
+### Comment compiler :
 
-E' → E;
+Pour compiler en mode release :
 
-D → T | L
+	$ make
 
-N → (\w+) eps | [Nb]
-Nb → eps | (\d+)
+En mode debug
 
+	$ make mode=debug
 
-## Operator
+## Tests
 
-/ * + - % ++ -- 
-== != > < >= <= 
-&& || !
-& | ^ ~ << >>
-= += -= *= /= %= <<= >>= &= ^= |=
-sizeof()  pas de pointeurs donc pas & * 
-ternary expression ? :
+Pour executer les tests, soit en lançant
+
+	$ make test
+
+soit en passant l'executable à utiliser au script shell
+
+	$ tests/run.sh build/release/exe
+	
+on peut même n'effectuer que certain tests
+
+	$ tests/run.sh build/release/exe empty.test oneDeclaration.test
+
+## Execution
+
+Plus besoin de chercher dans quel dossier se cache l'executable
+
+	$ make run < program.txt
+	$ make run <<< ""
+
+## Nettoyage
+
+Pour nettoyer le dossier release
+
+	$ make clean
+	
+Pour nettoyer le dossier debug
+
+	$ make clean mode=debug
