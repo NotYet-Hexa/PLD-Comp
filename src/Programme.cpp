@@ -30,14 +30,15 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void Programme::print()
 {
-    cout << "Debut de programme" << endl;
+    cout << "Programme :" << endl;
     nbTab++;
+    this->brique->print();
     for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
     {
         (*it)->print();
     }
     nbTab--;
-    cout << "Fin programme" << endl;
+    cout << "fin programme" << endl;
 }
 
 //----- Constructeur
@@ -52,8 +53,10 @@ Programme::Programme(vector <Contexte*> listeDeContexte,Briques* brique):Context
     this->brique = brique;
     // Ajout du Parent //
     for (std::vector<Contexte*>::iterator it = listeDeContexte.begin() ; it != listeDeContexte.end(); ++it)
+    {
         (*it)->ajouterParent(this); 
-}// Bloc vide
+    }
+}
 //----- Fin constructeur
 
 //----- Destructeur

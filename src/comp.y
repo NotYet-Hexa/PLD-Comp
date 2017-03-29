@@ -39,7 +39,7 @@ using namespace std;
 //     Bloc * bloc;
 // };
 
-void yyerror(Programme*, const char*);
+void yyerror(Programme**, const char*);
 int yylex(void);
 
 %}
@@ -147,20 +147,22 @@ int yylex(void);
 %left PLUSPLUS MOINSMOINS
 
 
-%parse-param { Programme* result}
+%parse-param { Programme** result}
 
 %%
+axiome              :programme      {  *result = $1;  }  
+                    ;
 
-programme		    : liste         { $$ = new Programme(vector<Contexte*>(), $1); } 
+programme		    : liste         {  $$ = new Programme(vector<Contexte*>(),$1); } 
 			        ;
 
 liste			    : definition_de_fonction            { $$ = new Briques(); $$->add($1); } 
                     | declaration_de_fonction           { $$ = new Briques(); $$->add($1); } 
-                    | declaration                       { $$ = new Briques(); $$->add($1); } 
+                    | declaration                       { $$ = new Briques(); $$->add($1);  /*checked*/ }
 			        | liste definition_de_fonction      { $$ = $1; $$->add($2); } 
 			        | liste declaration_de_fonction     { $$ = $1; $$->add($2); } 
-			        | liste declaration                 { $$ = $1; $$->add($2); } 
-			        |
+			        | liste declaration                 { $$ = $1; $$->add($2); /*checked*/ } 
+			        |                                   { $$ = new Briques(); }    
                     ;
 
 declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE 
@@ -199,7 +201,7 @@ nom_parametre           : nom_variable
                         | nom_variable CROCHETOUV CROCHETFERM       
                         ;
 
-declaration             : type nom       { $$ = new Declaration( $1 , $2);}
+declaration             : type nom POINTVIRGULE     {  $$ = new Declaration( $1 , $2); }
                         ;
 
 
@@ -264,7 +266,7 @@ instruction         : expression POINTVIRGULE           { $$ = new Instruction($
                     | loop_statement 
         			| cond 
           			| retour_fonction 
-		            | declaration POINTVIRGULE          { $$ = new Instruction($1); }
+		            | declaration                       { $$ = new Instruction($1); }
                     | lecture_ecriture POINTVIRGULE
 		            ;
 
@@ -331,14 +333,14 @@ ligne               : CHAINE { $$ = $1; }
                     ;
 %%
 
-void yyerror(Programme* ligne, const char * msg) {
+void yyerror(Programme** pgm, const char * msg) {
    cout << "Syntax error : " << msg << endl;
 }
 
 int main(void) {
-    Programme result;
-    yyparse(&result);
-    result.print();
+    Programme** result = new Programme* ;
+    yyparse(result);
+    (*result)->print();
     //result.liste_instruction->print();
     //result.instruction->print();
 
@@ -367,7 +369,7 @@ int main(void) {
     else
         cout << "Variable Non Trouvee" << endl;
     Contexte::test_AfficherTableDesSymboles();   
-    delete(contexte1);
+     (contexte1);
     delete(contexte2);
     cout << "Contexte Suprime" << endl;
 

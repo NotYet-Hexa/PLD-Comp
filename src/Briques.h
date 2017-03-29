@@ -13,6 +13,8 @@ copyright            : (C)2015 par Haim Nathan
 #include "DefFonction.h"
 #include "DeclarationFonction.h"
 #include "Declaration.h"
+#include <vector>
+#include <iterator>
 
 using namespace std;
 //--------------------------------------------------- Interfaces utilisées
@@ -40,7 +42,8 @@ class Briques{
     private:
     	std::vector<DefFonction*> vectorDefinitionFonction;
     	std::vector<DeclarationFonction*> vectorDeclarationFonction;
-    	std::vector<Declaration*> vectorDeclaration;
+        std::vector<Declaration*> vectorDeclaration;
+
 
 
 };

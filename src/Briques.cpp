@@ -28,9 +28,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-//----- Constructeur
+
+
 Briques::Briques()
-{}// Bloc vide
+{
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
@@ -50,23 +52,27 @@ void Briques::add(DeclarationFonction* d)
 
 void Briques::add(Declaration* d)
 {
-	vectorDeclaration.push_back(d);
+	vectorDeclaration.push_back(d);   
 }
 
 void Briques::print()
 {
 	cout << "Briques :" << endl;
-    for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
+    /*for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
     {
     	(*it)->print();
     }
     for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
     {
     	(*it)->print();
-    }
-    for(std::vector<Declaration*>::iterator it = vectorDeclaration.begin() ; it != vectorDeclaration.end() ; it++)
-    {
-    	(*it)->print();
-    }
-
+    }*/
+     if( !vectorDeclaration.empty() )
+        {
+            cout<<"aaa"<<endl;
+            for(std::vector<Declaration*>::iterator it = vectorDeclaration.begin(); it != vectorDeclaration.end(); ++it)
+            {
+                    (*it)->print();
+            }
+        }
+    cout << "fin Brique" << endl;
 }

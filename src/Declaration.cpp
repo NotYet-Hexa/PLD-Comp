@@ -29,7 +29,7 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //----- Constructeur
-Declaration::Declaration(string type, string nom):type(type),nom(nom)
+Declaration::Declaration(string t, string n):type(t),nom(n)
 {}// Bloc vide
 //----- Fin constructeur
 

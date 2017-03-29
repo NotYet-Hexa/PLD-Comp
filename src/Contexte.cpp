@@ -56,9 +56,9 @@ Contexte::~Contexte()
     MapVariable* tableVariables = iterateurContexte->second;
 
     //Nettoyage des donnees
-    tableVariables->clear(); 
-    delete(tableVariables);
-    this->tableDesSymboles.erase(this); 
+    //tableVariables->clear(); 
+    //delete(tableVariables);
+    //this->tableDesSymboles.erase(this); 
 }// Bloc vide
 //----- Fin destructeur
 
