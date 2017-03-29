@@ -30,6 +30,11 @@ MapContexte Contexte::tableDesSymboles;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void Contexte::print()
+{
+    cout << "Probleme implémenter print pour ce context" << endl;
+}
+
 
 //----- Constructeur
 Contexte::Contexte()

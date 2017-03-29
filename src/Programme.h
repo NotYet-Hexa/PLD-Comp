@@ -27,6 +27,7 @@ copyright            : (C)2017 par H4114
 
 class Programme: public Contexte{
     public:
+        void print();
         Programme();
         Programme(vector <Contexte*> listeDeContexte,Brique* brique);
         ~Programme();
