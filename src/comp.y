@@ -172,6 +172,8 @@ declaration_de_fonction  	: type nom PARENTOUV args_def PARENTFERM
                             ;
 
 definition_de_fonction    	: type nom PARENTOUV args_def PARENTFERM bloc
+                                        { $$ = new DefFonction( $1 , $6 , $4, $2 );}
+
                            	;
 
 args_def                    : parametre                     { $$ = new ArgsDef(); $$->add($1); }
@@ -187,7 +189,7 @@ bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = n
 
 liste_instruction	    : liste_instruction instruction 	{ $$ = $1; $$->addInstruction($2); }
 		                | instruction			            { $$ = new ListInstruction(); $$->addInstruction($1);}
-                        |
+                        |                                   { $$ = new ListInstruction(); }
                         ;
 
 parametre               : declaration   { $$ = $1; }
