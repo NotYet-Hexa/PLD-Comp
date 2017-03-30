@@ -17,4 +17,5 @@ script:
   - make --version
   - g++ --version
   - chmod a+x tests/run.sh
+  - make
   - make test
