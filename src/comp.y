@@ -6,6 +6,7 @@ using namespace std;
 #include <fstream>
 #include <string>
 #include <vector>
+#include <cstring>
 
 #include "Contexte.h"
 
@@ -118,7 +119,6 @@ int yylex(void);
 %type<retour_fonction> retour_fonction
 %type<chaine> nom_parametre
 %type<chaine> nom_variable
-%type<ival> liste_nom
 %type<chaine> nom
 %type<ival> aff
 %type<ival> l_value
@@ -130,6 +130,7 @@ int yylex(void);
 %type<ival> lecture_ecriture
 %type<ival> suite_lecture
 %type<ival> suite_ecriture
+
 
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
@@ -157,31 +158,26 @@ axiome              :programme      {  *result = $1;  }
 programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); } 
 			        ;
 
-liste			    : definition_de_fonction            { $$ = new Briques(); $$->add($1); } 
-                    | declaration_de_fonction           { $$ = new Briques(); $$->add($1); } 
-                    | declaration                       { $$ = new Briques(); $$->add($1);  /*checked*/ }
-			        | liste definition_de_fonction      { $$ = $1; $$->add($2); } 
-			        | liste declaration_de_fonction     { $$ = $1; $$->add($2); } 
-			        | liste declaration                 { $$ = $1; $$->add($2); /*checked*/ } 
-			        |                                   { $$ = new Briques(); }    
+liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); } 
+                    | declaration_de_fonction POINTVIRGULE          { $$ = new Briques(); $$->add($1); } 
+                    | declaration   POINTVIRGULE                    { $$ = new Briques(); $$->add($1);  /*checked*/ }
+			        | liste definition_de_fonction                  { $$ = $1; $$->add($2); } 
+			        | liste declaration_de_fonction POINTVIRGULE    { $$ = $1; $$->add($2); } 
+			        | liste declaration  POINTVIRGULE               { $$ = $1; $$->add($2); /*checked*/ } 
+			        |                                               { $$ = new Briques(); }    
                     ;
 
-declaration_de_fonction  	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM POINTVIRGULE 
-                            { DeclarationFonction($2, $1, $4); }
+declaration_de_fonction  	: type nom PARENTOUV args_def PARENTFERM 
+                                        { $$ = new DeclarationFonction($2, $1, $4); }
                             ;
 
-definition_de_fonction    	: type_retour_fonction nom_fonction PARENTOUV args_def PARENTFERM bloc
+definition_de_fonction    	: type nom PARENTOUV args_def PARENTFERM bloc
                            	;
 
-
-type_retour_fonction        : type          { $$ = $1; }
-                            | VOID	        { $$ = "void"; }
-                            ;
-
-args_def                    : parametre         { $$ = new ArgsDef(); $$->add($1); }
-                            | args_def VIRGULE parametre { $$ = $1 ; $$->add($3); }
-                           	| VOID              { $$ = new ArgsDef(); }
-                            |                   { $$ = new ArgsDef(); }
+args_def                    : parametre                     { $$ = new ArgsDef(); $$->add($1); }
+                            | args_def VIRGULE parametre    { $$ = $1 ; $$->add($3); }
+                           	| VOID                          { $$ = new ArgsDef(); }
+                            |                               { $$ = new ArgsDef(); }
                             ;
 
 
@@ -202,22 +198,20 @@ nom_parametre           : nom_variable
                         | nom_variable CROCHETOUV CROCHETFERM       
                         ;
 
-declaration             : type nom POINTVIRGULE     {  $$ = new Declaration( $1 , $2); }
+declaration             : type nom     { $$ = new Declaration( $1 , $2); }
                         ;
 
 
-type 	                : INT32	    		{ $$ = "int32"; }
-                        | INT64				{ $$ = "int64"; }
-                        | TYPECHAR			{ $$ = "char"; }
+type 	                : INT32	    		{ $$ = strdup("int32"); }
+                        | INT64				{ $$ = strdup("int64"); }
+                        | TYPECHAR			{ $$ = strdup("char"); }
+                        | VOID	            { $$ = strdup("void"); }
                   		;
 
 
-
-liste_nom               : nom       
-                        ;
-
-nom                     : NOM aff           
-                        | NOM CROCHETOUV ENTIER CROCHETFERM 
+nom_variable            : nom                               {  $$ = $1; }                                   
+                        | nom CROCHETOUV ENTIER CROCHETFERM { $$ = $1; }   
+                        | nom aff                           { cout<<"regle de nom "<<endl; $$ = $1; }
                         ;
 
 aff 	                : EGALE expression 
@@ -225,11 +219,11 @@ aff 	                : EGALE expression
                         ;
 
 
-appel_fonction      : nom_fonction PARENTOUV args_appel_fonction PARENTFERM
+appel_fonction      : nom PARENTOUV args_appel_fonction PARENTFERM
         			;
 
 
-nom_fonction        : NOM               { $$ = $1; }
+nom                 : NOM               { $$ = $1; }
                     ;
 
 

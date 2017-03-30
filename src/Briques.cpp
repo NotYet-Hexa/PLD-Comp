@@ -61,11 +61,16 @@ void Briques::print()
     /*for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
     {
     	(*it)->print();
-    }
-    for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
-    {
-    	(*it)->print();
     }*/
+    if( !vectorDeclarationFonction.empty() )
+    {
+        for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
+        {
+            (*it)->print();
+        }
+    }
+
+
      if( !vectorDeclaration.empty() )
         {
             for(std::vector<Declaration*>::iterator it = vectorDeclaration.begin(); it != vectorDeclaration.end(); ++it)

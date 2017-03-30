@@ -29,7 +29,11 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void DeclarationFonction::print()
 {
-	
+	cout<<"Debut de Declaration de Fonction"<<endl;
+	cout<<"nom fonction : "<<nomFonction<<endl;
+	cout<<"type de retour :"<<typeRetour<<endl;
+	argsDef->print();
+
 }
 
 string DeclarationFonction::getNomFonction()
@@ -38,7 +42,8 @@ string DeclarationFonction::getNomFonction()
 }
 //----- Constructeur
 DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
-{}
+{
+}
 //-----Bloc vide
 //----- Fin constructeur
 

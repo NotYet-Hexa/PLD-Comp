@@ -3,6 +3,7 @@ using namespace std;
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <vector>
 
 #include "Contexte.h"
@@ -72,8 +73,8 @@ nom [a-zA-Z_]+
 "getchar"             { return GETCHAR; }
 
 {charactere}        { yylval.charactere = yytext[1]; return CHAR; }
-{chaine}            { yylval.chaine = yytext; return CHAINE; }
-{nom}               { yylval.chaine = yytext; return NOM; }
+{chaine}            { yylval.chaine = strdup(yytext); return CHAINE; }
+{nom}               { yylval.chaine = strdup(yytext); return NOM; }
 
 "+"                 { return PLUS; }
 "-"                 { return MOINS; }

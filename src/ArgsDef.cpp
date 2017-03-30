@@ -29,10 +29,17 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void ArgsDef::print()
 {
-    cout << "ArgumentDef : ";
-    for(vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+    cout << "ArgumentDef : "<<endl;
+    if(!args.empty())
     {
-        (*it)->print();
+        for(vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+        {
+            (*it)->print();
+        }
+    }
+    else 
+    {
+        cout<<"empty"<<endl;
     }
 }
 
