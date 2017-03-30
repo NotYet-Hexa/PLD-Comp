@@ -159,10 +159,10 @@ programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); }
 			        ;
 
 liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); } 
-                    | declaration_de_fonction POINTVIRGULE          { $$ = new Briques(); $$->add($1); } 
+                    | declaration_de_fonction POINTVIRGULE          { $$ = new Briques(); $$->add($1);  /*checked*/ } 
                     | declaration   POINTVIRGULE                    { $$ = new Briques(); $$->add($1);  /*checked*/ }
 			        | liste definition_de_fonction                  { $$ = $1; $$->add($2); } 
-			        | liste declaration_de_fonction POINTVIRGULE    { $$ = $1; $$->add($2); } 
+			        | liste declaration_de_fonction POINTVIRGULE    { $$ = $1; $$->add($2); /*checked*/ } 
 			        | liste declaration  POINTVIRGULE               { $$ = $1; $$->add($2); /*checked*/ } 
 			        |                                               { $$ = new Briques(); }    
                     ;
