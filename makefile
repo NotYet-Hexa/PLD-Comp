@@ -82,6 +82,7 @@ clean:
 test: $(EXEC_PATH)
 	@echo "Lancement des tests ..."
 	@tests/run.sh $(EXEC_PATH)
+	@echo "Tests réussis !"
 
 run: $(EXEC_PATH)
 	@$(EXEC_PATH)

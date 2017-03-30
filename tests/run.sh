@@ -79,7 +79,12 @@ then
         fi
     done
 else
-    tests=`find . -type f -name '*.test'`
+    tests=`find tests -type f -name '*.test'`
+    nbtest=`wc -w <<< "$tests"`
+    if [ $nbtest -eq 0 ]
+    then
+        tests=`find . -type f -name '*.test'`
+    fi
     for test in $tests
     do
         resultname=$(result_from_test "$test")
