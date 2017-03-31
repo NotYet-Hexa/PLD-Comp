@@ -112,7 +112,7 @@ then
     done
     format_message > slack_result.json
 else
-    tests=`find tests -type f -name '*.test'`
+    tests=`find ./tests/ -type f -name '*.test'`
     echo "$tests"
     nbtest=`wc -w <<< "$tests"`
     if [ $nbtest -eq 0 ]
@@ -129,5 +129,8 @@ else
             echo -e "$test \t was ignored → $resultname \t missing"
         fi
     done
+    echo "format_message"
     format_message > slack_result.json
+    echo "message format"
+    cat slack_result.json
 fi
