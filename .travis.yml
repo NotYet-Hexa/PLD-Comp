@@ -1,5 +1,5 @@
-# notifications:
-#   slack: notyet-hexa:pYcmfHQygnnf8vFtwrUGhnL9
+notifications:
+  slack: notyet-hexa:pYcmfHQygnnf8vFtwrUGhnL9
 language: cpp
 compiler: g++
 before_install:
