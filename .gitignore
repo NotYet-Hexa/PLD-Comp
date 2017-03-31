@@ -34,3 +34,4 @@
 exe
 lex.*
 log.txt
+slack_result.json
