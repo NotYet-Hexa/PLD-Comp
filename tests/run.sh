@@ -43,13 +43,12 @@ run_test() {
     if [ "$diff" == "" ]
     then
         echo -e "→ `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` \xE2\x9C\x93"
-        message+="\n → `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` ok"
+        message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :heavy_check_mark: \n"
     else
         echo "$1 fail"
         echo "$diff"
 
-        message+="\n$1 fail"
-        message+="\n$diff"
+        message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :x: \n"
         fail=1
     fi
 }
@@ -113,7 +112,6 @@ then
     format_message > slack_result.json
 else
     tests=`find ./tests/ -type f -name '*.test'`
-    echo "$tests"
     nbtest=`wc -w <<< "$tests"`
     if [ $nbtest -eq 0 ]
     then
@@ -129,8 +127,5 @@ else
             echo -e "$test \t was ignored → $resultname \t missing"
         fi
     done
-    echo "format_message"
     format_message > slack_result.json
-    echo "message format"
-    cat slack_result.json
 fi
