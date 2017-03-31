@@ -113,6 +113,7 @@ then
     format_message > slack_result.json
 else
     tests=`find tests -type f -name '*.test'`
+    echo "$tests"
     nbtest=`wc -w <<< "$tests"`
     if [ $nbtest -eq 0 ]
     then

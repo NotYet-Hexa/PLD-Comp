@@ -18,6 +18,7 @@ script:
   - flex --version
   - make --version
   - g++ --version
+  - find tests -type f -name '*.test'
   - chmod a+x tests/run.sh
   - make
   - make test
