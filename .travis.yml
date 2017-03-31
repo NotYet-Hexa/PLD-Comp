@@ -21,5 +21,4 @@ script:
   - chmod a+x tests/run.sh
   - make
   - make test
-  - TEXT="{$(cat testresult.txt)"
-  - curl -X POST -H 'Content-type: application/json' --data @stack_result.json  https://hooks.slack.com/services/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
+  - 'curl -X POST -H Content-type: application/json --data @stack_result.json  https://hooks.slack.com/services/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'
