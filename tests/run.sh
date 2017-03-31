@@ -70,7 +70,6 @@ format_message() {
     json+='"attachments": ['
     json+='    {'
     json+='        "color": "'$color'",'
-    json+='        "author_name": "TestRunner",'
     json+='        "title": "'$title'",'
     json+='        "title_link": "'$titlelink'",'
     json+='        "text": "'$text'"'
