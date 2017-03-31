@@ -18,6 +18,7 @@ using namespace std;
 #include "Instruction.h"
 
 #include "Declaration.h"
+#include "DeclarationGlobal.h"
 #include "DeclarationFonction.h"
 #include "DefFonction.h"
 
@@ -29,17 +30,13 @@ using namespace std;
 #include "Bloc.h"
 #include "Programme.h"
 
+#include "Briques.h"
+#include "Brique.h"
+
 //AJOUT
 #include "Contexte.h"
 
-// struct resultat {
-//     int integer;
-//     string character;
-//     Expression * expression;
-//     Instruction * instruction;
-//     ListInstruction * liste_instruction;
-//     Bloc * bloc;
-// };
+
 
 void yyerror(Programme**, const char*);
 int yylex(void);
@@ -56,6 +53,7 @@ int yylex(void);
     char* chaine;
 
     Declaration* declaration;
+    DeclarationGlobal * declarationGlobal;
     DeclarationFonction* declaration_fonction;
     DefFonction*  definition_fonction;
 
@@ -105,6 +103,7 @@ int yylex(void);
 %type<briques> liste
 
 %type<declaration> declaration
+%type<declarationGlobal> declarationGlobal
 %type<definition_fonction> definition_de_fonction
 %type<declaration_fonction> declaration_de_fonction
 
@@ -160,10 +159,10 @@ programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); }
 
 liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); } 
                     | declaration_de_fonction POINTVIRGULE          { $$ = new Briques(); $$->add($1);  /*checked*/ } 
-                    | declaration   POINTVIRGULE                    { $$ = new Briques(); $$->add($1);  /*checked*/ }
+                    | declarationGlobal   POINTVIRGULE                    { $$ = new Briques(); $$->add($1);  /*checked*/ }
 			        | liste definition_de_fonction                  { $$ = $1; $$->add($2); } 
 			        | liste declaration_de_fonction POINTVIRGULE    { $$ = $1; $$->add($2); /*checked*/ } 
-			        | liste declaration  POINTVIRGULE               { $$ = $1; $$->add($2); /*checked*/ } 
+			        | liste declarationGlobal  POINTVIRGULE               { $$ = $1; $$->add($2); /*checked*/ } 
 			        |                                               { $$ = new Briques(); }    
                     ;
 
@@ -173,6 +172,9 @@ declaration_de_fonction  	: type nom PARENTOUV args_def PARENTFERM
 
 definition_de_fonction    	: type nom PARENTOUV args_def PARENTFERM bloc
                                         { $$ = new DefFonction( $1 , $6 , $4, $2 );}
+
+declarationGlobal           : type nom     { $$ = new DeclarationGlobal( $1 , $2); }
+                            ;
 
                            	;
 

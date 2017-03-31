@@ -18,6 +18,7 @@ using namespace std;
 #include "Contexte.h"
 #include "Bloc.h"
 #include "ArgsDef.h"
+#include "Brique.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -28,7 +29,7 @@ using namespace std;
 
 //------------------------------------------------------------------------
 
-class DefFonction : public Contexte {
+class DefFonction : public Contexte, public Brique {
     public:
         void print();
         DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction);

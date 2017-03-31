@@ -42,44 +42,55 @@ Briques::~Briques()
 
 void Briques::add(DefFonction* d)
 {
-	vectorDefinitionFonction.push_back(d);
+	// vectorDefinitionFonction.push_back(d);
+    vectorBrique.push_back(d);
 }
 
 void Briques::add(DeclarationFonction* d)
 {
-	vectorDeclarationFonction.push_back(d);
+	// vectorDeclarationFonction.push_back(d);
+    vectorBrique.push_back(d);
 }
 
-void Briques::add(Declaration* d)
+void Briques::add(DeclarationGlobal* d)
 {
-	vectorDeclaration.push_back(d);   
+	// vectorDeclarationGlobal.push_back(d); 
+    vectorBrique.push_back(d);  
 }
 
 void Briques::print()
 {
 	cout << "Debut de briques" << endl;
-     if( !vectorDefinitionFonction.empty() )
-    {
-        for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
+    //  if( !vectorDefinitionFonction.empty() )
+    // {
+    //     for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
+    //     {
+    //        (*it)->print();
+    //     }
+    // }
+
+
+
+    // if( !vectorDeclarationFonction.empty() )
+    // {
+    //     for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
+    //     {
+    //         (*it)->print();
+    //     }
+    // }
+
+
+    //  if( !vectorDeclarationGlobal.empty() )
+    //     {
+    //         for(std::vector<DeclarationGlobal*>::iterator it = vectorDeclarationGlobal.begin(); it != vectorDeclarationGlobal.end(); ++it)
+    //         {
+    //                 (*it)->print();
+    //         }
+    //     }
+
+         if( !vectorBrique.empty() )
         {
-           (*it)->print();
-        }
-    }
-
-
-
-    if( !vectorDeclarationFonction.empty() )
-    {
-        for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
-        {
-            (*it)->print();
-        }
-    }
-
-
-     if( !vectorDeclaration.empty() )
-        {
-            for(std::vector<Declaration*>::iterator it = vectorDeclaration.begin(); it != vectorDeclaration.end(); ++it)
+            for(std::vector<Brique*>::iterator it = vectorBrique.begin(); it != vectorBrique.end(); ++it)
             {
                     (*it)->print();
             }

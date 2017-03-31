@@ -1,44 +1,40 @@
 /*************************************************************************
 PLD Comp
-DeclarationFonction.h  -  Description
+Declaration.h  -  Description
 -------------------
 début                : 23/02/2017
-copyright            : (C)2017 par H4414
+copyright            : (C)2017 par Haim Nathan
 *************************************************************************/
 
-//---------- Interface de la classe Declaration (fichier Declaration.h) ------
-#if ! defined ( DECLARATIONFONCTION_H )
-#define DECLARATIONFONCTION_H
+//---------- Interface de la classe Declaration (fichier DeclarationGlobal.h) ------
+#if ! defined ( DECLARATIONGLOBAL_H )
+#define DECLARATIONGLOBAL_H
 
 using namespace std;
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
-#include "Programme.h"
-#include "ArgsDef.h"
+
 #include "Brique.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe DeclarationFonction:
+// Role de la classe Declaration:
 //
 
 //------------------------------------------------------------------------
 
-class DeclarationFonction : public Brique 
-{
+class DeclarationGlobal : public Brique  {
     public:
         void print();
-        DeclarationFonction(string nom_fonction, string type_retour, ArgsDef* args);
-        ~DeclarationFonction();
-        string getNomFonction();
+        DeclarationGlobal(string type, string nom);
+        ~DeclarationGlobal();
 
     private:
-        string nomFonction;
-        string typeRetour;
-        ArgsDef* argsDef;
+        string type;
+        string nom;
 };
 
-#endif // if ! defined DECLARATIONFONCTION_H
+#endif // if ! defined DECLARATION_H

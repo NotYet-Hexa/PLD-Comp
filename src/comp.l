@@ -18,6 +18,7 @@ using namespace std;
 #include "Declaration.h"
 #include "DeclarationFonction.h"
 #include "DefFonction.h"
+#include "DeclarationGlobal.h"
 
 #include "Retour_Fonction.h"
 
@@ -27,19 +28,12 @@ using namespace std;
 #include "Bloc.h"
 #include "Programme.h"
 
+#include "Briques.h"
+#include "Brique.h"
+
 //AJOUT
 #include "Contexte.h"
 
-
-// struct resultat {
-//     int integer;
-//     string character;
-//     Expression * expression;
-//     Instruction * instruction;
-//     ListInstruction * liste_instruction;
-//     Bloc * bloc;
-// };
-// #include <list>
 using namespace std;
 #include "comp.tab.h"
 %}
