@@ -6,6 +6,9 @@ fail=0
 RED='\033[1;31m'
 NC='\033[0m'
 
+nb_success_test=0
+nb_fail_test=0
+
 if [ $# -eq 0 ]
 then
     echo "Please pass the executable as first parameter"
@@ -46,6 +49,7 @@ run_test() {
     then
         echo -e "→ `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` \xE2\x9C\x93"
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :heavy_check_mark: \n"
+        nb_success_test+=1
     else
         printf "$RED"
         echo -e "$1 \xE2\x9C\x96"
@@ -54,19 +58,20 @@ run_test() {
 
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :x: \n"
         fail=1
+        nb_fail_test+=1
     fi
 }
 
 format_message() {
     color="#36a64f"
-    title="Tests Successful"
+    title="$nb_success_test tests succeeded !"
     titlelink="https://travis-ci.org/NotYet-Hexa/PLD-Comp"
     text=`echo "$message" | sed 's/\\\x/%/g'`
     # text=`echo "$message" | sed 's%\\\x%\\\\\\\x%g'`
     if [ $fail -eq 1 ]
     then
         color="#ff0000"
-        title="Tests Fail"
+        title="$nb_fail_test tests failed $nb_success_test succeeded"
     fi
 
     json='{'
