@@ -72,13 +72,13 @@ format_message() {
     if [ $fail -eq 1 ]
     then
         color="#ff0000"
-        title="$nb_fail_test tests failed $nb_success_test succeeded"
+        title="$nb_fail_test test(s) failed $nb_success_test succeeded"
     fi
 
     json='{'
+    json+='"text": "'$commit_info'",'
     json+='"attachments": ['
     json+='    {'
-    json+='        "pretext": "'$commit_info'",'
     json+='        "color": "'$color'",'
     json+='        "title": "'$title'",'
     json+='        "title_link": "'$titlelink'",'
