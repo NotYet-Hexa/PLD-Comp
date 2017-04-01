@@ -49,7 +49,7 @@ run_test() {
     then
         echo -e "→ `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` \xE2\x9C\x93"
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :heavy_check_mark: \n"
-        nb_success_test+=1
+        nb_success_test=`expr $nb_success_test + 1`
     else
         printf "$RED"
         echo -e "$1 \xE2\x9C\x96"
@@ -58,7 +58,7 @@ run_test() {
 
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :x: \n"
         fail=1
-        nb_fail_test+=1
+        nb_fail_test=`expr $nb_fail_test + 1`
     fi
 }
 
