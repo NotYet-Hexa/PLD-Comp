@@ -1,5 +1,5 @@
-notifications:
-  slack: notyet-hexa:pYcmfHQygnnf8vFtwrUGhnL9
+# notifications:
+#   slack: notyet-hexa:pYcmfHQygnnf8vFtwrUGhnL9
 language: cpp
 compiler: g++
 before_install:
@@ -18,7 +18,7 @@ script:
   - flex --version
   - make --version
   - g++ --version
-  - ls ./tests/
+  # - ls ./tests/
   - chmod a+x tests/run.sh
   - make
   - make test
