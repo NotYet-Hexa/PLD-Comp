@@ -3,6 +3,8 @@
 nbArgs=`wc -w <<< "${*:2}"`
 message=""
 fail=0
+RED='\033[1;31m'
+NC='\033[0m'
 
 if [ $# -eq 0 ]
 then
@@ -45,8 +47,10 @@ run_test() {
         echo -e "→ `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` \xE2\x9C\x93"
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :heavy_check_mark: \n"
     else
-        echo "$1 fail"
-        echo "$diff"
+        printf "$RED"
+        echo -e "$1 \xE2\x9C\x96"
+        echo "$diff" | sed -e 's/^/\t/g'
+        printf "$NC"
 
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :x: \n"
         fail=1
@@ -110,6 +114,10 @@ then
         fi
     done
     format_message > slack_result.json
+    if [ $fail -eq 1 ]
+    then
+        false
+    fi
 else
     tests=`find ./tests/ -type f -name '*.test'`
     nbtest=`wc -w <<< "$tests"`
@@ -128,4 +136,8 @@ else
         fi
     done
     format_message > slack_result.json
+    if [ $fail -eq 1 ]
+    then
+        false
+    fi
 fi
