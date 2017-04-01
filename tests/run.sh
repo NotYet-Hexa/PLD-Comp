@@ -1,7 +1,7 @@
 #!/bin/bash
 
 nbArgs=`wc -w <<< "${*:2}"`
-message=""
+message="$TRAVIS_COMMIT_MESSAGE\n"
 fail=0
 RED='\033[1;31m'
 NC='\033[0m'
