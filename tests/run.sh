@@ -1,7 +1,7 @@
 #!/bin/bash
 
 nbArgs=`wc -w <<< "${*:2}"`
-message="$TRAVIS_COMMIT_MESSAGE\n"
+message=""
 fail=0
 RED='\033[1;31m'
 NC='\033[0m'
@@ -66,7 +66,8 @@ format_message() {
     color="#36a64f"
     title="$nb_success_test tests succeeded !"
     titlelink="https://travis-ci.org/NotYet-Hexa/PLD-Comp"
-    text=`echo "$message" | sed 's/\\\x/%/g'`
+    text="$message"
+    commit_info=`git log -1 --pretty=format:"%cn : '%s' <https://github.com/NotYet-Hexa/PLD-Comp/commit/%h|#%h>" 2>/dev/null`
     # text=`echo "$message" | sed 's%\\\x%\\\\\\\x%g'`
     if [ $fail -eq 1 ]
     then
@@ -77,6 +78,7 @@ format_message() {
     json='{'
     json+='"attachments": ['
     json+='    {'
+    json+='        "pretext": "'$commit_info'",'
     json+='        "color": "'$color'",'
     json+='        "title": "'$title'",'
     json+='        "title_link": "'$titlelink'",'
