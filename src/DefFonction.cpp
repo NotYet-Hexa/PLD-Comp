@@ -47,6 +47,8 @@ DefFonction::~DefFonction()
 void DefFonction::print()
 {
 	cout << "DefFonction : nom ->" << nomFonction << endl;
+	args->print();
+	bloc->print();
 }
 
 string DefFonction::getNomFonction() { return this->nomFonction; }

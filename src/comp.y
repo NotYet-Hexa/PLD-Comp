@@ -189,21 +189,18 @@ bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = n
                             ;
 
 
-liste_instruction	    : liste_instruction instruction 	{ $$ = $1; $$->addInstruction($2); }
-		                | instruction			            { $$ = new ListInstruction(); $$->addInstruction($1);}
-                        |                                   { $$ = new ListInstruction(); }
+liste_instruction	    : liste_instruction instruction POINTVIRGULE	{ $$ = $1; $$->addInstruction($2); }
+		                | instruction POINTVIRGULE		                { $$ = new ListInstruction(); $$->addInstruction($1);cout <<" une instruction"<<endl; }
+                        |                                               { $$ = new ListInstruction(); cout <<"pas d instruction"<<endl; }
                         ;
 
 parametre               : declaration   { $$ = $1; }
                         ;
 
 
-nom_parametre           : nom_variable                             // potentiellemnt inutile 
-                        | nom_variable CROCHETOUV CROCHETFERM       
-                        ;
-
 declaration             : type nom                          { $$ = new Declaration( $1 , $2, false, 0); cout<<"non tab"<<endl; }      // ajouter les crochet 
                         | type nom CROCHETOUV CROCHETFERM   { $$ = new Declaration( $1 , $2, true, 0); cout<<"tab"<<endl; }
+                        | type nom CROCHETOUV ENTIER CROCHETFERM   { $$ = new Declaration( $1 , $2, true, $4 ); cout<<"tab"<<endl; }
                         ;
 
 
@@ -214,7 +211,7 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
                   		;
 
 
-nom_variable            : nom                               {  $$ = $1; }                                   
+nom_variable            : nom                               {  $$ = $1; }                                  // a modifer  
                         | nom CROCHETOUV ENTIER CROCHETFERM { $$ = $1; }   
                         | nom aff                           { cout<<"regle de nom "<<endl; $$ = $1; }
                         ;
@@ -236,8 +233,7 @@ args_appel_fonction 	: args_appel_fonction VIRGULE expression
                     	| expression
                    		;
 
-retour_fonction     	: RETURN expression
-                    	;
+
 
 cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond
                 		;
@@ -269,6 +265,9 @@ instruction         : expression POINTVIRGULE           { $$ = new Instruction($
 		            | declaration                       { $$ = new Instruction($1); }
                     | lecture_ecriture POINTVIRGULE
 		            ;
+
+retour_fonction     	: RETURN expression
+                    	;
 
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }

@@ -7,5 +7,9 @@ type de retour :void
 ArgumentDef : 
 empty
 DefFonction : nom ->b
+ArgumentDef : 
+empty
+Bloc :
+ListInstruction :
 Fin de briques
 Fin du programme
