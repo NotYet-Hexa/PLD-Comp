@@ -13,6 +13,7 @@ copyright            : (C)2015 par Haim Nathan
 
 //--------------------------------------------------- Interfaces utilisées
 #include "ListInstruction.h"
+#include "InstructionVraie.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -23,7 +24,9 @@ copyright            : (C)2015 par Haim Nathan
 
 //------------------------------------------------------------------------
 
-class Bloc{
+class InstructionVraie;
+
+class Bloc : public InstructionVraie{
     public:
         void print();
         Bloc(ListInstruction* maListInstruction);

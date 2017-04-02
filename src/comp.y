@@ -189,9 +189,9 @@ bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = n
                             ;
 
 
-liste_instruction	    : liste_instruction instruction POINTVIRGULE	{ $$ = $1; $$->addInstruction($2); }
-		                | instruction POINTVIRGULE		                { $$ = new ListInstruction(); $$->addInstruction($1);cout <<" une instruction"<<endl; }
-                        |                                               { $$ = new ListInstruction(); cout <<"pas d instruction"<<endl; }
+liste_instruction	    : liste_instruction instruction 	    { $$ = $1; $$->addInstruction($2); }
+		                | instruction           		        { $$ = new ListInstruction(); $$->addInstruction($1);cout <<" une instruction"<<endl; }
+                        |                                       { $$ = new ListInstruction(); cout <<"pas d instruction"<<endl; }
                         ;
 
 parametre               : declaration   { $$ = $1; }
@@ -257,12 +257,12 @@ for_loop          		: FOR PARENTOUV expression POINTVIRGULE expression POINTVIRG
 
 
 
-instruction         : expression POINTVIRGULE           { $$ = new Instruction($1); }
-                    | bloc
+instruction         : expression POINTVIRGULE               { $$ = new Instruction($1); }
+                    | bloc                                  { $$ = new Instruction($1); }
                     | loop_statement 
         			| cond 
           			| retour_fonction 
-		            | declaration                       { $$ = new Instruction($1); }
+		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
                     | lecture_ecriture POINTVIRGULE
 		            ;
 
