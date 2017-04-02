@@ -1,37 +1,40 @@
 /*************************************************************************
 PLD Comp
-Retour_Fonction.h  -  Description
+Return.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe Retour_Fonction (fichier Retour_Fonction.h) ------
-#if ! defined ( RETOUR_FONCTION_H )
-#define RETOUR_FONCTION_H
+//---------- Interface de la classe Return (fichier Return.h) ------
+#if ! defined ( RETURN_H )
+#define RETURN_H
 
 
 //--------------------------------------------------- Interfaces utilisées
-# include "Expression.h"
+
+#include "InstructionVraie.h"
+#include "Expression.h"
+
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Expression:
+// Role de la classe Return:
 //
 
 //------------------------------------------------------------------------
 
-class Retour_Fonction : public Expression{
+class Return : public InstructionVraie {
     public:
-        virtual void print();
-        Retour_Fonction();
-        ~Retour_Fonction();
+        void print();
+        Return(Expression* monExpression);
+        ~Return();
 
     private:
-    	Expression *exp;
+    Expression* expression;
 
 };
 
-#endif // if ! defined RETOUR_FONCTION_H
+#endif // if ! defined RETURN_H

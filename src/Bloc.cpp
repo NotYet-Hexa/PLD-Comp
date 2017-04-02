@@ -33,6 +33,7 @@ void Bloc::print()
 {
     cout << "Bloc :" << endl;
     listInstruction->print();
+    cout << "Fin de Bloc" << endl;
 }
 
 //----- Constructeur

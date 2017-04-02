@@ -16,13 +16,13 @@ using namespace std;
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
 #include "Instruction.h"
+#include "Return.h"
 
 #include "Declaration.h"
 #include "DeclarationGlobal.h"
 #include "DeclarationFonction.h"
 #include "DefFonction.h"
 
-#include "Retour_Fonction.h"
 
 #include "ArgsDef.h"
 
@@ -57,7 +57,7 @@ int yylex(void);
     DeclarationFonction* declaration_fonction;
     DefFonction*  definition_fonction;
 
-    Retour_Fonction* retour_fonction;
+    Return* retour_fonction;
 
     Briques* briques;
 
@@ -181,7 +181,7 @@ declarationGlobal           : type nom                                  { $$ = n
 args_def                    : parametre                     { $$ = new ArgsDef(); $$->add($1); }
                             | args_def VIRGULE parametre    { $$ = $1 ; $$->add($3); }
                            	| VOID                          { $$ = new ArgsDef(); }
-                            |                               { $$ = new ArgsDef(); }
+                            |                               { $$ = new ArgsDef(); cout <<"args ok " << endl;}
                             ;
 
 
@@ -261,12 +261,12 @@ instruction         : expression POINTVIRGULE               { $$ = new Instructi
                     | bloc                                  { $$ = new Instruction($1); }
                     | loop_statement 
         			| cond 
-          			| retour_fonction 
+          			| retour_fonction POINTVIRGULE          { $$ = new Instruction($1); }
 		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
                     | lecture_ecriture POINTVIRGULE
 		            ;
 
-retour_fonction     	: RETURN expression
+retour_fonction     	: RETURN expression             { $$ = new Return($2); }
                     	;
 
 

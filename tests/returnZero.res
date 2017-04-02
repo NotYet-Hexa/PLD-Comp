@@ -1,14 +1,13 @@
 Debut du programme
 Debut de briques
-DefFonction : nom ->myF
+DefFonction : nom ->main
 ArgumentDef : 
 empty
 Bloc :
 ListInstruction :
 Instruction :
-Bloc :
-ListInstruction :
-Fin de Bloc
+Return :
+0
 Fin de Bloc
 Fin de briques
 Fin du programme

@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Retour_Fonction.cpp  -  Description
+Return.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Expression (fichier Retour_Fonction.cpp) --
+//---------- Réalisation de la classe Return (fichier Return.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Retour_Fonction.h"
+
+
+#include "Return.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,16 +29,21 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Retour_Fonction::print()
+
+void Return::print()
 {
-    cout << "salut" << endl;
+    cout << "Return :" << endl;
+    expression->print();
 }
+
 //----- Constructeur
-Retour_Fonction::Retour_Fonction()
+Return::Return(Expression* monExpression): expression(monExpression)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Retour_Fonction::~Retour_Fonction()
-{}// Bloc vide
+Return::~Return()
+{
+
+}
 //----- Fin destructeur
