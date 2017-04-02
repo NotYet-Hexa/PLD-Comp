@@ -29,7 +29,7 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 
 //----- Constructeur
-Declaration::Declaration(string t, string n):type(t),nom(n)
+Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
 {}// Bloc vide
 //----- Fin constructeur
 
@@ -40,5 +40,16 @@ Declaration::~Declaration()
 
 void Declaration::print()
 {
-	cout << "Declaration : type ->" << type << "  |  nom -> " << nom << endl;
+	cout << "Declaration : type ->" << type << "  |  nom -> " << nom;
+	if(isTab)
+	{
+		cout<<"[";
+		if(size>0)
+		{
+			cout<<size;
+		}
+		cout<<"]";
+	}
+	cout<<endl;
 }
+

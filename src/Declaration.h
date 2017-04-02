@@ -28,12 +28,14 @@ using namespace std;
 class Declaration : public InstructionVraie {
     public:
         void print();
-        Declaration(string type, string nom);
+        Declaration(string type, string nom, bool isTab, int size);
         ~Declaration();
 
     private:
         string type;
         string nom;
+        bool isTab;
+        int size;
 };
 
 #endif // if ! defined DECLARATION_H

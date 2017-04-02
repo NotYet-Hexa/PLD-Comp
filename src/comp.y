@@ -157,12 +157,12 @@ axiome              :programme      {  *result = $1;  }
 programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); } 
 			        ;
 
-liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); } 
+liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); /*checked*/} 
                     | declaration_de_fonction POINTVIRGULE          { $$ = new Briques(); $$->add($1);  /*checked*/ } 
-                    | declarationGlobal   POINTVIRGULE                    { $$ = new Briques(); $$->add($1);  /*checked*/ }
-			        | liste definition_de_fonction                  { $$ = $1; $$->add($2); } 
+                    | declarationGlobal   POINTVIRGULE              { $$ = new Briques(); $$->add($1);  /*checked*/ }
+			        | liste definition_de_fonction                  { $$ = $1; $$->add($2); /*checked*/ } 
 			        | liste declaration_de_fonction POINTVIRGULE    { $$ = $1; $$->add($2); /*checked*/ } 
-			        | liste declarationGlobal  POINTVIRGULE               { $$ = $1; $$->add($2); /*checked*/ } 
+			        | liste declarationGlobal  POINTVIRGULE         { $$ = $1; $$->add($2); /*checked*/ } 
 			        |                                               { $$ = new Briques(); }    
                     ;
 
@@ -173,9 +173,9 @@ declaration_de_fonction  	: type nom PARENTOUV args_def PARENTFERM
 definition_de_fonction    	: type nom PARENTOUV args_def PARENTFERM bloc
                                         { $$ = new DefFonction( $1 , $6 , $4, $2 );}
 
-declarationGlobal           : type nom     { $$ = new DeclarationGlobal( $1 , $2); }
+declarationGlobal           : type nom                                  { $$ = new DeclarationGlobal( $1 , $2, false, 0); cout<<"non tab"<<endl; }      // ajouter les crochet 
+                            | type nom CROCHETOUV ENTIER CROCHETFERM   { $$ = new DeclarationGlobal( $1 , $2, true, $4); cout<<"tab"<<endl; }
                             ;
-
                            	;
 
 args_def                    : parametre                     { $$ = new ArgsDef(); $$->add($1); }
@@ -198,11 +198,12 @@ parametre               : declaration   { $$ = $1; }
                         ;
 
 
-nom_parametre           : nom_variable                              
+nom_parametre           : nom_variable                             // potentiellemnt inutile 
                         | nom_variable CROCHETOUV CROCHETFERM       
                         ;
 
-declaration             : type nom     { $$ = new Declaration( $1 , $2); }
+declaration             : type nom                          { $$ = new Declaration( $1 , $2, false, 0); cout<<"non tab"<<endl; }      // ajouter les crochet 
+                        | type nom CROCHETOUV CROCHETFERM   { $$ = new Declaration( $1 , $2, true, 0); cout<<"tab"<<endl; }
                         ;
 
 
