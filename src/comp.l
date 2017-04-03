@@ -16,7 +16,9 @@ using namespace std;
 #include "AppelFonction.h"
 #include "Instruction.h"
 #include "Return.h"
-#include "AffectationDeclaration.h"
+#include "Affectation.h"
+#include "AffectationUnaire.h"
+
 
 #include "Declaration.h"
 #include "DeclarationFonction.h"

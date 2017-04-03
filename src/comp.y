@@ -18,7 +18,8 @@ using namespace std;
 #include "AppelFonction.h"
 #include "Instruction.h"
 #include "Return.h"
-#include "AffectationDeclaration.h"
+#include "Affectation.h"
+#include "Affectationunaire.h"
 
 #include "Declaration.h"
 #include "DeclarationGlobal.h"
@@ -124,7 +125,7 @@ int yylex(void);
 %type<chaine> nom_variable
 %type<chaine> nom
 %type<ival> aff
-%type<ival> l_value
+%type<chaine> l_value
 %type<expression> appel_fonction
 %type<argsAppel> args_appel_fonction
 %type<ival> fin_cond
@@ -215,11 +216,6 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
                   		;
 
 
-nom_variable            : nom                               {  $$ = $1; }                                  // a modifer  
-                        | nom CROCHETOUV ENTIER CROCHETFERM { $$ = $1; }   
-                        | nom EGALE expression              { cout<<"regle de nom "<<endl; $$ = $1; }
-                        ;
-
 
 
 
@@ -268,7 +264,7 @@ retour_fonction     	: RETURN expression             { $$ = new Return($2); }
                     	;
 
 
-expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
+expression          : ENTIER                            { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
                     | NOM                               { $$ = new ExpressionVariable($1); }
                     | CHAR                              { $$ = new ExpressionChar($1); }
                     | appel_fonction                     { $$ = $1; }        
@@ -290,20 +286,20 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     | expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
                     | expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
                     | expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
-                    | l_value EGALE expression 
-        			| l_value PLUSEGAL expression
-          			| l_value MOINSEGAL expression
-        			| l_value DIVEGAL expression
-                    | l_value MULEGAL expression
-                    | l_value MODULOEGAL expression
-                    | l_value DECALGAUCHEEGAL expression
-                    | l_value DECALDROITEGAL expression
-                    | l_value ETEGAL expression
-                    | l_value XOREGAL expression
-                   	| l_value OUEGAL expression
-                    | l_value PLUSPLUS
-                    | l_value MOINSMOINS
-                   	| PARENTOUV expression PARENTFERM
+                    | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); }
+        			| l_value PLUSEGAL expression        { $$ = new Affectation($1, "+=", $3); }
+          			| l_value MOINSEGAL expression       { $$ = new Affectation($1, "-=", $3); }
+        			| l_value DIVEGAL expression         { $$ = new Affectation($1, "/=", $3); }
+                    | l_value MULEGAL expression         { $$ = new Affectation($1, "*=", $3); }  
+                    | l_value MODULOEGAL expression      { $$ = new Affectation($1, "%=", $3); }
+                    | l_value DECALGAUCHEEGAL expression { $$ = new Affectation($1, "<<=", $3); }
+                    | l_value DECALDROITEGAL expression  { $$ = new Affectation($1, ">>=", $3); }
+                    | l_value ETEGAL expression          { $$ = new Affectation($1, "&=", $3); }
+                    | l_value XOREGAL expression         { $$ = new Affectation($1, "^=", $3); }
+                   	| l_value OUEGAL expression          { $$ = new Affectation($1, "|=", $3); }
+                    | l_value PLUSPLUS                   { $$ = new AffectationUnaire($1, "++"); }
+                    | l_value MOINSMOINS                 { $$ = new AffectationUnaire($1, "--"); }
+                   	| PARENTOUV expression PARENTFERM    { $$ = $2; }
                     ;
 
 
@@ -316,9 +312,10 @@ args_appel_fonction 	: args_appel_fonction VIRGULE expression        { $$ = $1 ;
                         |                                               { $$ = new ArgsAppel(); } 
                         ;
 
-l_value             : nom_variable CROCHETOUV ENTIER CROCHETFERM 
-            		| nom_variable
-                    			;
+l_value             : nom_variable          { $$ = $1; }
+                    ;
+
+
 lecture_ecriture	: GETCHAR suite_lecture
 			        | PUTCHAR suite_ecriture
 			        ;
@@ -332,7 +329,7 @@ suite_ecriture		: PARENTOUV NOM PARENTFERM
 suite_lecture		: PARENTOUV NOM PARENTFERM
 				    ;
 
-nom_variable        : NOM               { $$ = $1; }
+nom_variable        : NOM               { $$ = $1; }  // gérer les tableau
         			;
 
 

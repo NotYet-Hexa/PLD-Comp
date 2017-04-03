@@ -1,14 +1,14 @@
 /*************************************************************************
 PLD Comp
-AffectationDeclaration.h  -  Description
+Affectation.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
 //---------- Interface de la classe AffectationDeclaratino (fichier AffectationDeclaratino.h) ------
-#if ! defined ( AFFECTATIONDECLARATION )
-#define AFFECTATIONDECLARATION
+#if ! defined ( AFFECTATION_H )
+#define AFFECTATION_H
 
 
 //--------------------------------------------------- Interfaces utilisées
@@ -26,15 +26,17 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-class AffectationDeclaration {
+class Affectation: public Expression {
     public:
         void print();
-        AffectationDeclaration(Expression* monExpression);
-        ~AffectationDeclaration();
+        Affectation(string nomVariable, string symbole, Expression* monExpression);
+        ~Affectation();
 
     private:
+    string nomVariable;
+    string symbole;
     Expression* expression;
 
 };
 
-#endif // if ! defined AFFECTATIONDECLARATION
+#endif // if ! defined AFFECTATION
