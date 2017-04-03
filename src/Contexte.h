@@ -36,6 +36,8 @@ class Contexte{
         void ajouterParent(Contexte*);
         string getNomContexte();
         static void test_AfficherTableDesSymboles();
+        string get_nomContexte();
+        Contexte* get_contexte();
 
     private:
         string nomContexte;

@@ -30,9 +30,13 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void ExpressionChar::print()
 {
-    cout << "char : ";  
     cout << valeur << endl;
 }
+
+Expression::TypeExpr ExpressionChar::WhatIsThisExprType(){return Expression::TypeExpr::Char;}
+
+char ExpressionChar::get_valeur(){return valeur;}
+
 //----- Constructeur
 ExpressionChar::ExpressionChar(char car) : valeur(car)
 {}// Bloc vide

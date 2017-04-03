@@ -52,6 +52,8 @@ ListInstruction::~ListInstruction()
 }// Bloc vide
 //----- Fin destructeur
 
+ std::vector<Instruction*> ListInstruction::get_list {return listInstruction;}
+ 
 void ListInstruction::addInstruction(Instruction* instruction)
 {
 	listInstruction.push_back(instruction);

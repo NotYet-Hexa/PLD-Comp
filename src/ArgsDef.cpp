@@ -43,6 +43,8 @@ void ArgsDef::print()
     }
 }
 
+std::vector <Declaration*> ArgsDef::get_args(){return args;}
+
 void ArgsDef::add(Declaration* declaration)
 {
     args.push_back(declaration);

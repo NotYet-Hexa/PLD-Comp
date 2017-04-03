@@ -135,6 +135,18 @@ protected:
     std::vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/
 };
 
-void var_temp_instr_bloc(InstructionVraie* intructionVraie);
+void var_temp_expr_affectation(Affectation* affectation);
+void var_temp_expr_Unaire(ExpressionUnaire* expressionUnaire);
+void var_temp_expr_Binaire(ExpressionBinaire* expressionBinaire);
+void var_temp_expr_Char(ExpressionChar* expressionChar);
+void var_temp_expr_Entier(Entier* entier);
+void var_temp_expr_AffectationUnaire(AffectationUnaire* affectationUnaire);
+void var_temp_expr_AppelFonction(AppelFonction* appelfonction);
+void var_temp_expr_argsAppel(ArgsAppel* argsAppel);
+void var_temp_expr_assignation(Assignation* assignation);
+void var_temp_expr_ExpressionVariable(ExpressionVariable* expressionVariable);
+void var_temp_expr_Variable(Variable* variable);
+
+void expressionTree(int deep, Expression* expression);
 
 #endif

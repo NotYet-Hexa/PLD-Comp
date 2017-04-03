@@ -32,6 +32,11 @@ void ExpressionVariable::print()
     // Ajouter la valeur après les :
     cout << "variable : " << nomVariable << endl;
 }
+
+Expression::TypeExpr ExpressionVariable::WhatIsThisExprType(){return Expression::TypeExpr::expressionVariable;}
+
+string ExpressionVariable::get_variable(){return nomVariable;}
+
 //----- Constructeur
 ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
 {}// Bloc vide

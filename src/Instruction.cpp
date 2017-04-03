@@ -36,6 +36,8 @@ void Instruction::print()
     instruction->print();
 }
 
+InstructionVraie Instruction::get_instru{return instruction;}
+
 //----- Constructeur
 Instruction::Instruction(InstructionVraie* monInstruction): instruction(monInstruction)
 {}// Bloc vide

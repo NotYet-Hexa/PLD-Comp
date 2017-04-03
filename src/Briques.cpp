@@ -58,6 +58,7 @@ void Briques::add(DeclarationGlobal* d)
 	// vectorDeclarationGlobal.push_back(d); 
     vectorBrique.push_back(d);  
 }
+std::vector<Brique*> Briques::get_vectorBrique(){return vectorBrique;}
 
 void Briques::print()
 {

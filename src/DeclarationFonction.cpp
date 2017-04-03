@@ -36,9 +36,14 @@ void DeclarationFonction::print()
 
 }
 
+
+string DeclarationFonction::get_typeRetour(){return typeRetour;}
+
+ArgsDef* DeclarationFonction::get_argsDef(){return argsDef;}
+
 string DeclarationFonction::getNomFonction()
 {
-	return nomFonction;
+	return this->nomFonction;
 }
 //----- Constructeur
 DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)

@@ -38,6 +38,12 @@ void AffectationUnaire::print()
 
 }
 
+string AffectationUnaire::get_nomVariable(){return nomVariable;}
+
+string AffectationUnaire::get_symbole(){return symbole;}
+
+Expression::TypeExpr AffectationUnaire::WhatIsThisExprType(){return Expression::TypeExpr::affectationUnaire;}
+
 //----- Constructeur
 AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariable(nomVar), symbole(monSymbole)
 {}// Bloc vide

@@ -30,6 +30,10 @@ class ExpressionBinaire : public Expression {
         void print();
         ExpressionBinaire(Expression* g, Expression* d, string symb);
         ~ExpressionBinaire();
+        Expression::TypeExpr WhatIsThisExprType();
+        string get_symbole();
+        Expression* get_gauche();
+        Expression* get_droite();
 
     private:
         string symbole;

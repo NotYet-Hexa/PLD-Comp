@@ -33,6 +33,15 @@ void ExpressionBinaire::print()
     cout << symbole << endl;
     droite->print();
 }
+
+Expression::TypeExpr ExpressionBinaire::WhatIsThisExprType(){return Expression::TypeExpr::Binaire;}
+
+string ExpressionBinaire::get_symbole(){return symbole;}
+
+Expression* ExpressionBinaire::get_gauche(){return gauche;}
+
+Expression* ExpressionBinaire::get_droite(){return droite;}
+
 //----- Constructeur
 ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
     gauche(g), droite(d), symbole(s)

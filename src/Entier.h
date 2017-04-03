@@ -1,39 +1,36 @@
 /*************************************************************************
 PLD Comp
-PutChar.h  -  Description
+Entier.h  -  Description
 -------------------
 début                : 27/03/2017
 copyright            : (C)2017
 *************************************************************************/
 
-//---------- Interface de la classe PutChar (fichier PutChar.h) ------
-#if ! defined ( PUTCHAR_H )
-#define PUTCHAR_H
+//---------- Interface de la classe Entier (fichier Entier.h) ------
+#if ! defined ( ENTIER_H )
+#define ENTIER_H
 
 
 //--------------------------------------------------- Interfaces utilisées
-
-#include "InstructionVraie.h"
-
+# include "Expression.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe PutChar:
+// Role de la classe Entier:
 //
 
 //------------------------------------------------------------------------
 
-class PutChar : public InstructionVraie {
+class Entier: public Expression{
 public:
     virtual void print();
-    PutChar(char monChar);
-    ~PutChar();
-
+    Entier();
+    ~Entier();
+    Expression::TypeExpr WhatIsThisExprType();
 private:
-    char theChar;
 
 };
 
-#endif // if ! defined PUTCHAR_H
+#endif // if ! defined ENTIER_H

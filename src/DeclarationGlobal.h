@@ -31,7 +31,10 @@ class DeclarationGlobal : public Brique  {
         void print();
         DeclarationGlobal(string type, string nom, bool isTab, int size);
         ~DeclarationGlobal();
-
+        string get_type();
+        string get_nom();
+        bool get_tab();
+        int get_size();
     private:
         string type;
         string nom;

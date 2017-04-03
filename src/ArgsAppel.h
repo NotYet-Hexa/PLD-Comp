@@ -23,13 +23,15 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-
+enum TypeExpr{argsAppel=9};
 class ArgsAppel{
     public:
         ArgsAppel();
         ~ArgsAppel();
         void add(Expression* expression);
         void print();
+        std::vector <Expression*> get_args();
+        Expression::TypeExpr WhatIsThisExprType();
 
     private:
         std::vector <Expression*> args;

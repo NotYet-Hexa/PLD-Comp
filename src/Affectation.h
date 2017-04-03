@@ -25,12 +25,15 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-
 class Affectation: public Expression {
     public:
         void print();
         Affectation(string nomVariable, string symbole, Expression* monExpression);
         ~Affectation();
+        string get_nomVariable();
+        string get_symbole();
+        Expression* get_expression();
+        Expression::TypeExpr WhatIsThisExprType();
 
     private:
     string nomVariable;

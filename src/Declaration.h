@@ -30,7 +30,12 @@ class Declaration : public InstructionVraie {
         void print();
         Declaration(string type, string nom, bool isTab, int size);
         ~Declaration();
-		TypeClass WhatIsThisType();
+		InstructionVraie::TypeClass WhatIsThisType();
+        string get_type();
+        string get_nom();
+        bool get_tab();
+        int get_size();
+        
     private:
         string type;
         string nom;

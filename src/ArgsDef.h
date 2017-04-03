@@ -30,6 +30,7 @@ class ArgsDef{
         ~ArgsDef();
         void add(Declaration* declaration);
         void print();
+        std::vector <Declaration*> get_args();
 
     private:
         std::vector <Declaration*> args;

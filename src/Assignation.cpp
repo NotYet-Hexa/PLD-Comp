@@ -31,6 +31,7 @@ void Assignation::print()
 {
     
 }
+Expression::TypeExpr Assignation::WhatIsThisExprType(){return Expression::TypeExpr::assignation;}
 //----- Constructeur
 Assignation::Assignation()
 {}// Bloc vide

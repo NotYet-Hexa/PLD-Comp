@@ -38,7 +38,12 @@ Declaration::~Declaration()
 {}// Bloc vide
 //----- Fin destructeur
 
-TypeClass Declaration::WhatIsThisType() { return TypeClass::declaration; }
+InstructionVraie::TypeClass Declaration::WhatIsThisType() { return InstructionVraie::TypeClass::declaration; }
+
+string Declaration::get_type(){return type;}
+string Declaration::get_nom(){return nom;}
+bool Declaration::get_tab(){return isTab;}
+int Declaration::get_size(){return size;}
 
 void Declaration::print()
 {

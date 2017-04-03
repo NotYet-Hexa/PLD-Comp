@@ -22,13 +22,28 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-enum TypeClass { expression = 3 };
+
 class Expression: public InstructionVraie{
     public:
-		TypeClass WhatIsThisType();
+        enum TypeExpr{
+            Unaire=1,
+            Binaire=2,
+            Char=3,
+            entier=4,
+            variable=5,
+            affectation=6,
+            affectationUnaire=7,
+            appelFonction=8,
+            argsAppel=9,
+            assignation=10,
+			expressionVariable=11
+        };
+		InstructionVraie::TypeClass WhatIsThisType();
         virtual void print();
         Expression();
         ~Expression();
+        virtual Expression::TypeExpr WhatIsThisExprType();
+
 
     private:
 

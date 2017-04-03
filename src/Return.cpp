@@ -36,10 +36,13 @@ void Return::print()
     expression->print();
 }
 
-TypeClass Return::WhatIsThisType() { return TypeClass::retour; }
+InstructionVraie::TypeClass Return::WhatIsThisType() { return InstructionVraie::TypeClass::retourFonction; }
+
+Expression* Return::get_expr() {return expression;}
 
 //----- Constructeur
 Return::Return(Expression* monExpression): expression(monExpression)
+
 {}// Bloc vide
 //----- Fin constructeur
 

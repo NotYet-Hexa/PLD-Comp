@@ -30,6 +30,7 @@ class Instruction{
         void print();
         Instruction(InstructionVraie* monInstruction);
         ~Instruction();
+        InstructionVraie get_instru();
 
     private:
     InstructionVraie* instruction;

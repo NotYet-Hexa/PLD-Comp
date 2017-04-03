@@ -36,11 +36,15 @@ void Bloc::print()
     cout << "Fin de Bloc" << endl;
 }
 
+ListInstruction* Bloc::get_list() {return listInstruction;}
+
+InstructionVraie::TypeClass Bloc::WhatIsThisType() {return InstructionVraie::TypeClass::bloc;}
+
 //----- Constructeur
 Bloc::Bloc(ListInstruction* maListInstruction): listInstruction(maListInstruction)
 {}// Bloc vide
 //----- Fin constructeur
-TypeClass Bloc::WhatIsThisType() { return TypeClass::bloc; }
+
 //----- Destructeur
 Bloc::~Bloc()
 {

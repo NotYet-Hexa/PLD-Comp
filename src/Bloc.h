@@ -28,11 +28,10 @@ class InstructionVraie;
 enum TypeClass{ bloc=0 };
 class Bloc : public InstructionVraie{
     public:
-		TypeClass WhatIsThisType();
+		InstructionVraie::TypeClass WhatIsThisType();
         void print();
         Bloc(ListInstruction* maListInstruction);
-        ~Bloc();
-		
+        ~Bloc();ListInstruction* get_list();
 		
     private:
     ListInstruction* listInstruction;

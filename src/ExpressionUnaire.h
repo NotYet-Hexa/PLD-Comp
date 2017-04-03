@@ -30,7 +30,9 @@ class ExpressionUnaire : public Expression{
         void print();
         ExpressionUnaire(Expression* exp, string symb);
         ~ExpressionUnaire();
-
+        Expression* get_expr();
+        string get_symbole();
+        Expression::TypeExpr WhatIsThisExprType();
     private:
         Expression * expression;
         string symbole;

@@ -26,13 +26,14 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 enum TypeClass{ retour=2 };
+
 class Return : public InstructionVraie {
     public:
         void print();
-        TypeClass WhatIsThisType();
+        InstructionVraie::TypeClass WhatIsThisType();
         Return(Expression* monExpression);
         ~Return();
-
+        Expression* get_expr();
     private:
     Expression* expression;
 

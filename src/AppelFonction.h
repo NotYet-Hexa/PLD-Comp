@@ -33,7 +33,10 @@ class AppelFonction : public Expression
         void print();
         AppelFonction(string nom_fonction, ArgsAppel* args);
         ~AppelFonction();
-        string getNomFonction();
+        string get_nomFonction();
+        ArgsAppel* get_argsAppel();
+        Expression::TypeExpr WhatIsThisExprType();
+
 
     private:
         string nomFonction;

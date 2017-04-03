@@ -20,8 +20,6 @@ using namespace std;
 #include "AffectationUnaire.h"
 
 
-
-
 #include "Declaration.h"
 #include "DeclarationFonction.h"
 #include "DefFonction.h"
@@ -69,6 +67,8 @@ nom [a-zA-Z_]+
 "if"                  { return IF; }
 "else"                { return ELSE; }
 "return"              { return RETURN; }
+"putchar"             { return PUTCHAR; }
+"getchar"             { return GETCHAR; }
 
 {charactere}        { yylval.charactere = yytext[1]; return CHAR; }
 {chaine}            { yylval.chaine = strdup(yytext); return CHAINE; }

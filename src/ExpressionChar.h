@@ -28,6 +28,9 @@ class ExpressionChar : public Expression{
         void print();
         ExpressionChar(char car);
         ~ExpressionChar();
+        Expression::TypeExpr WhatIsThisExprType();
+        char get_valeur();
+
 
     private:
         char valeur;

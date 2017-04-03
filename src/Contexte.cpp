@@ -35,6 +35,9 @@ void Contexte::print()
     cout << "Probleme implémenter print pour ce context" << endl;
 }
 
+string Contexte::get_nomContexte(){return nomContexte;};
+
+Contexte* Contexte::get_contexte(){return parent;}
 
 //----- Constructeur
 Contexte::Contexte()

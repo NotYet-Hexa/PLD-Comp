@@ -28,7 +28,8 @@ class ExpressionEntier : public Expression{
         void print();
         ExpressionEntier(int);
         ~ExpressionEntier();
-
+        Expression::TypeExpr WhatIsThisExprType();
+        int get_valeur();
     private:
         int valeur;
 };

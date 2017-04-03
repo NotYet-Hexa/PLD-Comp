@@ -32,7 +32,9 @@ void Expression::print()
     cout << "salut" << endl;
 }
 
-TypeClass Expression::WhatIsThisType() { return TypeClass::expression; }
+InstructionVraie::TypeClass Expression::WhatIsThisType() { return InstructionVraie::TypeClass::expression; }
+
+
 
 //----- Constructeur
 Expression::Expression()

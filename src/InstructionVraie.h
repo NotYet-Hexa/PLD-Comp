@@ -22,19 +22,21 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-enum TypeClass{
-			bloc=0,
-			declaration=1,
-			retourFonction=2,
-			expression=3,
-			//TODO LOOP STATMENT 
-		};
+
 class InstructionVraie{
+	
     public:
+		enum TypeClass{
+				bloc=0,
+				declaration=1,
+				retourFonction=2,
+				expression=3,
+				//TODO LOOP STATMENT 
+			};
         virtual void print() = 0;
         InstructionVraie();
         ~InstructionVraie();
-		virtual TypeClass WhatIsThisType();
+		virtual InstructionVraie::TypeClass WhatIsThisType();
     private:
 
 };

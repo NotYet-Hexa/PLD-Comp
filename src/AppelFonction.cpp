@@ -34,10 +34,13 @@ void AppelFonction::print()
 	argsAppel->print();
 }
 
-string AppelFonction::getNomFonction()
-{
-	return nomFonction;
-}//----- Constructeur
+string AppelFonction::get_nomFonction(){return nomFonction;}
+
+ArgsAppel* AppelFonction::get_argsAppel(){return argsAppel;}
+
+Expression::TypeExpr AppelFonction::WhatIsThisExprType(){return Expression::TypeExpr::appelFonction;};
+
+//----- Constructeur
 
 AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
 {

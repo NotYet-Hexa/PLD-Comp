@@ -31,6 +31,8 @@ class ExpressionVariable : public Expression{
         void print();
         ExpressionVariable(string nom);
         ~ExpressionVariable();
+        Expression::TypeExpr WhatIsThisExprType();
+        string get_variable();
 
     private:
         string nomVariable;

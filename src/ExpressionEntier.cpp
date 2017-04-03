@@ -32,6 +32,10 @@ void ExpressionEntier::print()
     cout << valeur << endl;
 }
 
+Expression::TypeExpr ExpressionEntier::WhatIsThisExprType(){return Expression::TypeExpr::entier;}
+
+int ExpressionEntier::get_valeur(){return valeur;}
+
 //----- Constructeur
 ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
 {}// Bloc vide

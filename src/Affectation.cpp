@@ -39,6 +39,16 @@ void Affectation::print()
     expression->print();
 }
 
+string Affectation::get_nomVariable(){return nomVariable;}
+
+string Affectation::get_symbole(){return symbole;}
+
+Expression* Affectation::get_expression(){return expression;}
+
+Expression::TypeExpr Affectation::WhatIsThisExprType(){return Expression::TypeExpr::affectation;}
+
+
+
 //----- Constructeur
 Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)
 {}// Bloc vide

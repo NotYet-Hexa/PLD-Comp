@@ -51,8 +51,10 @@ void DefFonction::print()
 	bloc->print();
 }
 
-string DefFonction::getNomFonction() { return this->nomFonction; }
+string DefFonction::getNomFonction() { return nomFonction; }
 
-Bloc* DefFonction::getBloc(){ return this->bloc; }
+Bloc* DefFonction::getBloc(){ return bloc; }
 
-ArgsDef* DefFonction::getArgs(){ return this->args; }
+ArgsDef* DefFonction::getArgs(){ return args; }
+
+string DefFonction::get_type(){return type;}
