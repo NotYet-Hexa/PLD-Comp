@@ -27,6 +27,15 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+
+std::list<string> ExpressionVariable::listeNomLValue()
+{
+    list<string> list;
+    list.push_back(nomVariable);
+    return list;
+}
+
 void ExpressionVariable::print()
 {
     // Ajouter la valeur après les :

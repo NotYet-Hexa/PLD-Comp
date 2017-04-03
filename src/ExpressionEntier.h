@@ -26,6 +26,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class ExpressionEntier : public Expression{
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionEntier(int);
         ~ExpressionEntier();
 

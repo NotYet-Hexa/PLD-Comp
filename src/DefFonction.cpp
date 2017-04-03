@@ -36,6 +36,7 @@ DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonct
 {
 	this->bloc = bloc;
 	this->args = args;
+	this->isContexte = false;
 }// Bloc vide
 //----- Fin constructeur
 

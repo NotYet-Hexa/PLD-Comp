@@ -26,10 +26,12 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class Brique{
     public:
         virtual void print() = 0;
+        bool getIsContexte();
         Brique();
         ~Brique();
 
-    private:
+    protected:
+        bool isContexte;
 
 };
 

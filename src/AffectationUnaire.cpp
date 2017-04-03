@@ -30,6 +30,13 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+std::list<string> AffectationUnaire::listeNomLValue()
+{
+    list<string> list;
+    list.push_back(nomVariable);
+    return list;
+}
+
 void AffectationUnaire::print()
 {
     cout << "Affectation Unaire:" << endl;

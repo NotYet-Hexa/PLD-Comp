@@ -30,6 +30,15 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+
+std::list<string> Affectation::listeNomLValue()
+{
+    list<string> list;
+    list.push_back(nomVariable);
+    list.merge(expression->listeNomLValue());
+    return list;
+}
+
 void Affectation::print()
 {
     cout << "Affectation :" << endl;
