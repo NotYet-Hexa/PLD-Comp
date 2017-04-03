@@ -22,4 +22,8 @@ else
     json+='    }'
     json+=']'
     json+='}'
+
+    echo "$json" > slack_result.json
+
+    send_message
 fi
