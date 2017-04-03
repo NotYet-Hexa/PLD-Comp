@@ -57,6 +57,7 @@ nom [a-zA-Z_]+
 [ \n\t]             { /* ignore */ }
 "/*"(.|\n|\r)*"*/"  { /* ignore */ }
 "//".*$ 	        { /* ignore */ }
+"#".*$              { /* ignore */ }
 
 {entier}            { yylval.ival = atoi(yytext); return ENTIER; }
 
