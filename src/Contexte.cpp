@@ -66,7 +66,13 @@ string Contexte::getNomContexte()
 {
     return this->nomContexte;
 }
-
+Contexte* Contexte::getParent()
+{
+    if(this->parent != nullptr)
+        return this->parent;
+    else
+        return NULL;
+}
 
 int Contexte::ajouterVariable(string nomVariable,string typeVariable)
 {
@@ -94,7 +100,12 @@ bool Contexte::chercherVariable(string nomVariable)
         MapVariable* tableVariable = iterateurContexte->second;
         MapVariable::const_iterator iterateurVariable = tableVariable->find(nomVariable);
         if(iterateurVariable == tableVariable->end())
-            return false; // La variable n'existe pas dans le contexte
+        {
+            if(this->parent != nullptr)
+                this->chercherVariable(nomVariable);
+            else
+                return false; // La variable n'existe pas dans le contexte
+        }
         else
             return true;
     }

@@ -4,7 +4,7 @@ VPATH = src:build
 
 CC = g++
 REMOVE = rm -f
-DEBUG_FLAG = -g -O0 -D DEBUG
+DEBUG_FLAG = -g -O0 -D DEBUG -DYYDEBUG=1
 CFLAGS = -std=c++11
 LDFLAGS = -std=c++11
 EXEC = exe

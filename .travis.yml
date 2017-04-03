@@ -23,4 +23,5 @@ script:
   - make
   - make test
 after_script:
-  - 'curl -X POST -H "Content-type: application/json" --data @slack_result.json  https://hooks.slack.com/services/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'
+  - chmod a+x slack.sh
+  - ./slack.sh
