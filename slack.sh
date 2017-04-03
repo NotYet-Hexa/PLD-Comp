@@ -3,6 +3,13 @@ send_message(){
     curl -X POST -H "Content-type: application/json" --data @slack_result.json  https://hooks.slack.com/services/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
 }
 
+branch=`git branch`
+
+if [[ $branch != *"master"* ]]
+then
+    exit 0
+fi
+
 
 if [ -e slack_result.json ]
 then
