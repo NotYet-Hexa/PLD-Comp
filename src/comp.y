@@ -112,7 +112,6 @@ int yylex(void);
 %type<definition_fonction> definition_de_fonction
 %type<declaration_fonction> declaration_de_fonction
 
-%type<chaine> type_retour_fonction
 %type<chaine> nom_fonction
 %type<args> args_def
 %type<chaine> type
@@ -121,7 +120,6 @@ int yylex(void);
 %type<ival> loop_statement
 %type<ival> cond 
 %type<retour_fonction> retour_fonction
-%type<chaine> nom_parametre
 %type<chaine> nom_variable
 %type<chaine> nom
 %type<ival> aff
@@ -131,9 +129,6 @@ int yylex(void);
 %type<ival> fin_cond
 %type<ival> for_loop
 %type<ival> while_loop
-%type<ival> lecture_ecriture
-%type<ival> suite_lecture
-%type<ival> suite_ecriture
 
 
 
@@ -255,8 +250,7 @@ instruction         : expression POINTVIRGULE               { $$ = new Instructi
         			| cond 
           			| retour_fonction POINTVIRGULE          { $$ = new Instruction($1); }
 		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
-                    | lecture_ecriture POINTVIRGULE
-		            ;
+                    ;
 
 
 
@@ -303,31 +297,20 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     ;
 
 
-appel_fonction          : nom PARENTOUV args_appel_fonction PARENTFERM { $$ = new AppelFonction( $1, $3); }
-        			    ;
+appel_fonction      : nom PARENTOUV args_appel_fonction PARENTFERM { $$ = new AppelFonction( $1, $3); }
+                    ;
 
 
-args_appel_fonction 	: args_appel_fonction VIRGULE expression        { $$ = $1 ; $$->add($3); }
-                    	| expression                                    { $$ = new ArgsAppel(); $$->add($1); }
-                        |                                               { $$ = new ArgsAppel(); } 
-                        ;
+args_appel_fonction : args_appel_fonction VIRGULE expression        { $$ = $1 ; $$->add($3); }
+                    | expression                                    { $$ = new ArgsAppel(); $$->add($1); }
+                    |                                               { $$ = new ArgsAppel(); } 
+                    ;
 
 l_value             : nom_variable          { $$ = $1; }
                     ;
 
 
-lecture_ecriture	: GETCHAR suite_lecture
-			        | PUTCHAR suite_ecriture
-			        ;
 
-
-
-suite_ecriture		: PARENTOUV NOM PARENTFERM
-			        | PARENTOUV CHAR PARENTFERM
-				    ;
-
-suite_lecture		: PARENTOUV NOM PARENTFERM
-				    ;
 
 nom_variable        : NOM               { $$ = $1; }  // gérer les tableau
         			;

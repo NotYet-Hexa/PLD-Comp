@@ -30,6 +30,7 @@ using namespace std;
 //----------------------------------------------------- Méthodes publiques
 void ExpressionChar::print()
 {
+    cout << "char : ";  
     cout << valeur << endl;
 }
 //----- Constructeur
