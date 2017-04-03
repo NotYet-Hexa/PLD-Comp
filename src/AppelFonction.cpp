@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Brique.cpp  -  Description
+AppelFonction.cpp  -  Description
 -------------------
-début                : 15/02/2017
-copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
+début                : 23/02/2017
+copyright            : (C)2015 par H4414
 *************************************************************************/
 
-//---------- Réalisation de la classe Brique (fichier Brique.cpp) --
+//---------- Réalisation de la classe Declaration (fichier AppelFonction.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Brique.h"
+#include "AppelFonction.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,17 +27,25 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void AppelFonction::print()
+{
+	cout<<"Debut d'appel de Fonction"<<endl;
+	cout<<"nom fonction : "<<nomFonction<<endl;
+	argsAppel->print();
+}
 
+string AppelFonction::getNomFonction()
+{
+	return nomFonction;
+}//----- Constructeur
 
-
-//----- Constructeur
-Brique::Brique()
-{}// Bloc vide
+AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
+{
+}
+//-----Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Brique::~Brique()
-{
-    cout << "destructeur de Brique" << endl;
-}// Bloc vide
+AppelFonction::~AppelFonction()
+{}// Bloc vide
 //----- Fin destructeur

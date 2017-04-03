@@ -15,8 +15,10 @@ using namespace std;
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
+#include "AppelFonction.h"
 #include "Instruction.h"
 #include "Return.h"
+#include "AffectationDeclaration.h"
 
 #include "Declaration.h"
 #include "DeclarationGlobal.h"
@@ -25,6 +27,7 @@ using namespace std;
 
 
 #include "ArgsDef.h"
+#include "ArgsAppel.h"
 
 #include "ListInstruction.h"
 #include "Bloc.h"
@@ -62,6 +65,7 @@ int yylex(void);
     Briques* briques;
 
     ArgsDef * args;
+    ArgsAppel * argsAppel;
 
     ListInstruction* liste_instruction;
     Bloc * bloc;
@@ -121,8 +125,8 @@ int yylex(void);
 %type<chaine> nom
 %type<ival> aff
 %type<ival> l_value
-%type<ival> appel_fonction
-%type<ival> args_appel_fonction
+%type<expression> appel_fonction
+%type<argsAppel> args_appel_fonction
 %type<ival> fin_cond
 %type<ival> for_loop
 %type<ival> while_loop
@@ -174,7 +178,7 @@ definition_de_fonction    	: type nom PARENTOUV args_def PARENTFERM bloc
                                         { $$ = new DefFonction( $1 , $6 , $4, $2 );}
 
 declarationGlobal           : type nom                                  { $$ = new DeclarationGlobal( $1 , $2, false, 0); cout<<"non tab"<<endl; }      // ajouter les crochet 
-                            | type nom CROCHETOUV ENTIER CROCHETFERM   { $$ = new DeclarationGlobal( $1 , $2, true, $4); cout<<"tab"<<endl; }
+                            | type nom CROCHETOUV ENTIER CROCHETFERM    { $$ = new DeclarationGlobal( $1 , $2, true, $4); cout<<"tab"<<endl; }
                             ;
                            	;
 
@@ -213,25 +217,17 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
 
 nom_variable            : nom                               {  $$ = $1; }                                  // a modifer  
                         | nom CROCHETOUV ENTIER CROCHETFERM { $$ = $1; }   
-                        | nom aff                           { cout<<"regle de nom "<<endl; $$ = $1; }
-                        ;
-
-aff 	                : EGALE expression 
-                        |
+                        | nom EGALE expression              { cout<<"regle de nom "<<endl; $$ = $1; }
                         ;
 
 
-appel_fonction      : nom PARENTOUV args_appel_fonction PARENTFERM
-        			;
 
 
 nom                 : NOM               { $$ = $1; }
                     ;
 
 
-args_appel_fonction 	: args_appel_fonction VIRGULE expression 
-                    	| expression
-                   		;
+
 
 
 
@@ -266,6 +262,8 @@ instruction         : expression POINTVIRGULE               { $$ = new Instructi
                     | lecture_ecriture POINTVIRGULE
 		            ;
 
+
+
 retour_fonction     	: RETURN expression             { $$ = new Return($2); }
                     	;
 
@@ -273,7 +271,7 @@ retour_fonction     	: RETURN expression             { $$ = new Return($2); }
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
                     | NOM                               { $$ = new ExpressionVariable($1); }
                     | CHAR                              { $$ = new ExpressionChar($1); }
-                    | appel_fonction                              
+                    | appel_fonction                     { $$ = $1; }        
                     | expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
                     | expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
                     | expression PLUS expression         { $$ = new ExpressionBinaire($1, $3, "+"); }
@@ -307,6 +305,16 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     | l_value MOINSMOINS
                    	| PARENTOUV expression PARENTFERM
                     ;
+
+
+appel_fonction          : nom PARENTOUV args_appel_fonction PARENTFERM { $$ = new AppelFonction( $1, $3); }
+        			    ;
+
+
+args_appel_fonction 	: args_appel_fonction VIRGULE expression        { $$ = $1 ; $$->add($3); }
+                    	| expression                                    { $$ = new ArgsAppel(); $$->add($1); }
+                        |                                               { $$ = new ArgsAppel(); } 
+                        ;
 
 l_value             : nom_variable CROCHETOUV ENTIER CROCHETFERM 
             		| nom_variable
@@ -355,6 +363,7 @@ int main(void) {
 #endif
 
     (*result)->print();
+    delete (*result);
     return 0;
 }
 

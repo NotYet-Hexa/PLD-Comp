@@ -1,12 +1,13 @@
 /*************************************************************************
+/*************************************************************************
 PLD Comp
-Brique.cpp  -  Description
+ArgsAppel.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Brique (fichier Brique.cpp) --
+//---------- Réalisation de la classe ArgsAppel (fichier ArgsAppel.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +17,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Brique.h"
-
+#include "ArgsAppel.h"
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
@@ -27,17 +27,33 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+void ArgsAppel::print()
+{
+    cout << "ArgumentAppel : "<<endl;
+    if(!args.empty())
+    {
+        for(vector<Expression*>::iterator it = args.begin(); it != args.end(); it++)
+        {
+            (*it)->print();
+        }
+    }
+    else 
+    {
+        cout<<"empty"<<endl;
+    }
+}
 
-
+void ArgsAppel::add(Expression* expression)
+{
+    args.push_back(expression);
+}
 
 //----- Constructeur
-Brique::Brique()
+ArgsAppel::ArgsAppel()
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Brique::~Brique()
-{
-    cout << "destructeur de Brique" << endl;
-}// Bloc vide
+ArgsAppel::~ArgsAppel()
+{}// Bloc vide
 //----- Fin destructeur

@@ -13,9 +13,10 @@ using namespace std;
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
+#include "AppelFonction.h"
 #include "Instruction.h"
 #include "Return.h"
-
+#include "AffectationDeclaration.h"
 
 #include "Declaration.h"
 #include "DeclarationFonction.h"

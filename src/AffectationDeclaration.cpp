@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Brique.cpp  -  Description
+AffectationDeclaratino.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Brique (fichier Brique.cpp) --
+//---------- Réalisation de la classe AffectationDeclaratino (fichier AffectationDeclaratino.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Brique.h"
+
+
+#include "AffectationDeclaration.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -28,16 +30,20 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-
+void AffectationDeclaration::print()
+{
+    cout << "AffectationDeclaration :" << endl;
+    expression->print();
+}
 
 //----- Constructeur
-Brique::Brique()
+AffectationDeclaration::AffectationDeclaration( Expression* monExpression): expression(monExpression)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Brique::~Brique()
+AffectationDeclaration::~AffectationDeclaration()
 {
-    cout << "destructeur de Brique" << endl;
-}// Bloc vide
+
+}
 //----- Fin destructeur
