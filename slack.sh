@@ -11,7 +11,7 @@ else
     color="#ff0000"
     commit_info=`git log -1 --pretty=format:"*%cn* : _%s_ <https://github.com/NotYet-Hexa/PLD-Comp/commit/%h|#%h>" 2>/dev/null`
     title="Build Failed !"
-    text=`make | tail`
+    text=`make 2>&1 | tail`
     json='{'
     json+='"text": "'$commit_info'",'
     json+='"attachments": ['
