@@ -265,8 +265,8 @@ retour_fonction     	: RETURN expression             { $$ = new Return($2); }
 
 
 expression          : ENTIER                            { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
-                    | NOM                               { $$ = new ExpressionVariable($1); }
-                    | CHAR                              { $$ = new ExpressionChar($1); }
+                    | NOM                               { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
+                    | CHAR                              { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
                     | appel_fonction                     { $$ = $1; }        
                     | expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
                     | expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
