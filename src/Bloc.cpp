@@ -47,3 +47,5 @@ Bloc::~Bloc()
     //delete instruction;
 }// Bloc vide
 //----- Fin destructeur
+
+ListInstruction* Bloc::getListInstruction() { return listInstruction; }

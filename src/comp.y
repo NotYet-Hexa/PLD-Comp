@@ -36,7 +36,7 @@ using namespace std;
 //AJOUT
 #include "Contexte.h"
 
-
+#include "PreIR.cpp"
 
 void yyerror(Programme**, const char*);
 int yylex(void);
@@ -355,6 +355,7 @@ int main(void) {
 #endif
 
     (*result)->print();
+    launchPreIR(*result);
     return 0;
 }
 

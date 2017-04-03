@@ -56,3 +56,5 @@ string DefFonction::getNomFonction() { return this->nomFonction; }
 Bloc* DefFonction::getBloc(){ return this->bloc; }
 
 ArgsDef* DefFonction::getArgs(){ return this->args; }
+
+string DefFonction::typeClass() { return "DefFonction";}
