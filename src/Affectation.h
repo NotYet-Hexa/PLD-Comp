@@ -13,7 +13,6 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //--------------------------------------------------- Interfaces utilisées
 
-#include "toto.h"
 #include "Expression.h"
 
 //------------------------------------------------------------------------
