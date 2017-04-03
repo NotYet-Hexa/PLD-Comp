@@ -329,6 +329,8 @@ void yyerror(Programme** pgm, const char * msg) {
 
 int main(void) {
     Programme** result = new Programme* ;
+
+
 #ifndef DEBUG
     string filename = "log.txt";
     std::ofstream output(filename.c_str());
@@ -344,8 +346,9 @@ int main(void) {
 #endif
 
     (*result)->print();
+    PreIR preIR;
+    preIR.launchPreIR(*result);
     delete (*result);
-
     return 0;
 }
 
