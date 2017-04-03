@@ -76,22 +76,29 @@ Contexte* Contexte::getParent()
 
 int Contexte::ajouterVariable(string nomVariable,string typeVariable)
 {
-    if(chercherVariable(nomVariable))
-    {
-        return -1; // Erreur
-    }
+    MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
+    if (iterateurContexte == this->tableDesSymboles.end())
+        return -1; // Le Contexte n'existe pas
     else
     {
-        MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
-        MapVariable* tableVariables = iterateurContexte->second;
-        pair<string,string> variable (nomVariable,typeVariable);
-        tableVariables->insert(variable);
-        return 0; // Succes
+        MapVariable* tableVariable = iterateurContexte->second;
+        MapVariable::const_iterator iterateurVariable = tableVariable->find(nomVariable);
+        if(iterateurVariable == tableVariable->end())
+        {
+            // La variable n'existe pas dans le contexte - Insertion possible
+            pair<string,string> variable (nomVariable,typeVariable);
+            tableVariable->insert(variable);
+            return 0; // Succes
+        }
+        else
+            return -2; // La Variable Existe deja dans le contexte
     }
-    
 }
 bool Contexte::chercherVariable(string nomVariable)
 {
+    cout << "Var a trouver : " << endl;
+    cout << nomVariable << endl;
+    cout << this->getNomContexte() << endl;
     MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
     if (iterateurContexte == this->tableDesSymboles.end())
         return false; // Le Contexte n'existe pas
@@ -102,7 +109,12 @@ bool Contexte::chercherVariable(string nomVariable)
         if(iterateurVariable == tableVariable->end())
         {
             if(this->parent != nullptr)
-                this->chercherVariable(nomVariable);
+            {
+                if(this->parent->chercherVariable(nomVariable))
+                    return true; // Recursion Trouvee
+                else
+                    return false; // Recursion Non Trouvee
+            }
             else
                 return false; // La variable n'existe pas dans le contexte
         }
@@ -140,3 +152,37 @@ void Contexte::test_AfficherTableDesSymboles()
     }
         
 }
+
+/* Debug 
+
+Contexte* contexte1 = new Contexte("Programme");
+    Contexte* contexte2 = new Contexte("DefFunction");
+    Contexte* contexte3 = new Contexte("Bloc");
+    contexte2->ajouterParent(contexte1);
+    contexte3->ajouterParent(contexte2);
+
+    contexte1->ajouterVariable("a","int");
+    contexte1->ajouterVariable("b","char");
+
+    cout << "Variable Ajoutee A,B" << endl;
+
+    contexte2->ajouterVariable("b","int");
+    contexte2->ajouterVariable("c","int");
+
+    if(contexte1->chercherVariable("a"))
+        cout << "a Contexte 1 Trouvee" << endl;
+    else
+        cout << "a Contexte 1 Non Trouvee" << endl;
+
+     if(contexte3->chercherVariable("a"))
+        cout << "a Contexte 3 Recursive Trouvee" << endl;
+    else
+        cout << "a Contexte 3 Recursive Non Trouvee" << endl;
+
+    Contexte::test_AfficherTableDesSymboles();   
+    delete(contexte1);
+    delete(contexte2);
+    delete(contexte3);
+    cout << "Contexte Suprime" << endl;
+
+*/
