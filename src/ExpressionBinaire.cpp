@@ -27,6 +27,14 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+list<string> ExpressionBinaire::listeNomLValue()
+{
+    std::list<string> list = gauche->listeNomLValue();
+    list.merge(droite->listeNomLValue());
+    return list;
+}
+
 void ExpressionBinaire::print()
 {
     gauche->print();

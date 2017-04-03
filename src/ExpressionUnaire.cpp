@@ -28,6 +28,13 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+std::list<string> ExpressionUnaire::listeNomLValue()
+{
+    std::list<string> list = expression->listeNomLValue();
+    return list;
+}
+
 void ExpressionUnaire::print()
 {
     expression->print();

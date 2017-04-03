@@ -27,6 +27,12 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+std::list<string> ExpressionEntier::listeNomLValue()
+{
+    std::list<string> list;
+    return list;
+}
+
 void ExpressionEntier::print()
 {
     cout << valeur << endl;

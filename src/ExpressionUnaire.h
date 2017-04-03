@@ -28,6 +28,7 @@ using namespace std;
 class ExpressionUnaire : public Expression{
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionUnaire(Expression* exp, string symb);
         ~ExpressionUnaire();
 

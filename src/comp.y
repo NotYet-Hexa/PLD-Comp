@@ -2,6 +2,7 @@
 
 using namespace std;
 
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -72,6 +73,8 @@ int yylex(void);
     Bloc * bloc;
     Programme* program;
 }
+
+%error-verbose
 
 %token <ival> ENTIER
 %token <charactere> CHAR
@@ -280,7 +283,7 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     | expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
                     | expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
                     | expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
-                    | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); }
+                    | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); cout <<"lvalue = expression" << endl; }
         			| l_value PLUSEGAL expression        { $$ = new Affectation($1, "+=", $3); }
           			| l_value MOINSEGAL expression       { $$ = new Affectation($1, "-=", $3); }
         			| l_value DIVEGAL expression         { $$ = new Affectation($1, "/=", $3); }

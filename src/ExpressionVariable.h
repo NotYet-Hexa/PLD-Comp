@@ -29,6 +29,7 @@ using namespace std;
 class ExpressionVariable : public Expression{
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionVariable(string nom);
         ~ExpressionVariable();
 

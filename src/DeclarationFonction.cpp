@@ -43,6 +43,7 @@ string DeclarationFonction::getNomFonction()
 //----- Constructeur
 DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
 {
+		this->isContexte = false;
 }
 //-----Bloc vide
 //----- Fin constructeur

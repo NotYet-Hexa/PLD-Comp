@@ -23,14 +23,24 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+enum TypeInstruction
+{
+    TIexpression,
+    TIbloc,
+    TIretourFonction,
+    TIdeclaration
+};
+
+
 class InstructionVraie{
     public:
+        TypeInstruction getTypeInstruction();
         virtual void print() = 0;
         InstructionVraie();
         ~InstructionVraie();
 
-    private:
-
+    protected:
+        TypeInstruction typeInstruction;
 };
 
 #endif // if ! defined INSTRUCTIONVRAIE_H

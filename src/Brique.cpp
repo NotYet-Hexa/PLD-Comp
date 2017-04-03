@@ -28,6 +28,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+bool Brique::getIsContexte()
+{
+    return isContexte;
+}
 
 
 //----- Constructeur

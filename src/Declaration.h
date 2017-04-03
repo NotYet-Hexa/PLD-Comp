@@ -28,6 +28,7 @@ using namespace std;
 class Declaration : public InstructionVraie {
     public:
         void print();
+        std::string getNom();
         Declaration(string type, string nom, bool isTab, int size);
         ~Declaration();
 

@@ -16,7 +16,7 @@ copyright            : (C)2017 par H4114
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "const.h"
+// #include "const.h"
 #include "Programme.h"
 
 //---------------------------------------------------- Variables de classe
@@ -32,13 +32,13 @@ void Programme::print()
 {
     cout << "Debut du programme" << endl;
 
-    nbTab++;
+    // nbTab++;
     this->brique->print();
     for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
     {
         (*it)->print();
     }
-    nbTab--;
+    // nbTab--;
     cout << "Fin du programme" << endl;
 }
 

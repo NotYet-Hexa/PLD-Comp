@@ -28,9 +28,16 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+string Declaration::getNom()
+{
+	return this->nom;
+}
+
 //----- Constructeur
 Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
-{}// Bloc vide
+{
+	this->typeInstruction=TIdeclaration;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
