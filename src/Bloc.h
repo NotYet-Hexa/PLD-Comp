@@ -25,13 +25,15 @@ copyright            : (C)2015 par Haim Nathan
 //------------------------------------------------------------------------
 
 class InstructionVraie;
-
+enum TypeClass{ bloc=0 };
 class Bloc : public InstructionVraie{
     public:
+		TypeClass WhatIsThisType();
         void print();
         Bloc(ListInstruction* maListInstruction);
         ~Bloc();
-
+		
+		
     private:
     ListInstruction* listInstruction;
 

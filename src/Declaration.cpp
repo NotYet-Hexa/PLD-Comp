@@ -38,6 +38,8 @@ Declaration::~Declaration()
 {}// Bloc vide
 //----- Fin destructeur
 
+TypeClass Declaration::WhatIsThisType() { return TypeClass::declaration; }
+
 void Declaration::print()
 {
 	cout << "Declaration : type ->" << type << "  |  nom -> " << nom;

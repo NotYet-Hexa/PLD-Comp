@@ -36,6 +36,8 @@ void Return::print()
     expression->print();
 }
 
+TypeClass Return::WhatIsThisType() { return TypeClass::retour; }
+
 //----- Constructeur
 Return::Return(Expression* monExpression): expression(monExpression)
 {}// Bloc vide

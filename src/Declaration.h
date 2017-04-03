@@ -24,13 +24,13 @@ using namespace std;
 //
 
 //------------------------------------------------------------------------
-
+enum TypeClass{ declaration=1 };
 class Declaration : public InstructionVraie {
     public:
         void print();
         Declaration(string type, string nom, bool isTab, int size);
         ~Declaration();
-
+		TypeClass WhatIsThisType();
     private:
         string type;
         string nom;

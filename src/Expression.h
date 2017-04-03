@@ -22,9 +22,10 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-
+enum TypeClass { expression = 3 };
 class Expression: public InstructionVraie{
     public:
+		TypeClass WhatIsThisType();
         virtual void print();
         Expression();
         ~Expression();

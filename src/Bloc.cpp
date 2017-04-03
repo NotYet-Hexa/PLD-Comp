@@ -40,7 +40,7 @@ void Bloc::print()
 Bloc::Bloc(ListInstruction* maListInstruction): listInstruction(maListInstruction)
 {}// Bloc vide
 //----- Fin constructeur
-
+TypeClass Bloc::WhatIsThisType() { return TypeClass::bloc; }
 //----- Destructeur
 Bloc::~Bloc()
 {

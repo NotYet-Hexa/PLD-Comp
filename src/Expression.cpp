@@ -31,6 +31,9 @@ void Expression::print()
 {
     cout << "salut" << endl;
 }
+
+TypeClass Expression::WhatIsThisType() { return TypeClass::expression; }
+
 //----- Constructeur
 Expression::Expression()
 {}// Bloc vide
