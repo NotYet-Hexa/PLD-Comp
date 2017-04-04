@@ -31,6 +31,14 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void ListInstruction::checkContexte(Contexte* contexteCourant )
+{
+    for(std::vector<Instruction*>::iterator it = listInstruction.begin() ; it != listInstruction.end() ; it++)
+    {
+    	(*it)->checkContexte(contexteCourant);
+    }
+}
+
 void ListInstruction::print()
 {
     cout << "ListInstruction :" << endl;

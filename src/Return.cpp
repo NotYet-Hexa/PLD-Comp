@@ -30,10 +30,15 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+list<string> Return::listeNomLValue()
+{
+    return this->expression->listeNomLValue();
+}
+
 void Return::print()
 {
     cout << "Return :" << endl;
-    expression->print();
+    this->expression->print();
 }
 
 //----- Constructeur

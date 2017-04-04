@@ -23,15 +23,25 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+enum TypeBrique
+{
+    TBdefFonction,
+    TBdecFonction,
+    TBdec
+};
+
 class Brique{
+
+
+
     public:
         virtual void print() = 0;
-        bool getIsContexte();
+        TypeBrique getTypeBrique();
         Brique();
         ~Brique();
 
     protected:
-        bool isContexte;
+        TypeBrique typeBrique;
 
 };
 

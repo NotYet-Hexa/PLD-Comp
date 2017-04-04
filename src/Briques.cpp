@@ -17,6 +17,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Briques.h"
+#include "DefFonction.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -28,7 +29,24 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void Briques::checkContexte(Contexte* programme)
+{
+    for(std::vector<Brique*>::iterator it = vectorBrique.begin(); it != vectorBrique.end(); ++it)
+    {
+        if((*it)->getTypeBrique() == TBdefFonction)
+        {
 
+            ((DefFonction * )(*it))->ajouterParent(programme);
+            ((DefFonction * )(*it))->checkContexte();
+        }
+        if((*it)->getTypeBrique() == TBdec)
+        {
+           programme->ajouterVariable( ((DeclarationGlobal * )(*it))->getNom() , "int64_t" );
+
+           
+        }
+    }
+}
 
 Briques::Briques()
 {

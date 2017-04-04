@@ -1,0 +1,1 @@
+ char c; int32_t main(char b){ int32_t a; c=b+a; }

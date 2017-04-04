@@ -32,6 +32,7 @@ using namespace std;
 class DefFonction : public Contexte, public Brique {
     public:
         void print();
+        void checkContexte();
         DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction);
         ~DefFonction();
         string getNomFonction();

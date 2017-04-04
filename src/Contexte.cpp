@@ -96,9 +96,6 @@ int Contexte::ajouterVariable(string nomVariable,string typeVariable)
 }
 bool Contexte::chercherVariable(string nomVariable)
 {
-    cout << "Var a trouver : " << endl;
-    cout << nomVariable << endl;
-    cout << this->getNomContexte() << endl;
     MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
     if (iterateurContexte == this->tableDesSymboles.end())
         return false; // Le Contexte n'existe pas
