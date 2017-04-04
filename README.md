@@ -1,6 +1,7 @@
 # Makefile
 
 [![Build Status](https://travis-ci.org/NotYet-Hexa/PLD-Comp.svg?branch=master)](https://travis-ci.org/NotYet-Hexa/PLD-Comp)
+[![Coverage Status](https://coveralls.io/repos/github/NotYet-Hexa/PLD-Comp/badge.svg?branch=master)](https://coveralls.io/github/NotYet-Hexa/PLD-Comp?branch=master)
 
 ## Compilation
 
