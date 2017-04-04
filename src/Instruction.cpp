@@ -42,7 +42,7 @@ void Instruction::checkContexte(Contexte* contexteCourant )
 {
 
 
-    if (instruction->getTypeInstruction() == TIdeclaration )
+    if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIdeclaration )
     {
         contexteCourant->ajouterVariable( ((Declaration * )(instruction))->getNom() , "int64_t" );
         if(!contexteCourant->chercherVariable( ((Declaration * )(instruction))->getNom()))
@@ -50,7 +50,7 @@ void Instruction::checkContexte(Contexte* contexteCourant )
     }
 
 
-    if (instruction->getTypeInstruction() == TIexpression )
+    if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIexpression )
     {
         list<string> listLValueUtilisees = ((Expression * )(instruction))->listeNomLValue();
 
@@ -65,7 +65,7 @@ void Instruction::checkContexte(Contexte* contexteCourant )
     }
 
 
-    if (instruction->getTypeInstruction() == TIretourFonction )
+    if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIretourFonction )
     {
         list<string> listLValueUtilisees = ((Return * )(instruction))->listeNomLValue();
 
@@ -80,7 +80,7 @@ void Instruction::checkContexte(Contexte* contexteCourant )
     }
 
 
-    if (instruction->getTypeInstruction() == TIbloc )
+    if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIbloc )
     {
          ((Bloc * )(instruction))->checkContexte(contexteCourant);
 

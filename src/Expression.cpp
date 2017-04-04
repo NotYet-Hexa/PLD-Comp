@@ -39,7 +39,7 @@ void Expression::print()
 //----- Constructeur
 Expression::Expression()
 {
-    this->typeInstruction = InstructionVraie::TIexpression;
+    this->typeInstruction = TypeInstruction::TIexpression;
 }// Bloc vide
 //----- Fin constructeur
 
