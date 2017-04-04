@@ -17,7 +17,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 // #include "const.h"
-#include "Programme.h"
+#include "Programme.h" 
 
 //---------------------------------------------------- Variables de classe
 
@@ -31,15 +31,14 @@ using namespace std;
 void Programme::print()
 {
     cout << "Debut du programme" << endl;
-
-    // nbTab++;
-    this->brique->print();
-    for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
-    {
-        (*it)->print();
-    }
-    // nbTab--;
+    this->briques->print();
     cout << "Fin du programme" << endl;
+}
+
+void Programme::checkContexte()
+{
+    cout << "Verification de variable " << endl; 
+   // a faire plus bas dans brique
 }
 
 //----- Constructeur
@@ -48,37 +47,24 @@ Programme::Programme():Contexte("Programme")
 //----- Fin constructeur
 
 //----- Constructeur
-Programme::Programme(vector <Contexte*> listeDeContexte,Briques* brique):Contexte("Programme")
+Programme::Programme(Briques* briques):Contexte("Programme")
 {
-    this->listeDeContexte = listeDeContexte;
-    this->brique = brique;
-    // Ajout du Parent //
-    for (std::vector<Contexte*>::iterator it = listeDeContexte.begin() ; it != listeDeContexte.end(); ++it)
-    {
-        (*it)->ajouterParent(this); 
-    }
+    this->briques = briques;
 }
 //----- Fin constructeur
 
 //----- Destructeur
 Programme::~Programme()
 {
-    // cout << "destructeur de Programme" << endl;
-     delete this->brique ;
-    // for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
-    // {
-    //     delete (*it);
-    // }
+     delete this->briques ;
+   
 }// Bloc vide
 //----- Fin destructeur
 
 
-vector <Contexte*> Programme::getListeDeContexte()
-{
-    return this->listeDeContexte;
-}
+
 
 Briques* Programme::getBriques()
 {
-    return this->brique;
+    return this->briques;
 }

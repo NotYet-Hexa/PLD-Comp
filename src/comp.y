@@ -157,7 +157,7 @@ int yylex(void);
 axiome              :programme      {  *result = $1;  }  
                     ;
 
-programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); } 
+programme		    : liste         { $$ = new Programme($1); } 
 			        ;
 
 liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); /*checked*/} 
