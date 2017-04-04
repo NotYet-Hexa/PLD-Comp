@@ -32,6 +32,10 @@ class Affectation : public Expression {
         Affectation(string nomVariable, string symbole, Expression* monExpression);
         ~Affectation();
 
+        Expression* get_expression();
+        string get_nom_variable();
+        string get_symbole();
+
     private:
         string nomVariable;
         string symbole;

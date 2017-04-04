@@ -43,7 +43,7 @@ string DeclarationFonction::getNomFonction()
 //----- Constructeur
 DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
 {
-		this->isContexte = false;
+		this->typeBrique = TBdecFonction;
 }
 //-----Bloc vide
 //----- Fin constructeur

@@ -11,6 +11,10 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 #define ARGSDEF_H
 
 #include <vector>
+#include <list>
+#include <string>
+
+
 //--------------------------------------------------- Interfaces utilisées
 #include "Declaration.h"
 
@@ -28,6 +32,7 @@ class ArgsDef{
     public:
         ArgsDef();
         ~ArgsDef();
+        std::list<string> getListNomParam();
         void add(Declaration* declaration);
         void print();
 

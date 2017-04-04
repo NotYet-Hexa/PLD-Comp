@@ -27,6 +27,18 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+list<string> ArgsDef::getListNomParam()
+{
+    list<string> listNomParam;
+    for(vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+        {
+            listNomParam.push_back((*it)->getNom());
+        }
+    return listNomParam;
+}
+
+
 void ArgsDef::print()
 {
     cout << "ArgumentDef : "<<endl;

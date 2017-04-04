@@ -14,6 +14,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //--------------------------------------------------- Interfaces utilisées
 
 #include "InstructionVraie.h"
+#include "Contexte.h"
 
 //------------------------------------------------------------------------
 
@@ -29,6 +30,7 @@ class Instruction{
     public:
         Instruction();
         void print();
+        void checkContexte(Contexte* contexteCourant );
         Instruction(InstructionVraie* monInstruction);
         ~Instruction();
         InstructionVraie* getInstructionVraie();

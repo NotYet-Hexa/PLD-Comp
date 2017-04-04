@@ -29,6 +29,12 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void Bloc::checkContexte(Contexte* contexteParent)
+{
+    this->ajouterParent(contexteParent);
+    listInstruction->checkContexte(this);
+}
+
 void Bloc::print()
 {
     cout << "Bloc :" << endl;
@@ -37,7 +43,7 @@ void Bloc::print()
 }
 
 //----- Constructeur
-Bloc::Bloc(ListInstruction* maListInstruction): listInstruction(maListInstruction)
+Bloc::Bloc(ListInstruction* maListInstruction):Contexte("Bloc"),  listInstruction(maListInstruction)
 {
     this->typeInstruction = InstructionVraie::TIbloc;
 }// Bloc vide
