@@ -50,5 +50,8 @@ DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomF
 
 //----- Destructeur
 DeclarationFonction::~DeclarationFonction()
-{}// Bloc vide
+{
+	//delete this->argsDef;
+
+}// Bloc vide
 //----- Fin destructeur

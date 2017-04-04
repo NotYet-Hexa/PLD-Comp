@@ -56,7 +56,10 @@ DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonct
 
 //----- Destructeur
 DefFonction::~DefFonction()
-{}// Bloc vide
+{
+	/*delete this->bloc;
+	delete this->args;*/
+}// Bloc vide
 //----- Fin destructeur
 
 void DefFonction::print()

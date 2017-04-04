@@ -8,6 +8,7 @@ copyright            : (C)2015 par Haim Nathan
 
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -52,7 +53,13 @@ PreIR::PreIR()
 
 PreIR::~PreIR()
 {
-
+	//for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
+	//{
+	/*	delete *it;
+	}
+	listCFG.clear();*/
+	//delete this->current_cfg;
+	//delete this->current_bb;
 }
 
 

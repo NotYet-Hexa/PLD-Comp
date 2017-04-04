@@ -70,6 +70,8 @@ Cond::Cond(Expression* monExpression,Instruction* monInstruction, CondSuite* maC
 //----- Destructeur
 Cond::~Cond()
 {
-
+	/*delete this->expression;
+	delete this->instruction;
+	delete this->condSuite;*/
 }
 //----- Fin destructeur

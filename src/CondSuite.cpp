@@ -56,6 +56,6 @@ CondSuite::CondSuite(bool monVide, Instruction* monInstruction): instruction(mon
 //----- Destructeur
 CondSuite::~CondSuite()
 {
-
+	//delete this->instruction;
 }
 //----- Fin destructeur

@@ -52,7 +52,7 @@ Bloc::Bloc(ListInstruction* maListInstruction):Contexte("Bloc"),  listInstructio
 //----- Destructeur
 Bloc::~Bloc()
 {
-    //delete instruction;
+	delete this->listInstruction;
 }// Bloc vide
 //----- Fin destructeur
 

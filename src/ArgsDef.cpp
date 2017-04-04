@@ -12,6 +12,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -67,5 +68,11 @@ ArgsDef::ArgsDef()
 
 //----- Destructeur
 ArgsDef::~ArgsDef()
-{}// Bloc vide
+{
+	for (vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+	{
+		delete *it;
+	}
+	args.clear();
+}// Bloc vide
 //----- Fin destructeur
