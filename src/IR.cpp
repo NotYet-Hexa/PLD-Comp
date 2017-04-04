@@ -118,8 +118,9 @@ string CFG::new_BB_name()
 string CFG::create_new_tempvar(Type t)
 {
     add_to_symbol_table("t"+to_string(nbTVar),t);
-    return "t"+to_string(nbTVar);
     nbTVar++;
+    return "t"+to_string(nbTVar);
+
 }
 
 void CFG::gen_asm(ostream& o)
