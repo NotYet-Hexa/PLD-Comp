@@ -53,13 +53,13 @@ PreIR::PreIR()
 
 PreIR::~PreIR()
 {
-	//for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
-	//{
-	/*	delete *it;
+	for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
+	{
+		delete *it;
 	}
-	listCFG.clear();*/
-	//delete this->current_cfg;
-	//delete this->current_bb;
+	listCFG.clear();
+	delete this->current_cfg;
+	delete this->current_bb;
 }
 
 

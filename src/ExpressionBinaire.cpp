@@ -59,7 +59,7 @@ ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
 //----- Destructeur
 ExpressionBinaire::~ExpressionBinaire()
 {
-	/*delete this->gauche;
-	delete this->droite;*/
+	delete this->gauche;
+	delete this->droite;
 }// Bloc vide
 //----- Fin destructeur
