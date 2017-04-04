@@ -28,6 +28,7 @@ using namespace std;
 class ExpressionBinaire : public Expression {
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionBinaire(Expression* g, Expression* d, string symb);
         ~ExpressionBinaire();
 

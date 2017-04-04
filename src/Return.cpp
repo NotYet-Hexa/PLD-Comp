@@ -38,7 +38,9 @@ void Return::print()
 
 //----- Constructeur
 Return::Return(Expression* monExpression): expression(monExpression)
-{}// Bloc vide
+{
+    //this->typeInstruction = TIretourFonction;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

@@ -20,6 +20,8 @@ using namespace std;
 #include "AffectationUnaire.h"
 
 
+
+
 #include "Declaration.h"
 #include "DeclarationFonction.h"
 #include "DefFonction.h"
@@ -45,7 +47,7 @@ using namespace std;
 %option noyywrap
 
 entier [0-9]+
-charactere \"(\\.|[^\\"])\"
+charactere '(\\.|[^\\"])'
 chaine \"(\\.|[^\\"])*\"
 nom [a-zA-Z_]+
 
@@ -55,6 +57,7 @@ nom [a-zA-Z_]+
 [ \n\t]             { /* ignore */ }
 "/*"(.|\n|\r)*"*/"  { /* ignore */ }
 "//".*$ 	        { /* ignore */ }
+"#".*$              { /* ignore */ }
 
 {entier}            { yylval.ival = atoi(yytext); return ENTIER; }
 
@@ -67,8 +70,6 @@ nom [a-zA-Z_]+
 "if"                  { return IF; }
 "else"                { return ELSE; }
 "return"              { return RETURN; }
-"putchar"             { return PUTCHAR; }
-"getchar"             { return GETCHAR; }
 
 {charactere}        { yylval.charactere = yytext[1]; return CHAR; }
 {chaine}            { yylval.chaine = strdup(yytext); return CHAINE; }

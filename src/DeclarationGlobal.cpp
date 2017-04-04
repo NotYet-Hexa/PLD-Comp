@@ -30,7 +30,9 @@ using namespace std;
 
 //----- Constructeur
 DeclarationGlobal::DeclarationGlobal(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
-{}// Bloc vide
+{
+	this->isContexte = false;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

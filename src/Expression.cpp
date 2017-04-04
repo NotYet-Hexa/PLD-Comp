@@ -33,7 +33,9 @@ void Expression::print()
 }
 //----- Constructeur
 Expression::Expression()
-{}// Bloc vide
+{
+    //this->typeInstruction = TIexpression;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

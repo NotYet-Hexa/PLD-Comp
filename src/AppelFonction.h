@@ -31,6 +31,7 @@ class AppelFonction : public Expression
 {
     public:
         void print();
+        std::list<string> listeNomLValue();
         AppelFonction(string nom_fonction, ArgsAppel* args);
         ~AppelFonction();
         string getNomFonction();

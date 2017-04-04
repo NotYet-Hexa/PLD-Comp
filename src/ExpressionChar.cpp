@@ -28,8 +28,16 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+std::list<string> ExpressionChar::listeNomLValue()
+{
+    std::list<string> list;
+    return list;
+}
+
 void ExpressionChar::print()
 {
+    cout << "char : ";  
     cout << valeur << endl;
 }
 //----- Constructeur

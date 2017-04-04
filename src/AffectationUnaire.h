@@ -29,6 +29,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class AffectationUnaire: public Expression {
     public:
         void print();
+        std::list<string> listeNomLValue();
         AffectationUnaire(string nomVariable, string symbole);
         ~AffectationUnaire();
 

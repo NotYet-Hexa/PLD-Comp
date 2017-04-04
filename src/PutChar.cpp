@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Entier.cpp  -  Description
+PutChar.cpp  -  Description
 -------------------
 début                : 27/03/2017
 copyright            : (C)2017
 *************************************************************************/
 
-//---------- Réalisation de la classe Entier (fichier Entier.cpp) --
+//---------- Réalisation de la classe PutChar (fichier PutChar.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ copyright            : (C)2017
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Entier.h"
+#include "PutChar.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,16 +27,37 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Entier::print()
+void PutChar::print()
 {
-    
+    cout << "PutChar : " << theChar << endl; 
 }
 //----- Constructeur
-Entier::Entier()
+PutChar::PutChar(char monChar) : theChar(monChar)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Entier::~Entier()
+PutChar::~PutChar()
 {}// Bloc vide
 //----- Fin destructeur
+
+
+/*
+lecture_ecriture	: GETCHAR PARENTOUV nom_variable PARENTFERM     
+			        | PUTCHAR PARENTOUV CHAR PARENTFERM             { $$ = new PutChar($3); }
+			        ;
+
+
+%type<instructionVraie> lecture_ecriture
+
+
+    InstructionVraie * instructionVraie;
+
+
+#include "PutChar.h"
+
+
+"putchar"             { return PUTCHAR; }
+"getchar"             { return GETCHAR; }
+
+*/

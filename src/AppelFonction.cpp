@@ -27,6 +27,13 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+list<string> AppelFonction::listeNomLValue()
+{
+	list<string> list;
+	return list;
+}
+
 void AppelFonction::print()
 {
 	cout<<"Debut d'appel de Fonction"<<endl;

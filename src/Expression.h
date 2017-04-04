@@ -13,6 +13,8 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //--------------------------------------------------- Interfaces utilisées
 # include "InstructionVraie.h"
+#include <list>
+#include <string>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -28,6 +30,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class Expression: public InstructionVraie{
     public:
         virtual void print();
+        virtual std::list<string> listeNomLValue()=0;
         Expression();
         ~Expression();
         virtual InstructionVraieClass typeClass();

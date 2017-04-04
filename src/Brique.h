@@ -30,10 +30,12 @@ class Brique{
     public:
         virtual void print() = 0;
         virtual typeClassBrique typeClass();
+        bool getIsContexte();
         Brique();
         ~Brique();
 
-    private:
+    protected:
+        bool isContexte;
 
 };
 

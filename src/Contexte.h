@@ -36,6 +36,7 @@ class Contexte{
         bool chercherVariable(string nomVariable);
         void ajouterParent(Contexte*);
         string getNomContexte();
+        Contexte* getParent();
         static void test_AfficherTableDesSymboles();
         
 

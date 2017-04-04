@@ -28,14 +28,13 @@ class Briques;
 class Programme : public Contexte {
     public:
         void print();
+        void checkContexte(); 
         Programme();
-        Programme(std::vector <Contexte*> listeDeContexte, Briques* briques);
+        Programme( Briques* briques);
         ~Programme();
-        std::vector <Contexte*> getListeDeContexte();
         Briques* getBriques();
     private:
-        std::vector <Contexte*> listeDeContexte;
-        Briques* brique;
+        Briques* briques;
 };
 
 #endif // if ! defined PROGRAMME_H

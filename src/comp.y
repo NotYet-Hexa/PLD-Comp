@@ -2,6 +2,7 @@
 
 using namespace std;
 
+#include <stdio.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,7 +20,7 @@ using namespace std;
 #include "Instruction.h"
 #include "Return.h"
 #include "Affectation.h"
-#include "Affectationunaire.h"
+#include "AffectationUnaire.h"
 
 #include "Declaration.h"
 #include "DeclarationGlobal.h"
@@ -72,6 +73,8 @@ int yylex(void);
     Bloc * bloc;
     Programme* program;
 }
+
+%error-verbose
 
 %token <ival> ENTIER
 %token <charactere> CHAR
@@ -127,9 +130,6 @@ int yylex(void);
 %type<ival> fin_cond
 %type<ival> for_loop
 %type<ival> while_loop
-%type<ival> lecture_ecriture
-%type<ival> suite_lecture
-%type<ival> suite_ecriture
 
 
 
@@ -155,7 +155,7 @@ int yylex(void);
 axiome              :programme      {  *result = $1;  }  
                     ;
 
-programme		    : liste         { $$ = new Programme(vector<Contexte*>(),$1); } 
+programme		    : liste         { $$ = new Programme($1); } 
 			        ;
 
 liste			    : definition_de_fonction                        { $$ = new Briques(); $$->add($1); /*checked*/} 
@@ -251,8 +251,7 @@ instruction         : expression POINTVIRGULE               { $$ = new Instructi
         			| cond 
           			| retour_fonction POINTVIRGULE          { $$ = new Instruction($1); }
 		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
-                    | lecture_ecriture POINTVIRGULE
-		            ;
+                    ;
 
 
 
@@ -282,7 +281,7 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     | expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
                     | expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
                     | expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
-                    | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); }
+                    | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); cout <<"lvalue = expression" << endl; }
         			| l_value PLUSEGAL expression        { $$ = new Affectation($1, "+=", $3); }
           			| l_value MOINSEGAL expression       { $$ = new Affectation($1, "-=", $3); }
         			| l_value DIVEGAL expression         { $$ = new Affectation($1, "/=", $3); }
@@ -299,31 +298,20 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     ;
 
 
-appel_fonction          : nom PARENTOUV args_appel_fonction PARENTFERM { $$ = new AppelFonction( $1, $3); }
-        			    ;
+appel_fonction      : nom PARENTOUV args_appel_fonction PARENTFERM { $$ = new AppelFonction( $1, $3); }
+                    ;
 
 
-args_appel_fonction 	: args_appel_fonction VIRGULE expression        { $$ = $1 ; $$->add($3); }
-                    	| expression                                    { $$ = new ArgsAppel(); $$->add($1); }
-                        |                                               { $$ = new ArgsAppel(); } 
-                        ;
+args_appel_fonction : args_appel_fonction VIRGULE expression        { $$ = $1 ; $$->add($3); }
+                    | expression                                    { $$ = new ArgsAppel(); $$->add($1); }
+                    |                                               { $$ = new ArgsAppel(); } 
+                    ;
 
 l_value             : nom_variable          { $$ = $1; }
                     ;
 
 
-lecture_ecriture	: GETCHAR suite_lecture
-			        | PUTCHAR suite_ecriture
-			        ;
 
-
-
-suite_ecriture		: PARENTOUV NOM PARENTFERM
-			        | PARENTOUV CHAR PARENTFERM
-				    ;
-
-suite_lecture		: PARENTOUV NOM PARENTFERM
-				    ;
 
 nom_variable        : NOM               { $$ = $1; }  // gérer les tableau
         			;
@@ -339,22 +327,17 @@ void yyerror(Programme** pgm, const char * msg) {
 
 int main(void) {
     Programme** result = new Programme* ;
-
-
 #ifndef DEBUG
     string filename = "log.txt";
     std::ofstream output(filename.c_str());
     std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
     std::cout.rdbuf(output.rdbuf()); //redirect std::cout to log.txt!
 #endif
-
     // les cout de yyparse sont jeté à la corbeille
     yyparse(result);
-
 #ifndef DEBUG
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
-
     (*result)->print();
     PreIR preIR;
     preIR.launchPreIR(*result);
