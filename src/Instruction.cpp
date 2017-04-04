@@ -26,6 +26,7 @@ using namespace std;
 #include "Return.h"
 #include "Bloc.h"
 #include "Cond.h"
+#include "LoopStatement.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -92,6 +93,12 @@ void Instruction::checkContexte(Contexte* contexteCourant )
 
     }
     
+
+    if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIloop )
+    {
+         ((LoopStatement * )(instruction))->checkContexte(contexteCourant);
+
+    }
 }
 
 void Instruction::print()

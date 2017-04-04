@@ -30,6 +30,7 @@ using namespace std;
 
 #include "Cond.h"
 #include "CondSuite.h"
+#include "LoopStatement.h"
 
 #include "ArgsDef.h"
 #include "ArgsAppel.h"
@@ -60,6 +61,7 @@ int yylex(void);
     Instruction * instruction;
     Cond * cond;
     CondSuite * condSuite;
+    LoopStatement * loop;
 
     char* chaine;
 
@@ -125,7 +127,7 @@ int yylex(void);
 %type<chaine> type
 
 %type<declaration> parametre
-%type<ival> loop_statement
+%type<loop> loop_statement
 %type<cond> cond 
 %type<retour_fonction> retour_fonction
 %type<chaine> nom_variable
@@ -134,8 +136,7 @@ int yylex(void);
 %type<expression> appel_fonction
 %type<argsAppel> args_appel_fonction
 %type<condSuite> fin_cond
-%type<ival> for_loop
-%type<ival> while_loop
+
 
 
 
@@ -239,23 +240,17 @@ fin_cond           		: ELSE instruction                                         
                 		;                                                               
 
 
-loop_statement      	: while_loop 
-            			| for_loop
+loop_statement      	: WHILE PARENTOUV expression PARENTFERM instruction                { $$ = new LoopStatement($3, $5); }
+            			| FOR PARENTOUV expression POINTVIRGULE expression POINTVIRGULE expression PARENTFERM instruction
+                                                                                        { $$ = new LoopStatement($3, $5, $7, $9); }
             			;
 
-
-while_loop          	: WHILE PARENTOUV expression PARENTFERM instruction
-            			;
-
-
-for_loop          		: FOR PARENTOUV expression POINTVIRGULE expression POINTVIRGULE expression PARENTFERM instruction
-            			;
 
 
 
 instruction         : expression POINTVIRGULE               { $$ = new Instruction($1); }
                     | bloc                                  { $$ = new Instruction($1); }
-                    | loop_statement 
+                    | loop_statement                        { $$ = new Instruction($1); }
         			| cond                                  { $$ = new Instruction($1); }
           			| retour_fonction POINTVIRGULE          { $$ = new Instruction($1); }
 		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
