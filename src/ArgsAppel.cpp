@@ -59,7 +59,7 @@ ArgsAppel::~ArgsAppel()
 {
 	for (vector<Expression*>::iterator it = args.begin(); it != args.end(); it++)
 	{
-		delete *it;
+		//delete *it;
 	}
 	args.clear();
 }// Bloc vide

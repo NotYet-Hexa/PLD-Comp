@@ -20,6 +20,8 @@ using namespace std;
 #include "AffectationUnaire.h"
 #include "Cond.h"
 #include "CondSuite.h"
+#include "LoopStatement.h"
+
 
 
 

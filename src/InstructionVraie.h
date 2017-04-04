@@ -42,7 +42,8 @@ class InstructionVraie{
             TIbloc,
             TIretourFonction,
             TIdeclaration,
-            TIcond
+            TIcond,
+            TIloop
         };
 
         virtual void print() = 0;
