@@ -154,6 +154,10 @@ string PreIR::expressionToIR(Expression* expression)
         case EnumExpression::Type_Variable :
             break;
         case EnumExpression::Type_Affectation :
+            // string tmp = expressionToIR(expression->get_expresion());
+            // IRInstr* ir = new IRInstr(current_bb, Operation::mov, "b", "a" )
+            // current_bb.instrs.push_back(ir);
+            // return tmp;
             break;
         case EnumExpression::Type_AffectationUnaire :
             break;
