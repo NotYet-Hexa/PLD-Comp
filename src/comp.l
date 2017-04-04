@@ -47,7 +47,7 @@ using namespace std;
 %option noyywrap
 
 entier [0-9]+
-charactere \"(\\.|[^\\"])\"
+charactere '(\\.|[^\\"])'
 chaine \"(\\.|[^\\"])*\"
 nom [a-zA-Z_]+
 
