@@ -28,6 +28,8 @@ using namespace std;
 #include "DefFonction.h"
 
 
+#include "Cond.h"
+
 #include "ArgsDef.h"
 #include "ArgsAppel.h"
 
@@ -55,6 +57,7 @@ int yylex(void);
     char charactere;
     Expression * expression;
     Instruction * instruction;
+    Cond * cond;
     char* chaine;
 
     Declaration* declaration;
@@ -120,7 +123,7 @@ int yylex(void);
 
 %type<declaration> parametre
 %type<ival> loop_statement
-%type<ival> cond 
+%type<cond> cond 
 %type<retour_fonction> retour_fonction
 %type<chaine> nom_variable
 %type<chaine> nom
@@ -223,7 +226,7 @@ nom                 : NOM               { $$ = $1; }
 
 
 
-cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond
+cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond       { $$ = new Cond($3, $5); }
                 		;
 
 fin_cond           		: ELSE instruction 
@@ -248,7 +251,7 @@ for_loop          		: FOR PARENTOUV expression POINTVIRGULE expression POINTVIRG
 instruction         : expression POINTVIRGULE               { $$ = new Instruction($1); }
                     | bloc                                  { $$ = new Instruction($1); }
                     | loop_statement 
-        			| cond 
+        			| cond                                  { $$ = new Instruction($1); }
           			| retour_fonction POINTVIRGULE          { $$ = new Instruction($1); }
 		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
                     ;

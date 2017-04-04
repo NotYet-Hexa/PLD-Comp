@@ -25,7 +25,7 @@ using namespace std;
 #include "Declaration.h"
 #include "Return.h"
 #include "Bloc.h"
-
+#include "Cond.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -83,6 +83,12 @@ void Instruction::checkContexte(Contexte* contexteCourant )
     if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIbloc )
     {
          ((Bloc * )(instruction))->checkContexte(contexteCourant);
+
+    }
+
+    if (instruction->getTypeInstruction() == Bloc::TypeInstruction::TIcond )
+    {
+         ((Cond * )(instruction))->checkContexte(contexteCourant);
 
     }
     
