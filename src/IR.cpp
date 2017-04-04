@@ -152,7 +152,7 @@ void CFG::gen_asm_prologue(std::ostream& o)
 
     o<<"\tpushq %rbp"<<endl;
     o<<"\tmovq %rsp, %rbp"<<endl;
-    if(nbVar%2 == 0)    o<<"\tsubq " + to_string(nbVar/2*16) + ", %rsp"<<endl;
+    if(nbVar%2 == 0)    o<<"\tsubq $" + to_string(nbVar/2*16) + ", %rsp"<<endl;
     else o<<"\tsubq $" + to_string((nbVar/2+1)*16) + ", %rsp"<<endl;
 };
 
