@@ -13,6 +13,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Programme.h"
+#include "Expression.h"
 #include "Brique.h"
 #include "PreIR.h"
 #include "Type.h"
@@ -21,7 +22,7 @@ using namespace std;
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
-
+typedef Expression::TypeExpression EnumExpression;
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
@@ -140,4 +141,42 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
+
+// string PreIR::instructionToIR(Instruction* instruction)
+// {
+
+// }
+
+/// Return soit a dans le cas a = b + 1 soit tn 
+string PreIR::expressionToIR(Expression* expression)
+{
+    EnumExpression type = expression->getType();
+    switch(type)
+    {
+        case EnumExpression::Type_Unaire:
+            break;
+        case EnumExpression::Type_Binaire :
+            break;
+        case EnumExpression::Type_Char :
+            break;
+        case EnumExpression::Type_Entier :
+            break;
+        case EnumExpression::Type_Variable :
+            break;
+        case EnumExpression::Type_Affectation :
+            // string tmp = expressionToIR(expression->get_expresion());
+            // IRInstr* ir = new IRInstr(current_bb, Operation::mov, "b", "a" )
+            // current_bb.instrs.push_back(ir);
+            // return tmp;
+            break;
+        case EnumExpression::Type_AffectationUnaire :
+            break;
+        case EnumExpression::Type_AppelFonction :
+            break;
+        case EnumExpression::Type_Assignation :
+            break;
+        case EnumExpression::Type_ExpressionVariable :
+            break;
+    }
 }

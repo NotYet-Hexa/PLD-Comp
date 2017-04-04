@@ -30,19 +30,18 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class Expression: public InstructionVraie{
     public:
 
-        /*enum TypeExpression{
-            Unaire=1,
-            Binaire=2,
-            Char=3,
-            Entier=4,
-            Variable=5,
-            Affectation=6,
-            AffectationUnaire=7,
-            AppelFonction=8,
-            ArgsAppel=9,
-            Assignation=10,
-            ExpressionVariable=11
-        };*/
+        enum TypeExpression{
+            Type_Unaire,
+            Type_Binaire,
+            Type_Char,
+            Type_Entier,
+            Type_Variable,
+            Type_Affectation,
+            Type_AffectationUnaire,
+            Type_AppelFonction,
+            Type_Assignation,
+            Type_ExpressionVariable
+        };
 
         //Expression::TypeExpression getType();
         virtual void print();

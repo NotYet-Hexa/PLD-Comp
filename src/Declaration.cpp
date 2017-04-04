@@ -32,7 +32,7 @@ using namespace std;
 //----- Constructeur
 Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
 {
-//	this->typeInstruction=TIdeclaration;
+	this->typeInstruction = InstructionVraie::TIdeclaration;
 }// Bloc vide
 //----- Fin constructeur
 

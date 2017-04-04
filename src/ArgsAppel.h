@@ -24,7 +24,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-class ArgsAppel{
+class ArgsAppel {
     public:
         ArgsAppel();
         ~ArgsAppel();

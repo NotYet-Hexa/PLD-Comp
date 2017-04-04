@@ -34,7 +34,7 @@ class Bloc : public InstructionVraie{
         ListInstruction* getListInstruction();
 
     private:
-    ListInstruction* listInstruction;
+        ListInstruction* listInstruction;
 
 };
 

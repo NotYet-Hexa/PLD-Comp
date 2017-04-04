@@ -44,6 +44,8 @@ void ExpressionUnaire::print()
 ExpressionUnaire::ExpressionUnaire(Expression* exp, string s) : expression(exp), symbole(s)
 {
     //this->type_expression = Expression::TypeExpression::Unaire;
+    this->type_expression = Expression::TypeExpression::Type_Unaire;
+>>>>>>> 89d1875f919e99efe3810a88f120d5a9362a01e1
 }// Bloc vide
 //----- Fin constructeur
 

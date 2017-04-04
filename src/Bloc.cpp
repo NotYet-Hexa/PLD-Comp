@@ -39,7 +39,7 @@ void Bloc::print()
 //----- Constructeur
 Bloc::Bloc(ListInstruction* maListInstruction): listInstruction(maListInstruction)
 {
-        //this->typeInstruction = TIbloc;
+    this->typeInstruction = InstructionVraie::TIbloc;
 }// Bloc vide
 //----- Fin constructeur
 
