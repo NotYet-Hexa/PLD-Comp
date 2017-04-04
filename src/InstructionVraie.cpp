@@ -28,10 +28,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-/*TypeInstruction InstructionVraie::getTypeInstruction()
+InstructionVraie::TypeInstruction InstructionVraie::getTypeInstruction()
 {
     return typeInstruction;
-}*/
+}
 
 //----- Constructeur
 InstructionVraie::InstructionVraie()
