@@ -29,7 +29,20 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+string Affectation::get_symbole()
+{
+    return symbole;
+}
 
+Expression* Affectation::get_expression()
+{
+    return expression;
+}
+
+string Affectation::get_nom_variable()
+{
+    return nomVariable;
+}
 
 std::list<string> Affectation::listeNomLValue()
 {

@@ -17,12 +17,19 @@ using namespace std;
 #include "Brique.h"
 #include "PreIR.h"
 #include "Type.h"
+#include "IR.h"
+#include "Type.h"
+
+
+#include "Affectation.h"
+#include "AffectationUnaire.h"
 
 #include <fstream>
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
 typedef Expression::TypeExpression EnumExpression;
+typedef IRInstr::Operation Operation;
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
@@ -140,10 +147,13 @@ void PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 /// Return soit a dans le cas a = b + 1 soit tn 
 string PreIR::expressionToIR(Expression* expression)
 {
+    string result;
+    vector<std::string> params;
     EnumExpression type = expression->getType();
+
     switch(type)
     {
-        case EnumExpression::Type_Unaire:
+        case EnumExpression::Type_Unaire :
             break;
         case EnumExpression::Type_Binaire :
             break;
@@ -154,12 +164,34 @@ string PreIR::expressionToIR(Expression* expression)
         case EnumExpression::Type_Variable :
             break;
         case EnumExpression::Type_Affectation :
-            // string tmp = expressionToIR(expression->get_expresion());
-            // IRInstr* ir = new IRInstr(current_bb, Operation::mov, "b", "a" )
-            // current_bb.instrs.push_back(ir);
-            // return tmp;
-            break;
+            {
+                Affectation* affectation = (Affectation*)expression;
+                result = expressionToIR(affectation->get_expression());
+
+                // move result to nom_variable
+                params.push_back(result);
+                params.push_back(affectation->get_nom_variable());
+
+                // switch(affectation->get_symbole())
+                // {
+                    // case "=":
+                    //     {
+                    //         IRInstr* ir = new IRInstr(current_bb, Operation::wmem, Type::int64, params);
+                    //         current_bb->instrs.push_back(ir);
+                    //         break;
+                    //     }
+                    // default:
+                    //     {
+                    //         throw "Not Implemented Yet";
+                    //     }
+                // }
+
+                break;
+            }
         case EnumExpression::Type_AffectationUnaire :
+            {
+
+            }
             break;
         case EnumExpression::Type_AppelFonction :
             break;
@@ -168,4 +200,5 @@ string PreIR::expressionToIR(Expression* expression)
         case EnumExpression::Type_ExpressionVariable :
             break;
     }
+    return result;
 }
