@@ -233,17 +233,32 @@ string PreIR::expressionToIR(Expression* expression)
                     {
                         params.push_back(resultGauche);
                         params.push_back(resultDroite);
-                        current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
+                        current_bb->add_IRInstr(Operation::add,Type::int64, params);
+                        break;
+                    }
+                    case Symboles::moins:
+                    {
+                        params.push_back(resultGauche);
+                        params.push_back(resultDroite);
+                        current_bb->add_IRInstr(Operation::sub,Type::int64, params);
+                        break;
+                    }
+                    case Symboles::multi:
+                    {
+                        params.push_back(resultGauche);
+                        params.push_back(resultDroite);
+                        current_bb->add_IRInstr(Operation::mul,Type::int64, params);
                         break;
                     }
                     default:
                     {
                         throw "toujours pas fait ";
                     }
-                }
-            }
+                break;
 
-            break;
+            }
+        }
+
         case EnumExpression::Type_Char :
             {
                 ExpressionChar* expressionChar = (ExpressionChar*)expression;
@@ -283,6 +298,8 @@ string PreIR::expressionToIR(Expression* expression)
                         }
                     case Symboles::plusegal:
                         {
+                            current_bb->add_IRInstr(Operation::add,Type::int64,params);
+                            current_bb->add_IRInstr(Operation::ldconst,Type::int64,params);
                             break;
                         }
                     case Symboles::moinsegal:
