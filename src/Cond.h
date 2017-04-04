@@ -16,7 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 #include "InstructionVraie.h"
 #include "Instruction.h"
 #include "Expression.h"
-#include "condSuite.h"
+#include "CondSuite.h"
 
 //------------------------------------------------------------------------
 

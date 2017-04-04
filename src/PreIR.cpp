@@ -20,6 +20,10 @@ using namespace std;
 #include "IR.h"
 #include "Type.h"
 #include "Outils.h"
+#include "ExpressionBinaire.h"
+#include "ExpressionChar.h"
+#include "ExpressionEntier.h"
+#include "ExpressionVariable.h"
 
 
 #include "Affectation.h"
@@ -158,11 +162,16 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 // {
 
 // }
-
 /// Return soit a dans le cas a = b + 1 soit tn 
+Expression* PreIR::instructionToIR(Instruction* instruction)
+{
+
+}
 string PreIR::expressionToIR(Expression* expression)
 {
     string result;
+    string resultGauche;
+    string resultDroite;
     vector<std::string> params;
     EnumExpression type = expression->getType();
     Outils outils ;
@@ -172,13 +181,48 @@ string PreIR::expressionToIR(Expression* expression)
         case EnumExpression::Type_Unaire :
             break;
         case EnumExpression::Type_Binaire :
+            {
+                ExpressionBinaire* expressionBinaire = (ExpressionBinaire*)expression;
+                resultGauche = expressionToIR(expressionBinaire->get_gauche());
+                resultDroite = expressionToIR(expressionBinaire->get_droite());
+                switch (outils.parse_symb(expressionBinaire->get_symbole()))
+                {
+                    case Symboles::plus:
+                    {
+                        params.push_back(resultGauche);
+                        params.push_back(resultDroite);
+                        current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
+                        break;
+                    }
+                    default:
+                    {
+                        throw "toujours pas fait ";
+                    }
+                }
+            }
+
             break;
         case EnumExpression::Type_Char :
-            break;
+            {
+                ExpressionChar* expressionChar = (ExpressionChar*)expression;
+                params.push_back(to_string(expressionChar->getChar()));
+                current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
+                break;
+            }
         case EnumExpression::Type_Entier :
-            break;
+            {
+                ExpressionEntier* expressionEntier = (ExpressionEntier*)expression;
+                params.push_back(to_string(expressionEntier->get_valeur()));
+                current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
+                break;
+            }
         case EnumExpression::Type_Variable :
-            break;
+            {
+                ExpressionVariable* expressionVariable = (ExpressionVariable*)expression;
+                params.push_back(expressionVariable->get_nomVariable());
+                current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
+                break;
+            }
         case EnumExpression::Type_Affectation :
             {
                 Affectation* affectation = (Affectation*)expression;
@@ -192,9 +236,24 @@ string PreIR::expressionToIR(Expression* expression)
                 {
                     case Symboles::egal:
                         {
-                            IRInstr* ir = new IRInstr(current_bb, Operation::wmem, Type::int64, params);
-                            current_bb->instrs.push_back(ir);
+                            current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
                             break;
+                        }
+                    case Symboles::plusegal:
+                        {
+                            break;
+                        }
+                    case Symboles::moinsegal:
+                        {
+                            break;
+                        }
+                    case Symboles::divegal:
+                        {
+                           break; 
+                        }
+                    case Symboles::mulegal:
+                        {
+                           break; 
                         }
                     default:
                         {
@@ -205,9 +264,6 @@ string PreIR::expressionToIR(Expression* expression)
                 break;
             }
         case EnumExpression::Type_AffectationUnaire :
-            {
-
-            }
             break;
         case EnumExpression::Type_AppelFonction :
             break;
