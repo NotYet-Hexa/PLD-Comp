@@ -41,6 +41,7 @@ class AppelFonction : public Expression
     private:
         string nomFonction;
         ArgsAppel* argsAppel;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined APPELFONCTION_H

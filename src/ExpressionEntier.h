@@ -32,6 +32,7 @@ class ExpressionEntier : public Expression{
 
     private:
         int valeur;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONENTIER_H

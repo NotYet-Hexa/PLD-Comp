@@ -36,6 +36,7 @@ class ExpressionBinaire : public Expression {
         string symbole;
         Expression* gauche;
         Expression* droite;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONBINAIRE_H

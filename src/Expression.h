@@ -43,16 +43,17 @@ class Expression: public InstructionVraie{
             Type_ExpressionVariable
         };
 
-        //Expression::TypeExpression getType();
+        Expression::TypeExpression getType();
         virtual void print();
         virtual std::list<string> listeNomLValue()=0;
+
 
         Expression();
         ~Expression();
         virtual InstructionVraieClass typeClass();
 
     protected:
-        //TypeExpression type_expression;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSION_H

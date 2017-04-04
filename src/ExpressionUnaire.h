@@ -35,6 +35,7 @@ class ExpressionUnaire : public Expression{
     private:
         Expression * expression;
         string symbole;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONUNAIRE_H

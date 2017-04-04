@@ -35,6 +35,7 @@ class ExpressionVariable : public Expression{
 
     private:
         string nomVariable;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONVARIABLE_H
