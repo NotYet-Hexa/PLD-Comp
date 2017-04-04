@@ -329,25 +329,18 @@ void yyerror(Programme** pgm, const char * msg) {
 
 int main(void) {
     Programme** result = new Programme* ;
-
-
 #ifndef DEBUG
     string filename = "log.txt";
     std::ofstream output(filename.c_str());
     std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
     std::cout.rdbuf(output.rdbuf()); //redirect std::cout to log.txt!
 #endif
-
     // les cout de yyparse sont jeté à la corbeille
     yyparse(result);
-
 #ifndef DEBUG
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
-
     (*result)->print();
-    PreIR preIR;
-    preIR.launchPreIR(*result);
     delete (*result);
     return 0;
 }
