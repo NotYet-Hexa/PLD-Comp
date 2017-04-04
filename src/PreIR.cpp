@@ -8,6 +8,7 @@ copyright            : (C)2015 par Haim Nathan
 
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -24,7 +25,10 @@ using namespace std;
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
-
+#include "InstructionVraie.h"
+#include "ListInstruction.h"
+#include "Return.h"
+#include "Instruction.h"
 
 #include "Affectation.h"
 #include "AffectationUnaire.h"
@@ -36,6 +40,7 @@ using namespace std;
 typedef Expression::TypeExpression EnumExpression;
 typedef IRInstr::Operation Operation;
 typedef Outils::TypeSymbole Symboles;
+typedef InstructionVraie::TypeInstruction TypeInstruction;
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
@@ -48,7 +53,13 @@ PreIR::PreIR()
 
 PreIR::~PreIR()
 {
-
+	for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
+	{
+		delete *it;
+	}
+	listCFG.clear();
+	delete this->current_cfg;
+	delete this->current_bb;
 }
 
 
@@ -163,9 +174,40 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 
 // }
 /// Return soit a dans le cas a = b + 1 soit tn 
-Expression* PreIR::instructionToIR(Instruction* instruction)
+void PreIR::instructionToIR(Instruction* instruction)
 {
+    InstructionVraie* instructionVraie=instruction->getInstructionVraie();
+    TypeInstruction type = instructionVraie->getTypeInstruction();
+    switch(type)
+    {
+        case(TypeInstruction::TIexpression):
+        {
+            Expression* expression = (Expression*)instructionVraie;
+            PreIR::expressionToIR(expression);
+            break;
+        }
 
+        case(TypeInstruction::TIbloc):
+        {
+            Bloc* bloc = (Bloc*)instructionVraie;
+            ListInstruction* listInstruction = bloc->getListInstruction();
+            std::vector<Instruction*> instructions = listInstruction-> getInstructions();
+            for(std::vector<Instruction*>::iterator i =instructions.begin();i!=instructions.end();++i)
+            {
+                PreIR::instructionToIR(*i);
+            }
+            break;
+
+        }
+        
+        case(TypeInstruction::TIretourFonction):
+        {
+            Return* retour = (Return*)instructionVraie;
+            PreIR::expressionToIR(retour->get_expression());
+            break;
+        }
+        
+    }
 }
 string PreIR::expressionToIR(Expression* expression)
 {
@@ -191,17 +233,32 @@ string PreIR::expressionToIR(Expression* expression)
                     {
                         params.push_back(resultGauche);
                         params.push_back(resultDroite);
-                        current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
+                        current_bb->add_IRInstr(Operation::add,Type::int64, params);
+                        break;
+                    }
+                    case Symboles::moins:
+                    {
+                        params.push_back(resultGauche);
+                        params.push_back(resultDroite);
+                        current_bb->add_IRInstr(Operation::sub,Type::int64, params);
+                        break;
+                    }
+                    case Symboles::multi:
+                    {
+                        params.push_back(resultGauche);
+                        params.push_back(resultDroite);
+                        current_bb->add_IRInstr(Operation::mul,Type::int64, params);
                         break;
                     }
                     default:
                     {
                         throw "toujours pas fait ";
                     }
-                }
-            }
+                break;
 
-            break;
+            }
+        }
+
         case EnumExpression::Type_Char :
             {
                 ExpressionChar* expressionChar = (ExpressionChar*)expression;
@@ -241,6 +298,8 @@ string PreIR::expressionToIR(Expression* expression)
                         }
                     case Symboles::plusegal:
                         {
+                            current_bb->add_IRInstr(Operation::add,Type::int64,params);
+                            current_bb->add_IRInstr(Operation::ldconst,Type::int64,params);
                             break;
                         }
                     case Symboles::moinsegal:

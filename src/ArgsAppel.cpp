@@ -13,6 +13,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -55,5 +56,11 @@ ArgsAppel::ArgsAppel()
 
 //----- Destructeur
 ArgsAppel::~ArgsAppel()
-{}// Bloc vide
+{
+	for (vector<Expression*>::iterator it = args.begin(); it != args.end(); it++)
+	{
+		delete *it;
+	}
+	args.clear();
+}// Bloc vide
 //----- Fin destructeur

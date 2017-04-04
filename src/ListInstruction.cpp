@@ -12,6 +12,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -56,7 +57,11 @@ ListInstruction::ListInstruction()
 //----- Destructeur
 ListInstruction::~ListInstruction()
 {
-    //delete instruction;
+	/*for (vector<Instruction*>::iterator it = listInstruction.begin(); it != listInstruction.end(); it++)
+	{
+		delete *it;
+	}
+	listInstruction.clear();*/
 }// Bloc vide
 //----- Fin destructeur
 

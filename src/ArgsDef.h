@@ -13,8 +13,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 #include <vector>
 #include <list>
 #include <string>
+#include <iterator>
 
-
+using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 #include "Declaration.h"
 

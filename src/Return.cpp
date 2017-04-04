@@ -35,6 +35,8 @@ list<string> Return::listeNomLValue()
     return this->expression->listeNomLValue();
 }
 
+Expression* Return::get_expression(){return expression;}
+
 void Return::print()
 {
     cout << "Return :" << endl;
@@ -51,6 +53,6 @@ Return::Return(Expression* monExpression): expression(monExpression)
 //----- Destructeur
 Return::~Return()
 {
-
+	delete this->expression;
 }
 //----- Fin destructeur

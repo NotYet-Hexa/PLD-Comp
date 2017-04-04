@@ -58,7 +58,9 @@ AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel
 
 //----- Destructeur
 AppelFonction::~AppelFonction()
-{}// Bloc vide
+{
+	delete this->argsAppel;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass AppelFonction::typeClass()

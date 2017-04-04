@@ -43,7 +43,7 @@ public:
     void launchASM();
 
     string expressionToIR(Expression* expression);
-    Expression* instructionToIR(Instruction* instruction);
+    void instructionToIR(Instruction* instruction);
 
 };
 
