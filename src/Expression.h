@@ -25,15 +25,34 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+
+
 class Expression: public InstructionVraie{
     public:
+
+        enum TypeExpression{
+            Type_Unaire,
+            Type_Binaire,
+            Type_Char,
+            Type_Entier,
+            Type_Variable,
+            Type_Affectation,
+            Type_AffectationUnaire,
+            Type_AppelFonction,
+            Type_Assignation,
+            Type_ExpressionVariable
+        };
+
+        Expression::TypeExpression getType();
         virtual void print();
         virtual std::list<string> listeNomLValue()=0;
+
         Expression();
         ~Expression();
+        virtual InstructionVraieClass typeClass();
 
-    private:
-
+    protected:
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSION_H

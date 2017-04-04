@@ -23,12 +23,16 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+
 enum TypeBrique
 {
     TBdefFonction,
     TBdecFonction,
     TBdec
 };
+
+enum typeClassBrique{ brique=0, defFonction=1 };
+
 
 class Brique{
 
@@ -37,6 +41,8 @@ class Brique{
     public:
         virtual void print() = 0;
         TypeBrique getTypeBrique();
+        virtual typeClassBrique typeClass();
+
         Brique();
         ~Brique();
 

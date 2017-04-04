@@ -16,6 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
+#include "Expression.h"
 #include "ExpressionBinaire.h"
 
 //---------------------------------------------------- Variables de classe
@@ -44,7 +45,9 @@ void ExpressionBinaire::print()
 //----- Constructeur
 ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
     gauche(g), droite(d), symbole(s)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Binaire;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

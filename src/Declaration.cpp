@@ -28,15 +28,11 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-string Declaration::getNom()
-{
-	return this->nom;
-}
 
 //----- Constructeur
 Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
 {
-	this->typeInstruction=TIdeclaration;
+	this->typeInstruction = InstructionVraie::TIdeclaration;
 }// Bloc vide
 //----- Fin constructeur
 
@@ -58,5 +54,10 @@ void Declaration::print()
 		cout<<"]";
 	}
 	cout<<endl;
+}
+
+InstructionVraieClass Declaration::typeClass()
+{
+    return InstructionVraieClass::declaration;
 }
 

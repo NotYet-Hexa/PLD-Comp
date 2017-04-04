@@ -17,8 +17,8 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 
-
 #include "Return.h"
+#include "InstructionVraie.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -44,7 +44,7 @@ void Return::print()
 //----- Constructeur
 Return::Return(Expression* monExpression): expression(monExpression)
 {
-    this->typeInstruction = TIretourFonction;
+    this->typeInstruction = InstructionVraie::TIretourFonction;
 }// Bloc vide
 //----- Fin constructeur
 

@@ -32,9 +32,10 @@ class Bloc : public InstructionVraie, public Contexte{
         void print();
         Bloc(ListInstruction* maListInstruction);
         ~Bloc();
+        ListInstruction* getListInstruction();
 
     private:
-    ListInstruction* listInstruction;
+        ListInstruction* listInstruction;
 
 };
 

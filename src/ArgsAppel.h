@@ -24,12 +24,13 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-class ArgsAppel{
+class ArgsAppel {
     public:
         ArgsAppel();
         ~ArgsAppel();
         void add(Expression* expression);
         void print();
+        std::vector <Expression*> getArgs(){return args;}
 
     private:
         std::vector <Expression*> args;

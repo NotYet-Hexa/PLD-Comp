@@ -28,11 +28,12 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 class Instruction{
     public:
+        Instruction();
         void print();
         void checkContexte(Contexte* contexteCourant );
         Instruction(InstructionVraie* monInstruction);
         ~Instruction();
-
+        InstructionVraie* getInstructionVraie();
     private:
     InstructionVraie* instruction;
 

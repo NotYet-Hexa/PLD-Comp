@@ -25,17 +25,21 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-class Affectation: public Expression {
+class Affectation : public Expression {
     public:
         void print();
         std::list<string> listeNomLValue();
         Affectation(string nomVariable, string symbole, Expression* monExpression);
         ~Affectation();
 
+        Expression* get_expression();
+        string get_nom_variable();
+        string get_symbole();
+
     private:
-    string nomVariable;
-    string symbole;
-    Expression* expression;
+        string nomVariable;
+        string symbole;
+        Expression* expression;
 
 };
 

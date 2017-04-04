@@ -27,6 +27,11 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+Expression::TypeExpression Expression::getType()
+{
+    return type_expression;
+}
+
 void Expression::print()
 {
     cout << "salut" << endl;
@@ -34,7 +39,7 @@ void Expression::print()
 //----- Constructeur
 Expression::Expression()
 {
-    this->typeInstruction = TIexpression;
+    this->typeInstruction = InstructionVraie::TIexpression;
 }// Bloc vide
 //----- Fin constructeur
 
@@ -42,3 +47,8 @@ Expression::Expression()
 Expression::~Expression()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass Expression::typeClass()
+{
+    return InstructionVraieClass::expression;
+}

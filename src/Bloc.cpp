@@ -45,7 +45,7 @@ void Bloc::print()
 //----- Constructeur
 Bloc::Bloc(ListInstruction* maListInstruction):Contexte("Bloc"),  listInstruction(maListInstruction)
 {
-        this->typeInstruction = TIbloc;
+    this->typeInstruction = InstructionVraie::TIbloc;
 }// Bloc vide
 //----- Fin constructeur
 
@@ -55,3 +55,5 @@ Bloc::~Bloc()
     //delete instruction;
 }// Bloc vide
 //----- Fin destructeur
+
+ListInstruction* Bloc::getListInstruction() { return listInstruction; }

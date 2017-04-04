@@ -77,6 +77,12 @@ void Briques::add(DeclarationGlobal* d)
     vectorBrique.push_back(d);  
 }
 
+vector<Brique*> Briques::getListBrique()
+{
+    return this->vectorBrique;
+}
+
+
 void Briques::print()
 {
 	cout << "Debut de briques" << endl;

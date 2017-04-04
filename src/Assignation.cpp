@@ -33,7 +33,9 @@ void Assignation::print()
 }
 //----- Constructeur
 Assignation::Assignation()
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Assignation;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

@@ -40,7 +40,9 @@ void ExpressionEntier::print()
 
 //----- Constructeur
 ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Entier;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

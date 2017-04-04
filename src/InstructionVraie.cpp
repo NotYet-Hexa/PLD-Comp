@@ -28,7 +28,7 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-TypeInstruction InstructionVraie::getTypeInstruction()
+InstructionVraie::TypeInstruction InstructionVraie::getTypeInstruction()
 {
     return typeInstruction;
 }
@@ -42,3 +42,8 @@ InstructionVraie::InstructionVraie()
 InstructionVraie::~InstructionVraie()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass InstructionVraie::typeClass()
+{
+    return InstructionVraieClass::instructionVraie;
+}
