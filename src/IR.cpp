@@ -27,7 +27,7 @@ void IRInstr::gen_asm(ostream &o)
         case Operation::ldconst :
                 //if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
                 operateur = "movq";
-                str= operateur+ " "+to_string(bb_->cfg->get_var_index(params.at(0)))+ ", "+params.at(1);
+                str= operateur+ " "+to_string(bb_->cfg->get_var_index(params.at(0)))+ "(%rbp), $"+params.at(1);
                 o<< str << endl;
                 break;
         case Operation::call :
