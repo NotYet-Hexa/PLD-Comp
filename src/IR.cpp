@@ -20,6 +20,7 @@ void IRInstr::gen_asm(ostream &o)
 
     string str;
     string operateur;
+    cout << "Valeur de operation ::::::: " << op << endl;
     switch(op)
     {
         case ldconst :
@@ -73,7 +74,7 @@ CFG::CFG(DefFonction *ast)
 {
     this-> ast = ast;
     current_bb = NULL;
-    nextFreeSymbolIndex = 0;
+    nextFreeSymbolIndex = -8;
     nextBBnumber = 1;
     nbVar = 0;
     nbTVar = 0;
