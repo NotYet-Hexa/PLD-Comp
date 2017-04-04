@@ -47,6 +47,7 @@ endif
 ifeq ($(mode),coverage)
 	CFLAGS += $(COVERAGE_FLAG)
 	LDFLAGS += $(COVERAGE_FLAG)
+	BUILDFOLDER = src
 endif
 
 
@@ -82,7 +83,7 @@ $(FLEX_RESULT): $(FLEX_FILES)
 	flex -o $@ $(FLEX_FILES) 
 
 clean:
-	cd $(BUILDFOLDER); $(REMOVE) *.$(OBJFILE) $(EXEC) 
+	cd $(BUILDFOLDER); $(REMOVE) *.$(OBJFILE) $(EXEC) *.gc*
 	cd src; $(REMOVE) *.tab.* *.output lex.*
 
 test: $(EXEC_PATH)
