@@ -24,7 +24,7 @@ void IRInstr::gen_asm(ostream &o)
     switch(op)
     {
         case ldconst :
-                if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
+                //if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
                 operateur = "movq";
                 str= operateur+ " "+params.at(0)+ ", "+params.at(1);
                 break;
@@ -39,6 +39,7 @@ void IRInstr::gen_asm(ostream &o)
                     paramNum++;
                 }
                 o<< "\tcall " +params.at(0);
+                break;
     }
 
 
