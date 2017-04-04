@@ -25,7 +25,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-class Affectation: public Expression {
+class Affectation : public Expression {
     public:
         void print();
         std::list<string> listeNomLValue();

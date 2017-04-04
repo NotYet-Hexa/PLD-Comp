@@ -132,12 +132,36 @@ void PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
+// string PreIR::instructionToIR(Instruction* instruction)
+// {
+
+// }
+
+/// Return soit a dans le cas a = b + 1 soit tn 
 string PreIR::expressionToIR(Expression* expression)
 {
     EnumExpression type = expression->getType();
     switch(type)
     {
         case EnumExpression::Type_Unaire:
+            break;
+        case EnumExpression::Type_Binaire :
+            break;
+        case EnumExpression::Type_Char :
+            break;
+        case EnumExpression::Type_Entier :
+            break;
+        case EnumExpression::Type_Variable :
+            break;
+        case EnumExpression::Type_Affectation :
+            break;
+        case EnumExpression::Type_AffectationUnaire :
+            break;
+        case EnumExpression::Type_AppelFonction :
+            break;
+        case EnumExpression::Type_Assignation :
+            break;
+        case EnumExpression::Type_ExpressionVariable :
             break;
     }
 }
