@@ -13,6 +13,7 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Programme.h"
+#include "Expression.h"
 #include "Brique.h"
 #include "PreIR.h"
 #include "Type.h"
@@ -21,7 +22,7 @@ using namespace std;
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
-
+typedef Expression::TypeExpression EnumExpression;
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
@@ -129,4 +130,14 @@ void PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     expressionChar->getChar();
     string tmpVar = current_cfg->create_new_tempvar(Type::ch);
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
+
+string PreIR::expressionToIR(Expression* expression)
+{
+    EnumExpression type = expression->getType();
+    switch(type)
+    {
+        case EnumExpression::Type_Unaire:
+            break;
+    }
 }

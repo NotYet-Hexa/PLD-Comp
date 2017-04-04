@@ -44,7 +44,7 @@ void ExpressionVariable::print()
 //----- Constructeur
 ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
 {
-    this->type_expression = Expression::TypeExpression::Enum_Variable;
+    this->type_expression = Expression::TypeExpression::Type_ExpressionVariable;
 }// Bloc vide
 //----- Fin constructeur
 

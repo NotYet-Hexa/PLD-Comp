@@ -46,7 +46,7 @@ void ExpressionBinaire::print()
 ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
     gauche(g), droite(d), symbole(s)
 {
-    this->type_expression = Expression::TypeExpression::Enum_Binaire;
+    this->type_expression = Expression::TypeExpression::Type_Binaire;
 }// Bloc vide
 //----- Fin constructeur
 

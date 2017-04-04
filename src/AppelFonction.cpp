@@ -48,6 +48,7 @@ string AppelFonction::getNomFonction()
 
 AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
 {
+	this->type_expression = Expression::TypeExpression::Type_AppelFonction;
 }
 //-----Bloc vide
 //----- Fin constructeur

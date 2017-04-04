@@ -41,7 +41,7 @@ void ExpressionEntier::print()
 //----- Constructeur
 ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
 {
-    this->type_expression = Expression::TypeExpression::Enum_Entier;
+    this->type_expression = Expression::TypeExpression::Type_Entier;
 }// Bloc vide
 //----- Fin constructeur
 

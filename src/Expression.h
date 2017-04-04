@@ -31,17 +31,16 @@ class Expression: public InstructionVraie{
     public:
 
         enum TypeExpression{
-            Enum_Unaire=1,
-            Enum_Binaire=2,
-            Enum_Char=3,
-            Enum_Entier=4,
-            Enum_Variable=5,
-            Enum_Affectation=6,
-            Enum_AffectationUnaire=7,
-            Enum_AppelFonction=8,
-            Enum_ArgsAppel=9,
-            Enum_Assignation=10,
-            Enum_ExpressionVariable=11
+            Type_Unaire,
+            Type_Binaire,
+            Type_Char,
+            Type_Entier,
+            Type_Variable,
+            Type_Affectation,
+            Type_AffectationUnaire,
+            Type_AppelFonction,
+            Type_Assignation,
+            Type_ExpressionVariable
         };
 
         Expression::TypeExpression getType();

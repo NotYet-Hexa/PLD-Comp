@@ -17,6 +17,7 @@ copyright            : (C)2017 par Haim Nathan
 #include "Bloc.h"
 #include "AppelFonction.h"
 #include "ExpressionChar.h"
+#include "Expression.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -40,6 +41,8 @@ public:
     void analyseAppelFonction(AppelFonction* appelFonction);
     void analyseExpressionChar(ExpressionChar* expressionChar);
     void launchASM();
+
+    string expressionToIR(Expression* expression);
 
 };
 
