@@ -20,24 +20,29 @@ void IRInstr::gen_asm(ostream &o)
 
     string str;
     string operateur;
-    switch(op)
+    cout << "Valeur de operation ::::::: " << op << endl;
+    cout << "ldconst vaut :: " << Operation::ldconst <<endl ; 
+    switch(this->op)
     {
-        case ldconst :
-                if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
+        case Operation::ldconst :
+                //if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
                 operateur = "movq";
-                str= operateur+ " "+params.at(0)+ ", "+params.at(1);
+                cout << "affiche tmp VAR : " << params.at(0)<< endl;
+                str= "\t"+operateur+ " $"+ params.at(1) + ", "+to_string(bb_->cfg->get_var_index(params.at(0)))+ "(%rbp)";
+                o<< str << endl;
                 break;
-        case call :
+        case Operation::call :
                 int paramNum =0;
                 while((params.size() - paramNum) > 1 )
                 {
                     string p = params.at(params.size()-paramNum-1);
                     operateur = "movq";
-                    str = "\t"+operateur+" "+ to_string(bb_->cfg->get_var_index(p))+"(%rbp) ," + chooseRegister(paramNum);
+                    str = "\t"+operateur+" "+ to_string(bb_->cfg->get_var_index(p))+"(%rbp), " + chooseRegister(paramNum);
                     o<<str<<endl;
                     paramNum++;
                 }
-                o<< "\tcall " +params.at(0);
+                o<< "\tcall " +params.at(0)<<endl;
+                break;
     }
 
 
@@ -73,7 +78,7 @@ CFG::CFG(DefFonction *ast)
 {
     this-> ast = ast;
     current_bb = NULL;
-    nextFreeSymbolIndex = 0;
+    nextFreeSymbolIndex = -8;
     nextBBnumber = 1;
     nbVar = 0;
     nbTVar = 0;
@@ -88,7 +93,9 @@ void CFG::add_to_symbol_table(string name, Type t)
 {
     SymbolType.insert(std::pair<string,Type>(name,t));
     SymbolIndex.insert(std::pair<string,int>(name,nextFreeSymbolIndex));
+    cout << "valeur index "+SymbolIndex[name]<< "     " << nextFreeSymbolIndex << endl;
     nextFreeSymbolIndex-=8;
+
     nbVar+=1;
 }
 
@@ -110,9 +117,9 @@ string CFG::new_BB_name()
 
 string CFG::create_new_tempvar(Type t)
 {
+    nbTVar++;
     add_to_symbol_table("t"+to_string(nbTVar),t);
     return "t"+to_string(nbTVar);
-    nbTVar++;
 }
 
 void CFG::gen_asm(ostream& o)
@@ -145,7 +152,7 @@ void CFG::gen_asm_prologue(std::ostream& o)
 
     o<<"\tpushq %rbp"<<endl;
     o<<"\tmovq %rsp, %rbp"<<endl;
-    if(nbVar%2 == 0)    o<<"\tsubq " + to_string(nbVar/2*16) + ", %rsp"<<endl;
+    if(nbVar%2 == 0)    o<<"\tsubq $" + to_string(nbVar/2*16) + ", %rsp"<<endl;
     else o<<"\tsubq $" + to_string((nbVar/2+1)*16) + ", %rsp"<<endl;
 };
 
