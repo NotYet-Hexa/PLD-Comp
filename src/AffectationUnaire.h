@@ -34,8 +34,8 @@ class AffectationUnaire: public Expression {
         ~AffectationUnaire();
 
     private:
-    string nomVariable;
-    string symbole;
+        string nomVariable;
+        string symbole;
 
 };
 

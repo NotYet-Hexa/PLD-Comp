@@ -33,9 +33,9 @@ class Affectation: public Expression {
         ~Affectation();
 
     private:
-    string nomVariable;
-    string symbole;
-    Expression* expression;
+        string nomVariable;
+        string symbole;
+        Expression* expression;
 
 };
 

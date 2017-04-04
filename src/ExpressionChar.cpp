@@ -43,7 +43,7 @@ void ExpressionChar::print()
 //----- Constructeur
 ExpressionChar::ExpressionChar(char car) : valeur(car)
 {
-    this->type_expression = Expression::TypeExpression::Char;
+    this->type_expression = Expression::TypeExpression::Enum_Char;
 }// Bloc vide
 //----- Fin constructeur
 
