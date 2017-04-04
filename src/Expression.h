@@ -47,6 +47,7 @@ class Expression: public InstructionVraie{
         virtual void print();
         virtual std::list<string> listeNomLValue()=0;
 
+
         Expression();
         ~Expression();
         virtual InstructionVraieClass typeClass();

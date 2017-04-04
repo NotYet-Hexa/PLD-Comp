@@ -54,5 +54,6 @@ ExpressionChar::~ExpressionChar()
 
 InstructionVraieClass ExpressionChar::typeClass()
 {
+    cout <<"AAAAAAA"<<endl;
     return InstructionVraieClass::expressionChar;
 }

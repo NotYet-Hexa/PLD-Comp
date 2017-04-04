@@ -34,6 +34,7 @@ class ExpressionChar : public Expression{
 
     private:
         char valeur;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONCHAR_H
