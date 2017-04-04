@@ -32,6 +32,7 @@ class Return : public InstructionVraie {
         std::list<string> listeNomLValue();
         Return(Expression* monExpression);
         ~Return();
+        Expression* get_expression();
 
     private:
     Expression* expression;
