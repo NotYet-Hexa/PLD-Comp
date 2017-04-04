@@ -33,6 +33,8 @@ std::list<string> ExpressionEntier::listeNomLValue()
     return list;
 }
 
+int ExpressionEntier::get_valeur(){return valeur;}
+
 void ExpressionEntier::print()
 {
     cout << valeur << endl;

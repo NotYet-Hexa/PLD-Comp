@@ -19,6 +19,7 @@ using namespace std;
 #include "Type.h"
 #include "IR.h"
 #include "Type.h"
+#include "Outils.h"
 
 
 #include "Affectation.h"
@@ -30,6 +31,7 @@ using namespace std;
 //----------------------------------------------------------- Types privés
 typedef Expression::TypeExpression EnumExpression;
 typedef IRInstr::Operation Operation;
+typedef Outils::TypeSymbole Symboles;
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
@@ -170,6 +172,7 @@ string PreIR::expressionToIR(Expression* expression)
     string result;
     vector<std::string> params;
     EnumExpression type = expression->getType();
+    Outils outils ;
 
     switch(type)
     {
@@ -192,19 +195,19 @@ string PreIR::expressionToIR(Expression* expression)
                 params.push_back(result);
                 params.push_back(affectation->get_nom_variable());
 
-                // switch(affectation->get_symbole())
-                // {
-                    // case "=":
-                    //     {
-                    //         IRInstr* ir = new IRInstr(current_bb, Operation::wmem, Type::int64, params);
-                    //         current_bb->instrs.push_back(ir);
-                    //         break;
-                    //     }
-                    // default:
-                    //     {
-                    //         throw "Not Implemented Yet";
-                    //     }
-                // }
+                switch(outils.parse_symb(affectation->get_symbole()))
+                {
+                    case Symboles::egal:
+                        {
+                            IRInstr* ir = new IRInstr(current_bb, Operation::wmem, Type::int64, params);
+                            current_bb->instrs.push_back(ir);
+                            break;
+                        }
+                    default:
+                        {
+                            throw "Not Implemented Yet";
+                        }
+                }
 
                 break;
             }

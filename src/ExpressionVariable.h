@@ -32,7 +32,7 @@ class ExpressionVariable : public Expression{
         std::list<string> listeNomLValue();
         ExpressionVariable(string nom);
         ~ExpressionVariable();
-
+        string get_nomVariable();
     private:
         string nomVariable;
         TypeExpression type_expression;

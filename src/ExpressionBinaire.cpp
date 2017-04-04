@@ -36,6 +36,12 @@ list<string> ExpressionBinaire::listeNomLValue()
     return list;
 }
 
+string ExpressionBinaire::get_symbole(){return symbole;}
+
+Expression* ExpressionBinaire::get_gauche(){return gauche;}
+
+Expression* ExpressionBinaire::get_droite(){return droite;}
+
 void ExpressionBinaire::print()
 {
     gauche->print();
