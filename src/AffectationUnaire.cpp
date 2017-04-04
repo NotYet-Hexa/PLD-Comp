@@ -37,6 +37,10 @@ std::list<string> AffectationUnaire::listeNomLValue()
     return list;
 }
 
+string AffectationUnaire::get_nom_variable(){return nomVariable;}
+
+string AffectationUnaire::get_symbole(){return symbole;}
+
 void AffectationUnaire::print()
 {
     cout << "Affectation Unaire:" << endl;
