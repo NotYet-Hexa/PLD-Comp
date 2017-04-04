@@ -20,10 +20,10 @@ script:
   - flex --version
   - make --version
   - g++ --version
-  # - ls ./tests/
   - chmod a+x tests/run.sh
   - make mode=coverage
   - make mode=coverage test
+  - gcov src/*.cpp
 after_script:
   - chmod a+x slack.sh
   - ./slack.sh
