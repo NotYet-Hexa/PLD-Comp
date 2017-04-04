@@ -38,7 +38,7 @@ public:
     void analyseBloc(Bloc* b);
     void analyseDeclaration(Declaration* dec);
     void analyseAppelFonction(AppelFonction* appelFonction);
-    void analyseExpressionChar(ExpressionChar* expressionChar);
+    string analyseExpressionChar(ExpressionChar* expressionChar);
     void launchASM();
 
 };

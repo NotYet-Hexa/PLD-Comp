@@ -9,14 +9,52 @@ using namespace std;
 
 IRInstr::IRInstr(BasicBlock *bb_, Operation op, Type t, vector <string> params)
 {
-    this->bb = bb;
+    this->bb_ = bb_;
     this->op = op;
     this->t = t;
     this->params = params;
 }
 
-void IRInstr::gen_asm(ostream &o) { }
+void IRInstr::gen_asm(ostream &o)
+{
 
+    string str;
+    string operateur;
+    switch(op)
+    {
+        case ldconst :
+                if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
+                operateur = "movq";
+                str= operateur+ " "+params.at(0)+ ", "+params.at(1);
+                break;
+        case call :
+                int paramNum =0;
+                while((params.size() - paramNum) > 1 )
+                {
+                    string p = params.at(params.size()-paramNum-1);
+                    operateur = "movq";
+                    str = operateur+ " " + to_string(bb_->cfg->get_var_index(p)) + "(%rbp), " + chooseRegister(paramNum);
+                    o<<str<<endl;; 
+                }
+                o<< "call " +params.at(0);
+    }
+
+
+
+}
+
+string IRInstr::chooseRegister(int num)
+{
+    switch(num)
+    {
+        case 0: return "%rdi"; break;
+        case 1: return "%rsi"; break;
+        case 2: return "%rdx"; break;
+        case 3: return "%rcx"; break;
+        case 4: return "%r8"; break;
+        case 5: return "%r9"; break;
+    }
+}
 
 BasicBlock::BasicBlock(CFG* cfg, string entry_label)
 {
@@ -79,9 +117,26 @@ string CFG::create_new_tempvar(Type t)
 void CFG::gen_asm(ostream& o)
 {
     gen_asm_prologue(o);
+    gen_asm_body(o);
     gen_asm_epilogue(o);
 }
 
+void CFG::gen_asm_body(std::ostream& o)
+{
+    for(vector<BasicBlock*>::iterator it= bbs.begin() ; it != bbs.end() ; it++)
+    {
+        (*it)->gen_asm(o);
+    }
+}
+
+
+void BasicBlock::gen_asm(std::ostream &o)
+{
+    for(vector<IRInstr*>::iterator it= instrs.begin() ; it != instrs.end() ; it++)
+    {
+        (*it)->gen_asm(o);
+    }
+}
 
 void CFG::gen_asm_prologue(std::ostream& o)
 {

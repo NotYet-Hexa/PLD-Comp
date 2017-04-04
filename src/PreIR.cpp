@@ -113,20 +113,31 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
     {
         std::vector<Expression*>listExp = argsAppel->getArgs();
         InstructionVraieClass ins;
+        vector<string> listParam;
+        listParam.push_back(appelFonction->getNomFonction());
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
             ins = (*it)->typeClass();
             switch(ins)
             {
-                case InstructionVraieClass::expressionChar : analyseExpressionChar((ExpressionChar*)(*it));break;
+                case InstructionVraieClass::expressionChar :
+                            string varStr = analyseExpressionChar((ExpressionChar*)(*it));
+                            listParam.push_back(varStr);
+                            break;
             }
         }
+    IRInstr* irInstr = new IRInstr(current_bb,IRInstr::Operation::call,Type::ch, listParam);    
     }
 }
 
-void PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
+
+string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 {
-    expressionChar->getChar();
     string tmpVar = current_cfg->create_new_tempvar(Type::ch);
+    vector<string> params;
+    params.push_back(tmpVar);
+    params.push_back(to_string(expressionChar->getChar()));
+    current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
+    return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
