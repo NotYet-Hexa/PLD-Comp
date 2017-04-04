@@ -121,8 +121,8 @@ void PreIR::launchASM()
 {   
     ofstream outfile ("main.s",ofstream::binary);
     outfile<<".text"<<endl;
-    outfile<<".global _main"<<endl;
-    outfile<<"_main:"<<endl;
+    outfile<<".global main"<<endl;
+    outfile<<"main:"<<endl;
     for(vector<CFG*>::iterator it= listCFG.begin() ; it != listCFG.end() ; it++)
     {
         (*it)->gen_asm(outfile);
