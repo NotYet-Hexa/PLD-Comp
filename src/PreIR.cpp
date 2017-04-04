@@ -163,6 +163,10 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 
 // }
 /// Return soit a dans le cas a = b + 1 soit tn 
+Expression* PreIR::instructionToIR(Instruction* instruction)
+{
+
+}
 string PreIR::expressionToIR(Expression* expression)
 {
     string result;
@@ -187,8 +191,7 @@ string PreIR::expressionToIR(Expression* expression)
                     {
                         params.push_back(resultGauche);
                         params.push_back(resultDroite);
-                        IRInstr* ir = new IRInstr(current_bb, Operation::add, Type::int64, params);
-                        current_bb->instrs.push_back(ir);
+                        current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
                         break;
                     }
                     default:
@@ -203,8 +206,7 @@ string PreIR::expressionToIR(Expression* expression)
             {
                 ExpressionChar* expressionChar = (ExpressionChar*)expression;
                 params.push_back(to_string(expressionChar->getChar()));
-                IRInstr* ir = new IRInstr(current_bb, Operation::ldconst, Type::ch, params);
-                current_bb->instrs.push_back(ir);
+                current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
                 break;
             }
         case EnumExpression::Type_Entier :
@@ -218,8 +220,7 @@ string PreIR::expressionToIR(Expression* expression)
             {
                 ExpressionVariable* expressionVariable = (ExpressionVariable*)expression;
                 params.push_back(expressionVariable->get_nomVariable());
-                IRInstr* ir = new IRInstr(current_bb, Operation::ldconst, Type::ch, params);
-                current_bb->instrs.push_back(ir);
+                current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
                 break;
             }
         case EnumExpression::Type_Affectation :
@@ -235,8 +236,7 @@ string PreIR::expressionToIR(Expression* expression)
                 {
                     case Symboles::egal:
                         {
-                            IRInstr* ir = new IRInstr(current_bb, Operation::wmem, Type::int64, params);
-                            current_bb->instrs.push_back(ir);
+                            current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
                             break;
                         }
                     case Symboles::plusegal:
