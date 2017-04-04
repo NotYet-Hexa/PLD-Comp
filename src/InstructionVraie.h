@@ -35,7 +35,8 @@ class InstructionVraie{
             TIexpression,
             TIbloc,
             TIretourFonction,
-            TIdeclaration
+            TIdeclaration,
+            TIcond
         };
 
         virtual void print() = 0;
