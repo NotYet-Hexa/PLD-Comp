@@ -36,18 +36,14 @@ void DeclarationFonction::print()
 
 }
 
-
-string DeclarationFonction::get_typeRetour(){return typeRetour;}
-
-ArgsDef* DeclarationFonction::get_argsDef(){return argsDef;}
-
 string DeclarationFonction::getNomFonction()
 {
-	return this->nomFonction;
+	return nomFonction;
 }
 //----- Constructeur
 DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
 {
+		this->isContexte = false;
 }
 //-----Bloc vide
 //----- Fin constructeur

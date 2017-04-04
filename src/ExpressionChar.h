@@ -26,11 +26,11 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class ExpressionChar : public Expression{
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionChar(char car);
         ~ExpressionChar();
-        Expression::TypeExpr WhatIsThisExprType();
-        char get_valeur();
-
+        virtual InstructionVraieClass typeClass();
+        char getChar(){return valeur;}
 
     private:
         char valeur;

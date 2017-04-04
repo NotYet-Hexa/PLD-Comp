@@ -48,10 +48,6 @@ void ArgsAppel::add(Expression* expression)
     args.push_back(expression);
 }
 
-std::vector <Expression*> ArgsAppel::get_args(){return args;}
-
-Expression::TypeExpr ArgsAppel::WhatIsThisExprType(){return Expression::TypeExpr::argsAppel;}
-
 //----- Constructeur
 ArgsAppel::ArgsAppel()
 {}// Bloc vide

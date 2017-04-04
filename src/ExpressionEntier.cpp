@@ -27,18 +27,22 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+std::list<string> ExpressionEntier::listeNomLValue()
+{
+    std::list<string> list;
+    return list;
+}
+
 void ExpressionEntier::print()
 {
     cout << valeur << endl;
 }
 
-Expression::TypeExpr ExpressionEntier::WhatIsThisExprType(){return Expression::TypeExpr::entier;}
-
-int ExpressionEntier::get_valeur(){return valeur;}
-
 //----- Constructeur
 ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Entier;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

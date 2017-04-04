@@ -13,6 +13,8 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //--------------------------------------------------- Interfaces utilisées
 # include "InstructionVraie.h"
+#include <list>
+#include <string>
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -23,30 +25,33 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+
+
 class Expression: public InstructionVraie{
     public:
-        enum TypeExpr{
-            Unaire=1,
-            Binaire=2,
-            Char=3,
-            entier=4,
-            variable=5,
-            affectation=6,
-            affectationUnaire=7,
-            appelFonction=8,
-            argsAppel=9,
-            assignation=10,
-			expressionVariable=11
+
+        enum TypeExpression{
+            Type_Unaire,
+            Type_Binaire,
+            Type_Char,
+            Type_Entier,
+            Type_Variable,
+            Type_Affectation,
+            Type_AffectationUnaire,
+            Type_AppelFonction,
+            Type_Assignation,
+            Type_ExpressionVariable
         };
-		InstructionVraie::TypeClass WhatIsThisType();
+
+        Expression::TypeExpression getType();
         virtual void print();
+        virtual std::list<std::string> listeNomLValue()=0;
         Expression();
         ~Expression();
-        virtual Expression::TypeExpr WhatIsThisExprType();
+        virtual InstructionVraieClass typeClass();
 
-
-    private:
-
+    protected:
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSION_H

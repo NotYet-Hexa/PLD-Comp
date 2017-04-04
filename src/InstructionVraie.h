@@ -23,22 +23,29 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+enum InstructionVraieClass{ instructionVraie = 0, declaration = 1, expression = 2, appelFonction = 3, expressionChar = 4 };
+
+
+
+
 class InstructionVraie{
-	
     public:
-		enum TypeClass{
-				bloc=0,
-				declaration=1,
-				retourFonction=2,
-				expression=3,
-				//TODO LOOP STATMENT 
-			};
+        enum TypeInstruction
+        {
+            TIexpression,
+            TIbloc,
+            TIretourFonction,
+            TIdeclaration
+        };
+
         virtual void print() = 0;
         InstructionVraie();
         ~InstructionVraie();
-		virtual InstructionVraie::TypeClass WhatIsThisType();
-    private:
+        InstructionVraie::TypeInstruction getTypeInstruction();
+        virtual InstructionVraieClass typeClass();
 
+    protected:
+        InstructionVraie::TypeInstruction typeInstruction;
 };
 
 #endif // if ! defined INSTRUCTIONVRAIE_H

@@ -31,9 +31,6 @@ void Entier::print()
 {
     
 }
-
-Expression::TypeExpr Entier::WhatIsThisExprType(){return Expression::TypeExpr::entier;}
-
 //----- Constructeur
 Entier::Entier()
 {}// Bloc vide

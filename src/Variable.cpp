@@ -31,7 +31,6 @@ void Variable::print()
 {
     
 }
-Expression::TypeExpr WhatIsThisExprType(){return Expression::TypeExpr::variable;}
 //----- Constructeur
 Variable::Variable()
 {}// Bloc vide

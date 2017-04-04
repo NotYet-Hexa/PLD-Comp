@@ -36,8 +36,6 @@ void Instruction::print()
     instruction->print();
 }
 
-InstructionVraie Instruction::get_instru{return instruction;}
-
 //----- Constructeur
 Instruction::Instruction(InstructionVraie* monInstruction): instruction(monInstruction)
 {}// Bloc vide
@@ -49,3 +47,8 @@ Instruction::~Instruction()
     //delete instruction;
 }// Bloc vide
 //----- Fin destructeur
+
+InstructionVraie* Instruction::getInstructionVraie()
+{
+    return this->instruction;
+}

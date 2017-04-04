@@ -23,13 +23,19 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+enum typeClassBrique{ brique=0, defFonction=1 };
+
+
 class Brique{
     public:
         virtual void print() = 0;
+        virtual typeClassBrique typeClass();
+        bool getIsContexte();
         Brique();
         ~Brique();
 
-    private:
+    protected:
+        bool isContexte;
 
 };
 

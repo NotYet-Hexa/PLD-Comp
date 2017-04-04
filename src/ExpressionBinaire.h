@@ -28,10 +28,9 @@ using namespace std;
 class ExpressionBinaire : public Expression {
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionBinaire(Expression* g, Expression* d, string symb);
         ~ExpressionBinaire();
-        Expression::TypeExpr WhatIsThisExprType();
-        string get_symbole();
         Expression* get_gauche();
         Expression* get_droite();
 

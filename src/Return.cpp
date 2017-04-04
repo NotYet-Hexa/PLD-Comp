@@ -17,8 +17,8 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 
-
 #include "Return.h"
+#include "InstructionVraie.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -36,14 +36,11 @@ void Return::print()
     expression->print();
 }
 
-InstructionVraie::TypeClass Return::WhatIsThisType() { return InstructionVraie::TypeClass::retourFonction; }
-
-Expression* Return::get_expr() {return expression;}
-
 //----- Constructeur
 Return::Return(Expression* monExpression): expression(monExpression)
-
-{}// Bloc vide
+{
+    this->typeInstruction = InstructionVraie::TIretourFonction;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

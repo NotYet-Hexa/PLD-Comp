@@ -28,7 +28,7 @@ public:
     virtual void print();
     Variable();
     ~Variable();
-    Expression::TypeExpr WhatIsThisExprType();
+
 private:
 
 };

@@ -16,6 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
+#include "Expression.h"
 #include "ExpressionBinaire.h"
 
 //---------------------------------------------------- Variables de classe
@@ -27,25 +28,30 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+list<string> ExpressionBinaire::listeNomLValue()
+{
+    std::list<string> list = gauche->listeNomLValue();
+    list.merge(droite->listeNomLValue());
+    return list;
+}
+
+Expression* ExpressionBinaire::get_gauche(){return gauche;}
+
+Expression* ExpressionBinaire::get_droite(){return droite;}
+
 void ExpressionBinaire::print()
 {
     gauche->print();
     cout << symbole << endl;
     droite->print();
 }
-
-Expression::TypeExpr ExpressionBinaire::WhatIsThisExprType(){return Expression::TypeExpr::Binaire;}
-
-string ExpressionBinaire::get_symbole(){return symbole;}
-
-Expression* ExpressionBinaire::get_gauche(){return gauche;}
-
-Expression* ExpressionBinaire::get_droite(){return droite;}
-
 //----- Constructeur
 ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
     gauche(g), droite(d), symbole(s)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Binaire;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

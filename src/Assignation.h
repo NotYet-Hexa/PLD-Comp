@@ -22,13 +22,13 @@ copyright            : (C)2017
 //
 
 //------------------------------------------------------------------------
+
 class Assignation: public Expression{
     public:
         virtual void print();
         Assignation();
         ~Assignation();
-        Expression::TypeExpr WhatIsThisExprType();
-        
+
     private:
 
 };

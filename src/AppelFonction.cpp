@@ -27,6 +27,13 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+list<string> AppelFonction::listeNomLValue()
+{
+	list<string> list;
+	return list;
+}
+
 void AppelFonction::print()
 {
 	cout<<"Debut d'appel de Fonction"<<endl;
@@ -34,16 +41,14 @@ void AppelFonction::print()
 	argsAppel->print();
 }
 
-string AppelFonction::get_nomFonction(){return nomFonction;}
-
-ArgsAppel* AppelFonction::get_argsAppel(){return argsAppel;}
-
-Expression::TypeExpr AppelFonction::WhatIsThisExprType(){return Expression::TypeExpr::appelFonction;};
-
-//----- Constructeur
+string AppelFonction::getNomFonction()
+{
+	return nomFonction;
+}//----- Constructeur
 
 AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
 {
+	this->type_expression = Expression::TypeExpression::Type_AppelFonction;
 }
 //-----Bloc vide
 //----- Fin constructeur
@@ -52,3 +57,8 @@ AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel
 AppelFonction::~AppelFonction()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass AppelFonction::typeClass()
+{
+    return InstructionVraieClass::appelFonction;
+}

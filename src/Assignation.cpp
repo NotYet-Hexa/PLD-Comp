@@ -31,10 +31,11 @@ void Assignation::print()
 {
     
 }
-Expression::TypeExpr Assignation::WhatIsThisExprType(){return Expression::TypeExpr::assignation;}
 //----- Constructeur
 Assignation::Assignation()
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Assignation;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

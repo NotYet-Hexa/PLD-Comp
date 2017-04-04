@@ -24,18 +24,15 @@ using namespace std;
 //
 
 //------------------------------------------------------------------------
-enum TypeClass{ declaration=1 };
+
 class Declaration : public InstructionVraie {
     public:
         void print();
         Declaration(string type, string nom, bool isTab, int size);
         ~Declaration();
-		InstructionVraie::TypeClass WhatIsThisType();
-        string get_type();
-        string get_nom();
-        bool get_tab();
-        int get_size();
-        
+        InstructionVraieClass typeClass();
+    string getType(){return type;}
+    string getNom(){return nom;}
     private:
         string type;
         string nom;

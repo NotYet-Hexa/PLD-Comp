@@ -28,21 +28,31 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void ExpressionChar::print()
+
+std::list<string> ExpressionChar::listeNomLValue()
 {
-    cout << valeur << endl;
+    std::list<string> list;
+    return list;
 }
 
-Expression::TypeExpr ExpressionChar::WhatIsThisExprType(){return Expression::TypeExpr::Char;}
-
-char ExpressionChar::get_valeur(){return valeur;}
-
+void ExpressionChar::print()
+{
+    cout << "char : ";  
+    cout << valeur << endl;
+}
 //----- Constructeur
 ExpressionChar::ExpressionChar(char car) : valeur(car)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Char;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 ExpressionChar::~ExpressionChar()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionChar::typeClass()
+{
+    return InstructionVraieClass::expressionChar;
+}

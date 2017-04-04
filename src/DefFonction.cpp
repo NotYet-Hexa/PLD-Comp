@@ -36,6 +36,7 @@ DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonct
 {
 	this->bloc = bloc;
 	this->args = args;
+	this->isContexte = false;
 }// Bloc vide
 //----- Fin constructeur
 
@@ -51,10 +52,14 @@ void DefFonction::print()
 	bloc->print();
 }
 
-string DefFonction::getNomFonction() { return nomFonction; }
+string DefFonction::getNomFonction() { return this->nomFonction; }
 
-Bloc* DefFonction::getBloc(){ return bloc; }
+Bloc* DefFonction::getBloc(){ return this->bloc; }
 
-ArgsDef* DefFonction::getArgs(){ return args; }
+ArgsDef* DefFonction::getArgs(){ return this->args; }
 
-string DefFonction::get_type(){return type;}
+
+typeClassBrique DefFonction::typeClass()
+{
+	return typeClassBrique::defFonction;
+}

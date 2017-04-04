@@ -13,7 +13,6 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //--------------------------------------------------- Interfaces utilisées
 
-
 #include "Expression.h"
 
 //------------------------------------------------------------------------
@@ -25,20 +24,19 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-class Affectation: public Expression {
+
+class Affectation : public Expression {
     public:
         void print();
+        std::list<string> listeNomLValue();
         Affectation(string nomVariable, string symbole, Expression* monExpression);
         ~Affectation();
-        string get_nomVariable();
-        string get_symbole();
         Expression* get_expression();
-        Expression::TypeExpr WhatIsThisExprType();
 
     private:
-    string nomVariable;
-    string symbole;
-    Expression* expression;
+        string nomVariable;
+        string symbole;
+        Expression* expression;
 
 };
 

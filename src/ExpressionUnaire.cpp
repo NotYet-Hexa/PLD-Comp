@@ -28,21 +28,25 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+std::list<string> ExpressionUnaire::listeNomLValue()
+{
+    std::list<string> list = expression->listeNomLValue();
+    return list;
+}
+
+Expression* ExpressionUnaire::get_expression(){return expression;}
+
 void ExpressionUnaire::print()
 {
     expression->print();
     cout << symbole << endl;
 }
-
-string ExpressionUnaire::get_symbole(){return symbole;}
-
-Expression* ExpressionUnaire::get_expr(){return expression;}
-
-Expression::TypeExpr ExpressionUnaire::WhatIsThisExprType(){return Expression::TypeExpr::Unaire;}
-
 //----- Constructeur
 ExpressionUnaire::ExpressionUnaire(Expression* exp, string s) : expression(exp), symbole(s)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_Unaire;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

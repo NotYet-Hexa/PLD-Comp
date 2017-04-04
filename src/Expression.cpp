@@ -27,21 +27,29 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+Expression::TypeExpression Expression::getType()
+{
+    return type_expression;
+}
+
+
 void Expression::print()
 {
     cout << "salut" << endl;
 }
-
-InstructionVraie::TypeClass Expression::WhatIsThisType() { return InstructionVraie::TypeClass::expression; }
-
-
-
 //----- Constructeur
 Expression::Expression()
-{}// Bloc vide
+{
+    this->typeInstruction = InstructionVraie::TIexpression;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 Expression::~Expression()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass Expression::typeClass()
+{
+    return InstructionVraieClass::expression;
+}

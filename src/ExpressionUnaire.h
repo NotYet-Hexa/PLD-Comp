@@ -28,11 +28,11 @@ using namespace std;
 class ExpressionUnaire : public Expression{
     public:
         void print();
+        std::list<string> listeNomLValue();
         ExpressionUnaire(Expression* exp, string symb);
         ~ExpressionUnaire();
-        Expression* get_expr();
-        string get_symbole();
-        Expression::TypeExpr WhatIsThisExprType();
+        Expression* get_expression();
+
     private:
         Expression * expression;
         string symbole;

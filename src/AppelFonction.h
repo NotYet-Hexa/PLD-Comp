@@ -31,13 +31,12 @@ class AppelFonction : public Expression
 {
     public:
         void print();
+        std::list<string> listeNomLValue();
         AppelFonction(string nom_fonction, ArgsAppel* args);
         ~AppelFonction();
-        string get_nomFonction();
-        ArgsAppel* get_argsAppel();
-        Expression::TypeExpr WhatIsThisExprType();
-
-
+        string getNomFonction();
+        virtual InstructionVraieClass typeClass();
+        ArgsAppel* getArgsAppel(){return argsAppel;}
     private:
         string nomFonction;
         ArgsAppel* argsAppel;

@@ -1,14 +1,14 @@
 /*************************************************************************
 PLD Comp
-Instruction.h  -  Description
+PutChar.h  -  Description
 -------------------
-début                : 15/02/2017
-copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
+début                : 27/03/2017
+copyright            : (C)2017
 *************************************************************************/
 
-//---------- Interface de la classe Instruction (fichier Instruction.h) ------
-#if ! defined ( INSTRUCTION_H )
-#define INSTRUCTION_H
+//---------- Interface de la classe PutChar (fichier PutChar.h) ------
+#if ! defined ( PUTCHAR_H )
+#define PUTCHAR_H
 
 
 //--------------------------------------------------- Interfaces utilisées
@@ -20,21 +20,20 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Instruction:
+// Role de la classe PutChar:
 //
 
 //------------------------------------------------------------------------
 
-class Instruction{
-    public:
-        void print();
-        Instruction(InstructionVraie* monInstruction);
-        ~Instruction();
-        InstructionVraie get_instru();
+class PutChar : public InstructionVraie {
+public:
+    virtual void print();
+    PutChar(char monChar);
+    ~PutChar();
 
-    private:
-    InstructionVraie* instruction;
+private:
+    char theChar;
 
 };
 
-#endif // if ! defined INSTRUCTIONVRAIE_H
+#endif // if ! defined PUTCHAR_H

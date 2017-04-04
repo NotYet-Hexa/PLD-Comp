@@ -27,19 +27,25 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+
+std::list<string> ExpressionVariable::listeNomLValue()
+{
+    list<string> list;
+    list.push_back(nomVariable);
+    return list;
+}
+
 void ExpressionVariable::print()
 {
     // Ajouter la valeur après les :
     cout << "variable : " << nomVariable << endl;
 }
-
-Expression::TypeExpr ExpressionVariable::WhatIsThisExprType(){return Expression::TypeExpr::expressionVariable;}
-
-string ExpressionVariable::get_variable(){return nomVariable;}
-
 //----- Constructeur
 ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Type_ExpressionVariable;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

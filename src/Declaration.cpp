@@ -28,22 +28,18 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+
 //----- Constructeur
 Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
-{}// Bloc vide
+{
+	this->typeInstruction = InstructionVraie::TIdeclaration;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 Declaration::~Declaration()
 {}// Bloc vide
 //----- Fin destructeur
-
-InstructionVraie::TypeClass Declaration::WhatIsThisType() { return InstructionVraie::TypeClass::declaration; }
-
-string Declaration::get_type(){return type;}
-string Declaration::get_nom(){return nom;}
-bool Declaration::get_tab(){return isTab;}
-int Declaration::get_size(){return size;}
 
 void Declaration::print()
 {
@@ -58,5 +54,10 @@ void Declaration::print()
 		cout<<"]";
 	}
 	cout<<endl;
+}
+
+InstructionVraieClass Declaration::typeClass()
+{
+    return InstructionVraieClass::declaration;
 }
 

@@ -27,11 +27,11 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 class Instruction{
     public:
+        Instruction();
         void print();
         Instruction(InstructionVraie* monInstruction);
         ~Instruction();
-        InstructionVraie get_instru();
-
+        InstructionVraie* getInstructionVraie();
     private:
     InstructionVraie* instruction;
 

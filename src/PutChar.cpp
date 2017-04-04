@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Declaration.cpp  -  Description
+PutChar.cpp  -  Description
 -------------------
-début                : 23/02/2017
-copyright            : (C)2015 par Haim Nathan
+début                : 27/03/2017
+copyright            : (C)2017
 *************************************************************************/
 
-//---------- Réalisation de la classe Declaration (fichier Declaration.cpp) --
+//---------- Réalisation de la classe PutChar (fichier PutChar.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ copyright            : (C)2015 par Haim Nathan
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Declaration.h"
+#include "PutChar.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,36 +27,37 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-
+void PutChar::print()
+{
+    cout << "PutChar : " << theChar << endl; 
+}
 //----- Constructeur
-Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
+PutChar::PutChar(char monChar) : theChar(monChar)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Declaration::~Declaration()
+PutChar::~PutChar()
 {}// Bloc vide
 //----- Fin destructeur
 
-InstructionVraie::TypeClass Declaration::WhatIsThisType() { return InstructionVraie::TypeClass::declaration; }
 
-string Declaration::get_type(){return type;}
-string Declaration::get_nom(){return nom;}
-bool Declaration::get_tab(){return isTab;}
-int Declaration::get_size(){return size;}
+/*
+lecture_ecriture	: GETCHAR PARENTOUV nom_variable PARENTFERM     
+			        | PUTCHAR PARENTOUV CHAR PARENTFERM             { $$ = new PutChar($3); }
+			        ;
 
-void Declaration::print()
-{
-	cout << "Declaration : type ->" << type << "  |  nom -> " << nom;
-	if(isTab)
-	{
-		cout<<"[";
-		if(size>0)
-		{
-			cout<<size;
-		}
-		cout<<"]";
-	}
-	cout<<endl;
-}
 
+%type<instructionVraie> lecture_ecriture
+
+
+    InstructionVraie * instructionVraie;
+
+
+#include "PutChar.h"
+
+
+"putchar"             { return PUTCHAR; }
+"getchar"             { return GETCHAR; }
+
+*/

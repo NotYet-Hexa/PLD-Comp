@@ -25,6 +25,7 @@ using namespace std;
 
 //------------------------------------------------------------------------
 
+
 class Contexte{
     public:
         Contexte();
@@ -35,9 +36,9 @@ class Contexte{
         bool chercherVariable(string nomVariable);
         void ajouterParent(Contexte*);
         string getNomContexte();
+        Contexte* getParent();
         static void test_AfficherTableDesSymboles();
-        string get_nomContexte();
-        Contexte* get_contexte();
+        
 
     private:
         string nomContexte;

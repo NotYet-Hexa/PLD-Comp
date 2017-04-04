@@ -34,8 +34,7 @@ class DeclarationFonction : public Brique
         DeclarationFonction(string nom_fonction, string type_retour, ArgsDef* args);
         ~DeclarationFonction();
         string getNomFonction();
-        string get_typeRetour();
-        ArgsDef* get_argsDef();
+
     private:
         string nomFonction;
         string typeRetour;

@@ -30,6 +30,15 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+
+std::list<string> Affectation::listeNomLValue()
+{
+    list<string> list;
+    list.push_back(nomVariable);
+    list.merge(expression->listeNomLValue());
+    return list;
+}
+
 void Affectation::print()
 {
     cout << "Affectation :" << endl;
@@ -39,15 +48,7 @@ void Affectation::print()
     expression->print();
 }
 
-string Affectation::get_nomVariable(){return nomVariable;}
-
-string Affectation::get_symbole(){return symbole;}
-
 Expression* Affectation::get_expression(){return expression;}
-
-Expression::TypeExpr Affectation::WhatIsThisExprType(){return Expression::TypeExpr::affectation;}
-
-
 
 //----- Constructeur
 Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)

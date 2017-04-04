@@ -30,6 +30,13 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+std::list<string> AffectationUnaire::listeNomLValue()
+{
+    list<string> list;
+    list.push_back(nomVariable);
+    return list;
+}
+
 void AffectationUnaire::print()
 {
     cout << "Affectation Unaire:" << endl;
@@ -37,12 +44,6 @@ void AffectationUnaire::print()
     cout << "symbole :" << symbole << endl;
 
 }
-
-string AffectationUnaire::get_nomVariable(){return nomVariable;}
-
-string AffectationUnaire::get_symbole(){return symbole;}
-
-Expression::TypeExpr AffectationUnaire::WhatIsThisExprType(){return Expression::TypeExpr::affectationUnaire;}
 
 //----- Constructeur
 AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariable(nomVar), symbole(monSymbole)

@@ -28,6 +28,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+bool Brique::getIsContexte()
+{
+    return isContexte;
+}
 
 
 //----- Constructeur
@@ -41,3 +45,8 @@ Brique::~Brique()
     cout << "destructeur de Brique" << endl;
 }// Bloc vide
 //----- Fin destructeur
+
+typeClassBrique Brique::typeClass()
+{
+	return typeClassBrique::brique;
+}

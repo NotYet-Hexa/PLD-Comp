@@ -28,7 +28,7 @@ public:
     virtual void print();
     Entier();
     ~Entier();
-    Expression::TypeExpr WhatIsThisExprType();
+
 private:
 
 };

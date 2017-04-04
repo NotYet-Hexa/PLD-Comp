@@ -25,18 +25,17 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //
 
 //------------------------------------------------------------------------
-enum TypeExpr {affectationUnaire=7};
+
 class AffectationUnaire: public Expression {
     public:
         void print();
+        std::list<string> listeNomLValue();
         AffectationUnaire(string nomVariable, string symbole);
         ~AffectationUnaire();
-        string get_nomVariable();
-        string get_symbole();
-        Expression::TypeExpr WhatIsThisExprType();
+
     private:
-    string nomVariable;
-    string symbole;
+        string nomVariable;
+        string symbole;
 
 };
 
