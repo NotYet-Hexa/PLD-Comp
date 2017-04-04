@@ -21,14 +21,15 @@ void IRInstr::gen_asm(ostream &o)
     string str;
     string operateur;
     cout << "Valeur de operation ::::::: " << op << endl;
-    switch(op)
+    cout << "ldconst vaut :: " << Operation::ldconst <<endl ; 
+    switch(this->op)
     {
-        case ldconst :
+        case Operation::ldconst :
                 //if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
                 operateur = "movq";
                 str= operateur+ " "+params.at(0)+ ", "+params.at(1);
                 break;
-        case call :
+        case Operation::call :
                 int paramNum =0;
                 while((params.size() - paramNum) > 1 )
                 {
