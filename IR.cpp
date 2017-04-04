@@ -110,7 +110,7 @@ void var_temp_instr_bloc(InstructionVraie* intructionVraie)
 
 // expressionTree doit renvoyer un dictionnaire 
 // les var_temp ne renvoient pas des void
-void var_temp_instr_affectation(Affectation* affectation,int depth)
+string var_temp_instr_affectation(Affectation* affectation,int depth)
 {
     string nomVariable = *affectation.get_nomVariable();
     string symbole = *affection.get_symbole();
@@ -118,13 +118,13 @@ void var_temp_instr_affectation(Affectation* affectation,int depth)
     expressionTree(expression,depth);
     
 }
-void var_temp_instr_Unaire(ExpressionUnaire* expressionUnaire,int depth)
+string var_temp_instr_Unaire(ExpressionUnaire* expressionUnaire,int depth)
 {
 	string symbole= *expressionBinaire.get_symbole();
 	Expression* expression = *expressionBinaire.get_expression();
 	expressionTree(expression,depth);
 }
-void var_temp_instr_Binaire(ExpressionBinaire* expressionBinaire,int depth)
+string var_temp_instr_Binaire(ExpressionBinaire* expressionBinaire,int depth)
 {
 	string symbole= *expressionBinaire.get_symbole();
 	Expression* expressionGauche = *expressionBinaire.get_gauche();
@@ -132,42 +132,42 @@ void var_temp_instr_Binaire(ExpressionBinaire* expressionBinaire,int depth)
 	expressionTree(expressionGauche,depth);
 	expresstionTree(expressionDroite,Depth);
 }
-void var_temp_instr_Char(ExpressionChar* expressionChar);
+string var_temp_instr_Char(ExpressionChar* expressionChar);
 {
 	char valeur = *expressionChar.get_valeur();
 }
-void var_temp_instr_Entier(Entier* entier);
+string var_temp_instr_Entier(Entier* entier);
 {
 	
 }
-void var_temp_instr_AffectationUnaire(AffectationUnaire* affectationUnaire);
+string var_temp_instr_AffectationUnaire(AffectationUnaire* affectationUnaire);
 {
 	string nomVariable = *affectationUnaire.get_nomVariable();
 	string symbole = *affectationUnaire.get_symbole();
 	
 }
-void var_temp_instr_AppelFonction(AppelFonction* appelfonction);
+string var_temp_instr_AppelFonction(AppelFonction* appelfonction);
 {
 	string nomFonction = *appelFonction.get_nomFonction();
 	ArgsAppel* argsAppel = *appelFonction.get_argsAppel();//TODO fonction (ArgsAppel*)
 }
-void var_temp_instr_argsAppel(ArgsAppel* argsAppel);
+string var_temp_instr_argsAppel(ArgsAppel* argsAppel);
 {
 	//TODO
 }
-void var_temp_instr_assignation(Assignation* assignation);
+string var_temp_instr_assignation(Assignation* assignation);
 {
 	//TODO
 }
-void var_temp_instr_ExpressionVariable(ExpressionVariable* expressionVariable);
+string var_temp_instr_ExpressionVariable(ExpressionVariable* expressionVariable);
 {
 	string nomVariable = *expressionVariable.get_nomVariable();
 }
-void var_temp_expr_Variable(Variable* variable)
+string var_temp_expr_Variable(Variable* variable)
 {
 	//TODO
 }
-void expressionTree(int depth, Expression* expression)
+string expressionTree(int depth, Expression* expression)
 {
     int TypeExpression=*expression.WhatIsThisExprType();
     depth++;
