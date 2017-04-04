@@ -23,9 +23,8 @@ script:
   - chmod a+x tests/run.sh
   - make mode=coverage
   - make mode=coverage test
-  - gcov src/*.cpp
 after_script:
   - chmod a+x slack.sh
   - ./slack.sh
 after_success:
-  - coveralls --include src --gcov-options '\-lp'
+  - coveralls --gcov-options '\-o src/ src/*.cpp'

@@ -40,6 +40,7 @@ void Cond::print()
     cout << "Cond :" << endl;
     this->expression->print();
     this->instruction->print();
+    this->condSuite->print();
 }
 
 void Cond::checkContexte(Contexte* contexteCourant )
@@ -55,11 +56,12 @@ void Cond::checkContexte(Contexte* contexteCourant )
     }
     
     this->instruction->checkContexte(contexteCourant);
+    this->condSuite->checkContexte(contexteCourant);
     
 }
 
 //----- Constructeur
-Cond::Cond(Expression* monExpression,Instruction* monInstruction): expression(monExpression), instruction(monInstruction)
+Cond::Cond(Expression* monExpression,Instruction* monInstruction, CondSuite* maCondSuite): expression(monExpression), instruction(monInstruction), condSuite(maCondSuite)
 {
     this->typeInstruction = InstructionVraie::TIcond;
 }// Bloc vide

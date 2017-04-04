@@ -29,6 +29,7 @@ using namespace std;
 
 
 #include "Cond.h"
+#include "CondSuite.h"
 
 #include "ArgsDef.h"
 #include "ArgsAppel.h"
@@ -58,6 +59,8 @@ int yylex(void);
     Expression * expression;
     Instruction * instruction;
     Cond * cond;
+    CondSuite * condSuite;
+
     char* chaine;
 
     Declaration* declaration;
@@ -130,7 +133,7 @@ int yylex(void);
 %type<chaine> l_value
 %type<expression> appel_fonction
 %type<argsAppel> args_appel_fonction
-%type<ival> fin_cond
+%type<condSuite> fin_cond
 %type<ival> for_loop
 %type<ival> while_loop
 
@@ -218,6 +221,8 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
 
 
 
+
+
 nom                 : NOM               { $$ = $1; }
                     ;
 
@@ -226,12 +231,12 @@ nom                 : NOM               { $$ = $1; }
 
 
 
-cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond       { $$ = new Cond($3, $5); }
+cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond       { $$ = new Cond($3, $5, $6); }
                 		;
 
-fin_cond           		: ELSE instruction 
-              			|
-                		;
+fin_cond           		: ELSE instruction                                              { $$ = new CondSuite(false, $2); }
+              			|                                                               { Instruction * Ipt ; $$ = new CondSuite(true, Ipt ); }
+                		;                                                               
 
 
 loop_statement      	: while_loop 

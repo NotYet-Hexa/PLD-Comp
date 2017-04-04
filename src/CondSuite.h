@@ -1,14 +1,14 @@
 /*************************************************************************
 PLD Comp
-Cond.h  -  Description
+CondSuite.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe Cond (fichier Cond.h) ------
-#if ! defined ( COND_H )
-#define COND_H
+//---------- Interface de la classe CondSuite (fichier CondSuite.h) ------
+#if ! defined ( CONDSUITE_H )
+#define CONDSUITE_H
 
 
 //--------------------------------------------------- Interfaces utilisées
@@ -16,31 +16,28 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 #include "InstructionVraie.h"
 #include "Instruction.h"
 #include "Expression.h"
-#include "CondSuite.h"
 
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Cond:
+// Role de la classe CondSuite:
 //
 
 //------------------------------------------------------------------------
 
-class Cond : public InstructionVraie {
+class CondSuite  {
     public:
         void print();
-        std::list<string> listeNomLValue();
         void checkContexte(Contexte* contexteCourant );
-        Cond(Expression* monExpression, Instruction* instruction,CondSuite* condSuite);
-        ~Cond();
+        CondSuite(bool vide, Instruction* instruction);
+        ~CondSuite();
 
     private:
-    Expression * expression;
+    bool vide;
     Instruction* instruction;
-    CondSuite* condSuite;
 
 };
 
-#endif // if ! defined COND_H
+#endif // if ! defined CONDSUITE_H

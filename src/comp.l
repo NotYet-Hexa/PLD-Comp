@@ -19,6 +19,7 @@ using namespace std;
 #include "Affectation.h"
 #include "AffectationUnaire.h"
 #include "Cond.h"
+#include "CondSuite.h"
 
 
 
