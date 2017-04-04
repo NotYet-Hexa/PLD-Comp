@@ -103,8 +103,31 @@ void PreIR::analyseBloc(Bloc* b)
         {
             case InstructionVraieClass::declaration : analyseDeclaration((Declaration*)(*it)->getInstructionVraie());break;
             case InstructionVraieClass::appelFonction : analyseAppelFonction((AppelFonction*)(*it)->getInstructionVraie()) ; break;
+            case InstructionVraieClass::affectation : analyseAffectation((Affectation*)(*it)->getInstructionVraie()) ; break;
         }
     }
+}
+
+void PreIR::analyseAffectation(Affectation* aff)
+{
+    string nomVar = aff->get_nom_variable();
+    string symbole = aff->get_symbole();
+    //TODO mettre un switch pour tester les differents symboles
+    Expression* entier = aff->get_expression();
+    string tmpVar = analyseExpressionEntier((ExpressionEntier*)entier);
+    vector<string> params;
+    params.push_back(tmpVar);
+    params.push_back(nomVar);
+    current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+    /*params.push_back(to_string(bb_->cfg->get_var_index(tmpVar)+"(%rbp)"));
+    params.push_back("%rax");
+    current_bb->add_IRInstr(IRInstr::Operation::mov,Type::int64, listParam);
+
+    vector<string> params1;
+    params.push_back("%rax");
+    params.push_back(to_string(bb_->cfg->get_var_index(nomVar)+"(%rbp)"));
+    current_bb->add_IRInstr(IRInstr::Operation::mov,Type::int64, listParam);*/
+
 }
 
 void PreIR::analyseDeclaration(Declaration* dec)
@@ -113,6 +136,14 @@ void PreIR::analyseDeclaration(Declaration* dec)
     if(s == "int64")
     {
         current_cfg->add_to_symbol_table(dec->getNom(),Type::int64);
+    }
+    else if(s == "int32")
+    {
+        current_cfg->add_to_symbol_table(dec->getNom(),Type::int32); 
+    }
+    else if(s == "char")
+    {
+        current_cfg->add_to_symbol_table(dec->getNom(),Type::ch);
     }
 }
 
@@ -169,6 +200,20 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
+
+
+string PreIR::analyseExpressionEntier(ExpressionEntier* expressionEntier)
+{
+    string tmpVar = current_cfg->create_new_tempvar(Type::int64);
+    vector<string> params;
+    params.push_back(tmpVar);
+    params.push_back(to_string(expressionEntier->get_valeur()));
+    current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
+    return tmpVar;
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
+
+
 
 // string PreIR::instructionToIR(Instruction* instruction)
 // {

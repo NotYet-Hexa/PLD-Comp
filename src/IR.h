@@ -33,7 +33,8 @@ public:
         call,
         cmp_eq,
         cmp_lt,
-        cmp_le
+        cmp_le,
+        copy
     } Operation;
 
 
@@ -44,6 +45,7 @@ public:
 
     /** Actual code generation */
     void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+
 
 private:
 

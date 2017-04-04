@@ -35,6 +35,7 @@ class Affectation : public Expression {
         Expression* get_expression();
         string get_nom_variable();
         string get_symbole();
+        virtual InstructionVraieClass typeClass();
 
     private:
         string nomVariable;
