@@ -59,7 +59,7 @@ Briques::~Briques()
 {
 	for (vector<Brique*>::iterator it = vectorBrique.begin(); it != vectorBrique.end(); it++)
 	{
-		delete *it;
+		//delete *it;
 	}
 	vectorBrique.clear();
 }// Bloc vide

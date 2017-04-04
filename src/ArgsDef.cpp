@@ -71,7 +71,7 @@ ArgsDef::~ArgsDef()
 {
 	for (vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
 	{
-		delete *it;
+		//delete *it;
 	}
 	args.clear();
 }// Bloc vide

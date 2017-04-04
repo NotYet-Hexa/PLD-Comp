@@ -115,7 +115,7 @@ Instruction::Instruction(InstructionVraie* monInstruction): instruction(monInstr
 //----- Destructeur
 Instruction::~Instruction()
 {
-    delete this->instruction;
+    //delete this->instruction;
 }// Bloc vide
 //----- Fin destructeur
 

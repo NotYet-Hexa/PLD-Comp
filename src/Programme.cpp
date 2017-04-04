@@ -59,7 +59,7 @@ Programme::~Programme()
 {
      delete this->briques ;
    
-}// Bloc vide
+}
 //----- Fin destructeur
 
 

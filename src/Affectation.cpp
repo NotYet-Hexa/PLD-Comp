@@ -69,6 +69,6 @@ Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpres
 //----- Destructeur
 Affectation::~Affectation()
 {
-	delete this->expression;
+	//delete this->expression;
 }
 //----- Fin destructeur

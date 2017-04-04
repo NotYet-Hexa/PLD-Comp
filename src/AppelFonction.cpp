@@ -59,7 +59,7 @@ AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel
 //----- Destructeur
 AppelFonction::~AppelFonction()
 {
-	delete this->argsAppel;
+	//delete this->argsAppel;
 }// Bloc vide
 //----- Fin destructeur
 
