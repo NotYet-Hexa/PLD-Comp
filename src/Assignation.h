@@ -28,8 +28,9 @@ class Assignation: public Expression{
         virtual void print();
         Assignation();
         ~Assignation();
-
+ 
     private:
+        TypeExpression type_expression;
 
 };
 

@@ -37,3 +37,5 @@ log.txt
 slack_result.json
 
 main.s
+
+*.gc*

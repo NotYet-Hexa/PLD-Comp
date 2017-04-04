@@ -23,7 +23,12 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
-enum InstructionVraieClass{ instructionVraie = 0, declaration = 1, expression = 2, appelFonction = 3, expressionChar = 4 };
+enum InstructionVraieClass{
+    instructionVraie = 0,
+    declaration = 1,
+    expression = 2,
+    appelFonction = 3,
+    expressionChar = 4};
 
 
 
@@ -35,7 +40,8 @@ class InstructionVraie{
             TIexpression,
             TIbloc,
             TIretourFonction,
-            TIdeclaration
+            TIdeclaration,
+            TIcond
         };
 
         virtual void print() = 0;

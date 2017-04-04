@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-ExpressionBinaire.cpp  -  Description
+CondSuite.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe ExpressionBinaire (fichier ExpressionBinaire.cpp) --
+//---------- Réalisation de la classe CondSuite (fichier CondSuite.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +16,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Expression.h"
-#include "ExpressionBinaire.h"
+
+#include "CondSuite.h"
+#include "InstructionVraie.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -29,34 +30,32 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-list<string> ExpressionBinaire::listeNomLValue()
+void CondSuite::print()
 {
-    std::list<string> list = gauche->listeNomLValue();
-    list.merge(droite->listeNomLValue());
-    return list;
+    if(!vide)
+    {
+        cout << "CondSuite :" << endl;
+        this->instruction->print();
+    }
 }
 
-string ExpressionBinaire::get_symbole(){return symbole;}
-
-Expression* ExpressionBinaire::get_gauche(){return gauche;}
-
-Expression* ExpressionBinaire::get_droite(){return droite;}
-
-void ExpressionBinaire::print()
+void CondSuite::checkContexte(Contexte* contexteCourant )
 {
-    gauche->print();
-    cout << symbole << endl;
-    droite->print();
+    if(!vide)
+    {
+        this->instruction->checkContexte(contexteCourant);
+    }
 }
+
 //----- Constructeur
-ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
-    gauche(g), droite(d), symbole(s)
+CondSuite::CondSuite(bool monVide, Instruction* monInstruction): instruction(monInstruction), vide(monVide)
 {
-    this->type_expression = Expression::TypeExpression::Type_Binaire;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-ExpressionBinaire::~ExpressionBinaire()
-{}// Bloc vide
+CondSuite::~CondSuite()
+{
+
+}
 //----- Fin destructeur

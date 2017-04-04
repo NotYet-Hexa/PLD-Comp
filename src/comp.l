@@ -18,6 +18,9 @@ using namespace std;
 #include "Return.h"
 #include "Affectation.h"
 #include "AffectationUnaire.h"
+#include "Cond.h"
+#include "CondSuite.h"
+
 
 
 
@@ -47,7 +50,7 @@ using namespace std;
 %option noyywrap
 
 entier [0-9]+
-charactere '(\\.|[^\\"])'
+charactere '(\\.|\\n|[^\\"])'
 chaine \"(\\.|[^\\"])*\"
 nom [a-zA-Z_]+
 

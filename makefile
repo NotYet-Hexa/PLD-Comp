@@ -5,6 +5,7 @@ VPATH = src:build
 CC = g++
 REMOVE = rm -f
 DEBUG_FLAG = -g -O0 -D DEBUG -DYYDEBUG=1
+COVERAGE_FLAG=-fprofile-arcs -ftest-coverage
 CFLAGS = -std=c++11
 LDFLAGS = -std=c++11
 EXEC = exe
@@ -43,6 +44,12 @@ else
 	BUILDFOLDER = $(RELEASE_FOLDER)
 endif
 
+ifeq ($(mode),coverage)
+	CFLAGS += $(COVERAGE_FLAG)
+	LDFLAGS += $(COVERAGE_FLAG)
+	BUILDFOLDER = src
+endif
+
 
 all: $(EXEC_PATH)
 
@@ -76,7 +83,7 @@ $(FLEX_RESULT): $(FLEX_FILES)
 	flex -o $@ $(FLEX_FILES) 
 
 clean:
-	cd $(BUILDFOLDER); $(REMOVE) *.$(OBJFILE) $(EXEC) 
+	cd $(BUILDFOLDER); $(REMOVE) *.$(OBJFILE) $(EXEC) *.gc*
 	cd src; $(REMOVE) *.tab.* *.output lex.*
 
 test: $(EXEC_PATH)

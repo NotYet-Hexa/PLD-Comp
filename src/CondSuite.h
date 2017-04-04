@@ -1,41 +1,43 @@
 /*************************************************************************
 PLD Comp
-ExpressionVariable.h  -  Description
+CondSuite.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe ExpressionVariable (fichier ExpressionVariable.h) ------
-#if ! defined ( EXPRESSIONVARIABLE_H )
-#define EXPRESSIONVARIABLE_H
+//---------- Interface de la classe CondSuite (fichier CondSuite.h) ------
+#if ! defined ( CONDSUITE_H )
+#define CONDSUITE_H
 
 
 //--------------------------------------------------- Interfaces utilisées
-#include <string>
 
+#include "InstructionVraie.h"
+#include "Instruction.h"
 #include "Expression.h"
+
 //------------------------------------------------------------------------
 
-using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe ExpressionVariable:
+// Role de la classe CondSuite:
 //
 
 //------------------------------------------------------------------------
 
-class ExpressionVariable : public Expression{
+class CondSuite  {
     public:
         void print();
-        std::list<string> listeNomLValue();
-        ExpressionVariable(string nom);
-        ~ExpressionVariable();
-        string get_nomVariable();
+        void checkContexte(Contexte* contexteCourant );
+        CondSuite(bool vide, Instruction* instruction);
+        ~CondSuite();
+
     private:
-        string nomVariable;
-        TypeExpression type_expression;
+    bool vide;
+    Instruction* instruction;
+
 };
 
-#endif // if ! defined EXPRESSIONVARIABLE_H
+#endif // if ! defined CONDSUITE_H
