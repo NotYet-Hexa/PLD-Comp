@@ -37,7 +37,7 @@ void IRInstr::gen_asm(ostream &o)
                 {
                     string p = params.at(params.size()-paramNum-1);
                     operateur = "movq";
-                    str = "\t"+operateur+" "+ to_string(bb_->cfg->get_var_index(p))+"(%rbp) ," + chooseRegister(paramNum);
+                    str = "\t"+operateur+" "+ to_string(bb_->cfg->get_var_index(p))+"(%rbp), " + chooseRegister(paramNum);
                     o<<str<<endl;
                     paramNum++;
                 }
