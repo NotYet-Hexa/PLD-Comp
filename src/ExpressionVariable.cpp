@@ -43,7 +43,9 @@ void ExpressionVariable::print()
 }
 //----- Constructeur
 ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Variable;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur

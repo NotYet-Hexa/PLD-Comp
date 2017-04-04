@@ -67,7 +67,7 @@ format_message() {
     title="$nb_success_test tests succeeded !"
     titlelink="https://travis-ci.org/NotYet-Hexa/PLD-Comp"
     text="$message"
-    commit_info=`git log -1 --pretty=format:"*%cn* : _%s_ <https://github.com/NotYet-Hexa/PLD-Comp/commit/%h|#%h>" 2>/dev/null`
+    commit_info=`git log -1 --pretty=format:"*%cn* : _ %s _ <https://github.com/NotYet-Hexa/PLD-Comp/commit/%h|#%h>" 2>/dev/null`
     # text=`echo "$message" | sed 's%\\\x%\\\\\\\x%g'`
     if [ $fail -eq 1 ]
     then
