@@ -164,7 +164,7 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     vector<string> params;
     params.push_back(tmpVar);
     params.push_back(to_string(expressionChar->getChar()));
-    cout << "le char est : " << to_string(expressionChar->getChar())) << endl;
+    cout << "le char est : " << to_string(expressionChar->getChar()) << endl;
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
