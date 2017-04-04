@@ -34,9 +34,10 @@ void IRInstr::gen_asm(ostream &o)
                     string p = params.at(params.size()-paramNum-1);
                     operateur = "movq";
                     str = operateur+ " " + to_string(bb_->cfg->get_var_index(p)) + "(%rbp), " + chooseRegister(paramNum);
-                    o<<str<<endl;; 
+                    o<<str<<endl;
+                    paramNum++;
                 }
-                o<< "call " +params.at(0);
+                o<< "\tcall " +params.at(0);
     }
 
 
@@ -125,6 +126,7 @@ void CFG::gen_asm_body(std::ostream& o)
 {
     for(vector<BasicBlock*>::iterator it= bbs.begin() ; it != bbs.end() ; it++)
     {
+        cout << "passe BODY"<<endl;
         (*it)->gen_asm(o);
     }
 }
@@ -132,8 +134,9 @@ void CFG::gen_asm_body(std::ostream& o)
 
 void BasicBlock::gen_asm(std::ostream &o)
 {
+    cout <<"rentre asm bb"<<endl;
     for(vector<IRInstr*>::iterator it= instrs.begin() ; it != instrs.end() ; it++)
-    {
+    {   cout <<"find instr"<<endl;
         (*it)->gen_asm(o);
     }
 }

@@ -54,7 +54,6 @@ void PreIR::analyseDefFonction(DefFonction* defFonction)
     BasicBlock* bb = new BasicBlock(current_cfg, current_cfg->new_BB_name());
     current_bb = bb;
     cfg->add_bb(bb);
-
     analyseBloc(defFonction->getBloc());
 }
 
@@ -123,9 +122,17 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
         InstructionVraieClass ins;
         vector<string> listParam;
         listParam.push_back(appelFonction->getNomFonction());
+
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
+            cout <<"rentre dans LA OU IL FAUT"<<endl;
             ins = (*it)->typeClass();
+            cout << " INS : " << endl;
+            cout << (*it)->typeClass() << endl;
+            ins = InstructionVraieClass::expressionChar;
+            cout << ins <<endl;
+
+            cout << "------" << endl;
             switch(ins)
             {
                 case InstructionVraieClass::expressionChar :
@@ -134,7 +141,8 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
                             break;
             }
         }
-    IRInstr* irInstr = new IRInstr(current_bb,IRInstr::Operation::call,Type::ch, listParam);    
+        current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);
+    //IRInstr* irInstr = new IRInstr(current_bb,IRInstr::Operation::call,Type::ch, listParam);    
     }
 }
 
@@ -145,6 +153,7 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     vector<string> params;
     params.push_back(tmpVar);
     params.push_back(to_string(expressionChar->getChar()));
+    cout << "FIND EXPRCHAR";
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
