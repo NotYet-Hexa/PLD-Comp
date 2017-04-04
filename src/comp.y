@@ -221,6 +221,8 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
 
 
 
+
+
 nom                 : NOM               { $$ = $1; }
                     ;
 
