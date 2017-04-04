@@ -126,7 +126,6 @@ void CFG::gen_asm_body(std::ostream& o)
 {
     for(vector<BasicBlock*>::iterator it= bbs.begin() ; it != bbs.end() ; it++)
     {
-        cout << "passe BODY"<<endl;
         (*it)->gen_asm(o);
     }
 }
@@ -134,9 +133,9 @@ void CFG::gen_asm_body(std::ostream& o)
 
 void BasicBlock::gen_asm(std::ostream &o)
 {
-    cout <<"rentre asm bb"<<endl;
     for(vector<IRInstr*>::iterator it= instrs.begin() ; it != instrs.end() ; it++)
-    {   cout <<"find instr"<<endl;
+    {   
+        
         (*it)->gen_asm(o);
     }
 }

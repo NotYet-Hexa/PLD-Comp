@@ -127,14 +127,8 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
 
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
-            cout <<"rentre dans LA OU IL FAUT"<<endl;
             ins = (*it)->typeClass();
-            cout << " INS : " << endl;
-            cout << (*it)->typeClass() << endl;
             ins = InstructionVraieClass::expressionChar;
-            cout << ins <<endl;
-
-            cout << "------" << endl;
             switch(ins)
             {
                 case InstructionVraieClass::expressionChar :
@@ -155,7 +149,6 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     vector<string> params;
     params.push_back(tmpVar);
     params.push_back(to_string(expressionChar->getChar()));
-    cout << "FIND EXPRCHAR";
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
