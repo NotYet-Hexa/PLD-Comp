@@ -23,11 +23,14 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+
+
 class Expression: public InstructionVraie{
     public:
         virtual void print();
         Expression();
         ~Expression();
+        virtual InstructionVraieClass typeClass();
 
     private:
 

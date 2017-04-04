@@ -30,7 +30,9 @@ class Declaration : public InstructionVraie {
         void print();
         Declaration(string type, string nom, bool isTab, int size);
         ~Declaration();
-
+        InstructionVraieClass typeClass();
+    string getType(){return type;}
+    string getNom(){return nom;}
     private:
         string type;
         string nom;

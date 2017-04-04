@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Expression.cpp  -  Description
+AppelFonction.cpp  -  Description
 -------------------
-début                : 15/02/2017
-copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
+début                : 23/02/2017
+copyright            : (C)2015 par H4414
 *************************************************************************/
 
-//---------- Réalisation de la classe Expression (fichier Expression.cpp) --
+//---------- Réalisation de la classe Declaration (fichier AppelFonction.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Expression.h"
+#include "AppelFonction.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,21 +27,30 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Expression::print()
+void AppelFonction::print()
 {
-    cout << "salut" << endl;
+	cout<<"Debut d'appel de Fonction"<<endl;
+	cout<<"nom fonction : "<<nomFonction<<endl;
+	argsAppel->print();
 }
-//----- Constructeur
-Expression::Expression()
-{}// Bloc vide
+
+string AppelFonction::getNomFonction()
+{
+	return nomFonction;
+}//----- Constructeur
+
+AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
+{
+}
+//-----Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Expression::~Expression()
+AppelFonction::~AppelFonction()
 {}// Bloc vide
 //----- Fin destructeur
 
-InstructionVraieClass Expression::typeClass()
+InstructionVraieClass AppelFonction::typeClass()
 {
-    return InstructionVraieClass::expression;
+    return InstructionVraieClass::appelFonction;
 }

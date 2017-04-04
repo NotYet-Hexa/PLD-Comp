@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Expression.cpp  -  Description
+AffectationUnaireUnaire.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Expression (fichier Expression.cpp) --
+//---------- Réalisation de la classe AffectationUnaire (fichier AffectationUnaire.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Expression.h"
+
+
+#include "AffectationUnaire.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,21 +29,23 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Expression::print()
+
+void AffectationUnaire::print()
 {
-    cout << "salut" << endl;
+    cout << "Affectation Unaire:" << endl;
+    cout << "nom :" << nomVariable << endl;
+    cout << "symbole :" << symbole << endl;
+
 }
+
 //----- Constructeur
-Expression::Expression()
+AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariable(nomVar), symbole(monSymbole)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Expression::~Expression()
-{}// Bloc vide
-//----- Fin destructeur
-
-InstructionVraieClass Expression::typeClass()
+AffectationUnaire::~AffectationUnaire()
 {
-    return InstructionVraieClass::expression;
+
 }
+//----- Fin destructeur

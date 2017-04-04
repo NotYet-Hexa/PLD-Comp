@@ -53,3 +53,8 @@ void Declaration::print()
 	cout<<endl;
 }
 
+InstructionVraieClass Declaration::typeClass()
+{
+    return InstructionVraieClass::declaration;
+}
+

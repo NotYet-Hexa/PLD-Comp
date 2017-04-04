@@ -37,7 +37,8 @@ Briques::Briques()
 
 //----- Destructeur
 Briques::~Briques()
-{}// Bloc vide
+{
+}// Bloc vide
 //----- Fin destructeur
 
 void Briques::add(DefFonction* d)
@@ -58,35 +59,16 @@ void Briques::add(DeclarationGlobal* d)
     vectorBrique.push_back(d);  
 }
 
+vector<Brique*> Briques::getListBrique()
+{
+    return this->vectorBrique;
+}
+
+
 void Briques::print()
 {
 	cout << "Debut de briques" << endl;
-    //  if( !vectorDefinitionFonction.empty() )
-    // {
-    //     for(std::vector<DefFonction*>::iterator it = vectorDefinitionFonction.begin() ; it != vectorDefinitionFonction.end() ; it++)
-    //     {
-    //        (*it)->print();
-    //     }
-    // }
-
-
-
-    // if( !vectorDeclarationFonction.empty() )
-    // {
-    //     for(std::vector<DeclarationFonction*>::iterator it = vectorDeclarationFonction.begin() ; it != vectorDeclarationFonction.end() ; it++)
-    //     {
-    //         (*it)->print();
-    //     }
-    // }
-
-
-    //  if( !vectorDeclarationGlobal.empty() )
-    //     {
-    //         for(std::vector<DeclarationGlobal*>::iterator it = vectorDeclarationGlobal.begin(); it != vectorDeclarationGlobal.end(); ++it)
-    //         {
-    //                 (*it)->print();
-    //         }
-    //     }
+  
 
          if( !vectorBrique.empty() )
         {

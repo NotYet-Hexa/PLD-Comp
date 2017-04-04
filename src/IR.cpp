@@ -49,7 +49,7 @@ void CFG::add_to_symbol_table(string name, Type t)
 {
     SymbolType.insert(std::pair<string,Type>(name,t));
     SymbolIndex.insert(std::pair<string,int>(name,nextFreeSymbolIndex));
-    nextFreeSymbolIndex+=8;
+    nextFreeSymbolIndex-=8;
     nbVar+=1;
 }
 
@@ -85,15 +85,15 @@ void CFG::gen_asm(ostream& o)
 
 void CFG::gen_asm_prologue(std::ostream& o)
 {
-    o.write("pushq %rbp",50);
-    o.write("movq %rsp, %rbp",50);
-    string str = "";
-    str = "subq" + to_string(nbVar) + "%rsp";
-    o.write(str.c_str(),50);
+
+    o<<"\tpushq %rbp"<<endl;
+    o<<"\tmovq %rsp, %rbp"<<endl;
+    if(nbVar%2 == 0)    o<<"\tsubq " + to_string(nbVar/2*16) + ", %rsp"<<endl;
+    else o<<"\tsubq $" + to_string((nbVar/2+1)*16) + ", %rsp"<<endl;
 };
 
 void CFG::gen_asm_epilogue(std::ostream& o)
 {
-    o.write("leave",50);
-    o.write("ret",50);
+    o<<endl<<"\tleave"<<endl;
+    o<<"\tret"<<endl;
 }

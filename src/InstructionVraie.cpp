@@ -37,3 +37,8 @@ InstructionVraie::InstructionVraie()
 InstructionVraie::~InstructionVraie()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass InstructionVraie::typeClass()
+{
+    return InstructionVraieClass::instructionVraie;
+}

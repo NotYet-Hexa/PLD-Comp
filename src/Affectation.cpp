@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Expression.cpp  -  Description
+Affectation.cpp  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Réalisation de la classe Expression (fichier Expression.cpp) --
+//---------- Réalisation de la classe Affectation (fichier Affectation.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,7 +16,9 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-#include "Expression.h"
+
+
+#include "Affectation.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -27,21 +29,24 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Expression::print()
+
+void Affectation::print()
 {
-    cout << "salut" << endl;
+    cout << "Affectation :" << endl;
+    cout << "nom :" << nomVariable << endl;
+    cout << "symbole :" << symbole << endl;
+    cout << "expression :" << endl;
+    expression->print();
 }
+
 //----- Constructeur
-Expression::Expression()
+Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)
 {}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Expression::~Expression()
-{}// Bloc vide
-//----- Fin destructeur
-
-InstructionVraieClass Expression::typeClass()
+Affectation::~Affectation()
 {
-    return InstructionVraieClass::expression;
+
 }
+//----- Fin destructeur

@@ -62,7 +62,14 @@ Programme::Programme(vector <Contexte*> listeDeContexte,Briques* brique):Context
 
 //----- Destructeur
 Programme::~Programme()
-{}// Bloc vide
+{
+    // cout << "destructeur de Programme" << endl;
+     delete this->brique ;
+    // for(vector<Contexte*>::iterator it = listeDeContexte.begin(); it != listeDeContexte.end(); it++)
+    // {
+    //     delete (*it);
+    // }
+}// Bloc vide
 //----- Fin destructeur
 
 

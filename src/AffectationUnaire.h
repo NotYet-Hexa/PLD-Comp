@@ -1,39 +1,41 @@
 /*************************************************************************
 PLD Comp
-InstructionVraie.h  -  Description
+AffectationUnaire.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe InstructionVraie (fichier InstructionVraie.h) ------
-#if ! defined ( INSTRUCTIONVRAIE_H )
-#define INSTRUCTIONVRAIE_H
+//---------- Interface de la classe AffectationUnaire (fichier AffectationUnaire.h) ------
+#if ! defined ( AFFECTATIONUNAIRE_H )
+#define AFFECTATIONUNAIRE_H
 
 
 //--------------------------------------------------- Interfaces utilisées
+
+
+#include "Expression.h"
 
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe InstructionVraie:
+// Role de la classe AffectationUnaire:
 //
 
 //------------------------------------------------------------------------
 
-enum InstructionVraieClass{ instructionVraie = 0, declaration = 1, expression = 2, appelFonction = 3, expressionChar = 4 };
-
-class InstructionVraie{
+class AffectationUnaire: public Expression {
     public:
-        virtual void print() = 0;
-        InstructionVraie();
-        ~InstructionVraie();
-        virtual InstructionVraieClass typeClass();
+        void print();
+        AffectationUnaire(string nomVariable, string symbole);
+        ~AffectationUnaire();
 
     private:
+    string nomVariable;
+    string symbole;
 
 };
 
-#endif // if ! defined INSTRUCTIONVRAIE_H
+#endif // if ! defined AFFECTATIONUNAIRE_H

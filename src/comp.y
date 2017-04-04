@@ -15,8 +15,11 @@ using namespace std;
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
 #include "ExpressionBinaire.h"
+#include "AppelFonction.h"
 #include "Instruction.h"
 #include "Return.h"
+#include "Affectation.h"
+#include "Affectationunaire.h"
 
 #include "Declaration.h"
 #include "DeclarationGlobal.h"
@@ -25,6 +28,7 @@ using namespace std;
 
 
 #include "ArgsDef.h"
+#include "ArgsAppel.h"
 
 #include "ListInstruction.h"
 #include "Bloc.h"
@@ -36,7 +40,7 @@ using namespace std;
 //AJOUT
 #include "Contexte.h"
 
-#include "PreIR.cpp"
+#include "PreIR.h"
 
 void yyerror(Programme**, const char*);
 int yylex(void);
@@ -62,6 +66,7 @@ int yylex(void);
     Briques* briques;
 
     ArgsDef * args;
+    ArgsAppel * argsAppel;
 
     ListInstruction* liste_instruction;
     Bloc * bloc;
@@ -107,8 +112,6 @@ int yylex(void);
 %type<definition_fonction> definition_de_fonction
 %type<declaration_fonction> declaration_de_fonction
 
-%type<chaine> type_retour_fonction
-%type<chaine> nom_fonction
 %type<args> args_def
 %type<chaine> type
 
@@ -116,13 +119,11 @@ int yylex(void);
 %type<ival> loop_statement
 %type<ival> cond 
 %type<retour_fonction> retour_fonction
-%type<chaine> nom_parametre
 %type<chaine> nom_variable
 %type<chaine> nom
-%type<ival> aff
-%type<ival> l_value
-%type<ival> appel_fonction
-%type<ival> args_appel_fonction
+%type<chaine> l_value
+%type<expression> appel_fonction
+%type<argsAppel> args_appel_fonction
 %type<ival> fin_cond
 %type<ival> for_loop
 %type<ival> while_loop
@@ -174,7 +175,7 @@ definition_de_fonction    	: type nom PARENTOUV args_def PARENTFERM bloc
                                         { $$ = new DefFonction( $1 , $6 , $4, $2 );}
 
 declarationGlobal           : type nom                                  { $$ = new DeclarationGlobal( $1 , $2, false, 0); cout<<"non tab"<<endl; }      // ajouter les crochet 
-                            | type nom CROCHETOUV ENTIER CROCHETFERM   { $$ = new DeclarationGlobal( $1 , $2, true, $4); cout<<"tab"<<endl; }
+                            | type nom CROCHETOUV ENTIER CROCHETFERM    { $$ = new DeclarationGlobal( $1 , $2, true, $4); cout<<"tab"<<endl; }
                             ;
                            	;
 
@@ -211,27 +212,14 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
                   		;
 
 
-nom_variable            : nom                               {  $$ = $1; }                                  // a modifer  
-                        | nom CROCHETOUV ENTIER CROCHETFERM { $$ = $1; }   
-                        | nom aff                           { cout<<"regle de nom "<<endl; $$ = $1; }
-                        ;
 
-aff 	                : EGALE expression 
-                        |
-                        ;
-
-
-appel_fonction      : nom PARENTOUV args_appel_fonction PARENTFERM
-        			;
 
 
 nom                 : NOM               { $$ = $1; }
                     ;
 
 
-args_appel_fonction 	: args_appel_fonction VIRGULE expression 
-                    	| expression
-                   		;
+
 
 
 
@@ -266,14 +254,16 @@ instruction         : expression POINTVIRGULE               { $$ = new Instructi
                     | lecture_ecriture POINTVIRGULE
 		            ;
 
+
+
 retour_fonction     	: RETURN expression             { $$ = new Return($2); }
                     	;
 
 
-expression          : ENTIER                            { $$ = new ExpressionEntier($1); }
-                    | NOM                               { $$ = new ExpressionVariable($1); }
-                    | CHAR                              { $$ = new ExpressionChar($1); }
-                    | appel_fonction                              
+expression          : ENTIER                            { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
+                    | NOM                               { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
+                    | CHAR                              { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
+                    | appel_fonction                     { $$ = $1; }        
                     | expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
                     | expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
                     | expression PLUS expression         { $$ = new ExpressionBinaire($1, $3, "+"); }
@@ -292,25 +282,36 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                     | expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
                     | expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
                     | expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
-                    | l_value EGALE expression 
-        			| l_value PLUSEGAL expression
-          			| l_value MOINSEGAL expression
-        			| l_value DIVEGAL expression
-                    | l_value MULEGAL expression
-                    | l_value MODULOEGAL expression
-                    | l_value DECALGAUCHEEGAL expression
-                    | l_value DECALDROITEGAL expression
-                    | l_value ETEGAL expression
-                    | l_value XOREGAL expression
-                   	| l_value OUEGAL expression
-                    | l_value PLUSPLUS
-                    | l_value MOINSMOINS
-                   	| PARENTOUV expression PARENTFERM
+                    | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); }
+        			| l_value PLUSEGAL expression        { $$ = new Affectation($1, "+=", $3); }
+          			| l_value MOINSEGAL expression       { $$ = new Affectation($1, "-=", $3); }
+        			| l_value DIVEGAL expression         { $$ = new Affectation($1, "/=", $3); }
+                    | l_value MULEGAL expression         { $$ = new Affectation($1, "*=", $3); }  
+                    | l_value MODULOEGAL expression      { $$ = new Affectation($1, "%=", $3); }
+                    | l_value DECALGAUCHEEGAL expression { $$ = new Affectation($1, "<<=", $3); }
+                    | l_value DECALDROITEGAL expression  { $$ = new Affectation($1, ">>=", $3); }
+                    | l_value ETEGAL expression          { $$ = new Affectation($1, "&=", $3); }
+                    | l_value XOREGAL expression         { $$ = new Affectation($1, "^=", $3); }
+                   	| l_value OUEGAL expression          { $$ = new Affectation($1, "|=", $3); }
+                    | l_value PLUSPLUS                   { $$ = new AffectationUnaire($1, "++"); }
+                    | l_value MOINSMOINS                 { $$ = new AffectationUnaire($1, "--"); }
+                   	| PARENTOUV expression PARENTFERM    { $$ = $2; }
                     ;
 
-l_value             : nom_variable CROCHETOUV ENTIER CROCHETFERM 
-            		| nom_variable
-                    			;
+
+appel_fonction          : nom PARENTOUV args_appel_fonction PARENTFERM { $$ = new AppelFonction( $1, $3); }
+        			    ;
+
+
+args_appel_fonction 	: args_appel_fonction VIRGULE expression        { $$ = $1 ; $$->add($3); }
+                    	| expression                                    { $$ = new ArgsAppel(); $$->add($1); }
+                        |                                               { $$ = new ArgsAppel(); } 
+                        ;
+
+l_value             : nom_variable          { $$ = $1; }
+                    ;
+
+
 lecture_ecriture	: GETCHAR suite_lecture
 			        | PUTCHAR suite_ecriture
 			        ;
@@ -324,7 +325,7 @@ suite_ecriture		: PARENTOUV NOM PARENTFERM
 suite_lecture		: PARENTOUV NOM PARENTFERM
 				    ;
 
-nom_variable        : NOM               { $$ = $1; }
+nom_variable        : NOM               { $$ = $1; }  // gérer les tableau
         			;
 
 
@@ -355,7 +356,9 @@ int main(void) {
 #endif
 
     (*result)->print();
-    launchPreIR(*result);
+    PreIR preIR;
+    preIR.launchPreIR(*result);
+    delete (*result);
     return 0;
 }
 

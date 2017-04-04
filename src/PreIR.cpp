@@ -13,7 +13,11 @@ using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Programme.h"
-#include "IR.h"
+#include "Brique.h"
+#include "PreIR.h"
+#include "Type.h"
+
+#include <fstream>
 //---------------------------------------------------- Variables de classe
 
 //----------------------------------------------------------- Types privés
@@ -23,42 +27,106 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-
-
-
-void launchPreIR(Programme* prog)
+PreIR::PreIR()
 {
-    vector<CFG*> listCFG;
-    vector<Contexte*> listContext = prog->getListeDeContexte();
-    string tp = "";
-    for(vector<Contexte*>::iterator it= listContext.begin() ; it != listContext.end() ; it++)
+
+}
+
+PreIR::~PreIR()
+{
+
+}
+
+
+void PreIR::analyseDefFonction(DefFonction* defFonction)
+{
+    CFG* cfg = new CFG(defFonction);
+    listCFG.push_back(cfg);
+    current_cfg = cfg;
+    BasicBlock* bb = new BasicBlock(current_cfg, current_cfg->new_BB_name());
+    current_bb = bb;
+    cfg->add_bb(bb);
+
+    analyseBloc(defFonction->getBloc());
+}
+
+void PreIR::launchPreIR(Programme* prog)
+{
+    vector<Brique*> listBrique = prog->getBriques()->getListBrique();
+    typeClassBrique tp;
+
+    for(vector<Brique*>::iterator it= listBrique.begin() ; it != listBrique.end() ; it++)
     {
         tp = (*it)->typeClass();
         switch(tp)
         {
-            case "DefFonction": analyseDefFonction(*it);break;
+            case typeClassBrique::defFonction : analyseDefFonction((DefFonction*)*it);break;
         }
     }
-    launchASM(vector<CFG*> listCFG);
+    launchASM();
 }
 
-void analyseDefFonction(DefFonction* defFonction)
+
+void PreIR::analyseBloc(Bloc* b)
 {
-    CFG* cfg = new CFG(defFonction);
-    BasicBlock* bb = new BasicBlock(cfg.new_BB_name);
-    ListInstruction* listInstruct = defFonction->getBloc()->getListInstruction();
-
-
+    ListInstruction* listInstr = b->getListInstruction();
+    vector<Instruction*> instructions = listInstr->getInstructions();
+    InstructionVraieClass ins;
+    for(vector<Instruction*>::iterator it= instructions.begin() ; it != instructions.end() ; it++)
+    {
+        ins = (*it)->getInstructionVraie()->typeClass();
+        switch(ins)
+        {
+            case InstructionVraieClass::declaration : analyseDeclaration((Declaration*)(*it)->getInstructionVraie());break;
+            case InstructionVraieClass::appelFonction : analyseAppelFonction((AppelFonction*)(*it)->getInstructionVraie()) ; break;
+        }
+    }
 }
 
-void analyseBloc(){}
+void PreIR::analyseDeclaration(Declaration* dec)
+{  
+    string s = dec->getType();
+    if(s == "int64")
+    {
+        current_cfg->add_to_symbol_table(dec->getNom(),Type::int64);
+    }
+}
 
 
-void launchASM(vector<CFG*> listCFG)
+void PreIR::launchASM()
 {   
-    ofstream outfile ("new.txt",ofstream::binary);
+    ofstream outfile ("main.s",ofstream::binary);
+    outfile<<".text"<<endl;
+    outfile<<".global _main"<<endl;
+    outfile<<"_main:"<<endl;
     for(vector<CFG*>::iterator it= listCFG.begin() ; it != listCFG.end() ; it++)
     {
         (*it)->gen_asm(outfile);
     }
+    outfile.close();
+}
+
+void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
+{
+    ArgsAppel* argsAppel = appelFonction->getArgsAppel();
+    if(argsAppel)
+    {
+        std::vector<Expression*>listExp = argsAppel->getArgs();
+        InstructionVraieClass ins;
+        for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
+        {
+            ins = (*it)->typeClass();
+            switch(ins)
+            {
+                case InstructionVraieClass::expressionChar : analyseExpressionChar((ExpressionChar*)(*it));break;
+            }
+        }
+    }
+}
+
+void PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
+{
+    expressionChar->getChar();
+    string tmpVar = current_cfg->create_new_tempvar(Type::ch);
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }

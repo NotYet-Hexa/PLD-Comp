@@ -37,6 +37,7 @@ class DefFonction : public Contexte, public Brique {
         string getNomFonction();
         Bloc* getBloc();
         ArgsDef* getArgs();
+        typeClassBrique typeClass();
 
     private:
     	string type;

@@ -1,39 +1,39 @@
 /*************************************************************************
 PLD Comp
-InstructionVraie.h  -  Description
+ArgsAppel.h  -  Description
 -------------------
 début                : 15/02/2017
 copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 *************************************************************************/
 
-//---------- Interface de la classe InstructionVraie (fichier InstructionVraie.h) ------
-#if ! defined ( INSTRUCTIONVRAIE_H )
-#define INSTRUCTIONVRAIE_H
+//---------- Interface de la classe ArgsAppel (fichier ArgsAppel.h) ------
+#if ! defined ( ARGSAPPEL_H )
+#define ARGSAPPEL_H
 
-
+#include <vector>
 //--------------------------------------------------- Interfaces utilisées
+#include "Expression.h"
 
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe InstructionVraie:
+// Role de la classe ArgsAppel:
 //
 
 //------------------------------------------------------------------------
 
-enum InstructionVraieClass{ instructionVraie = 0, declaration = 1, expression = 2, appelFonction = 3, expressionChar = 4 };
-
-class InstructionVraie{
+class ArgsAppel{
     public:
-        virtual void print() = 0;
-        InstructionVraie();
-        ~InstructionVraie();
-        virtual InstructionVraieClass typeClass();
+        ArgsAppel();
+        ~ArgsAppel();
+        void add(Expression* expression);
+        void print();
+        std::vector <Expression*> getArgs(){return args;}
 
     private:
-
+        std::vector <Expression*> args;
 };
 
-#endif // if ! defined INSTRUCTIONVRAIE_H
+#endif // if ! defined ARGSAPPEL_H

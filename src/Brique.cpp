@@ -37,5 +37,12 @@ Brique::Brique()
 
 //----- Destructeur
 Brique::~Brique()
-{}// Bloc vide
+{
+    cout << "destructeur de Brique" << endl;
+}// Bloc vide
 //----- Fin destructeur
+
+typeClassBrique Brique::typeClass()
+{
+	return typeClassBrique::brique;
+}

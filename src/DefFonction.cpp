@@ -57,4 +57,8 @@ Bloc* DefFonction::getBloc(){ return this->bloc; }
 
 ArgsDef* DefFonction::getArgs(){ return this->args; }
 
-string DefFonction::typeClass() { return "DefFonction";}
+
+typeClassBrique DefFonction::typeClass()
+{
+	return typeClassBrique::defFonction;
+}
