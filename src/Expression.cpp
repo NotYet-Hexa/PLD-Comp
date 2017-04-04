@@ -27,6 +27,11 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+Expression::TypeExpression Expression::getType()
+{
+    return type_expression;
+}
+
 void Expression::print()
 {
     cout << "salut" << endl;

@@ -42,7 +42,9 @@ void ExpressionChar::print()
 }
 //----- Constructeur
 ExpressionChar::ExpressionChar(char car) : valeur(car)
-{}// Bloc vide
+{
+    this->type_expression = Expression::TypeExpression::Char;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
