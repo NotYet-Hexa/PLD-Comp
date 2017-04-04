@@ -28,10 +28,15 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+string DeclarationGlobal::getNom()
+{
+	return this->nom;
+}
+
 //----- Constructeur
 DeclarationGlobal::DeclarationGlobal(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
 {
-	this->isContexte = false;
+	this->typeBrique = TBdec;
 }// Bloc vide
 //----- Fin constructeur
 

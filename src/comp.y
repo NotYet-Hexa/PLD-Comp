@@ -335,12 +335,17 @@ int main(void) {
 #endif
     // les cout de yyparse sont jeté à la corbeille
     yyparse(result);
+    
 #ifndef DEBUG
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
     (*result)->print();
+
+    (*result)->checkContexte();
+
     PreIR preIR;
     preIR.launchPreIR(*result);
+
     delete (*result);
     return 0;
 }

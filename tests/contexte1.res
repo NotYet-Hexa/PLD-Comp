@@ -2,18 +2,21 @@ Debut du programme
 Debut de briques
 DefFonction : nom ->main
 ArgumentDef : 
-empty
+Declaration : type ->char  |  nom -> b
 Bloc :
 ListInstruction :
 Instruction :
 Declaration : type ->int32  |  nom -> a
 Instruction :
 Affectation :
-nom :a
-symbole :+=
+nom :c
+symbole :=
 expression :
-1
+variable : b
++
+variable : a
 Fin de Bloc
 Fin de briques
 Fin du programme
 Verification de variable 
+la variable  " c " est utiliser mais n'est pas déclarée 

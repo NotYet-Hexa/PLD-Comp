@@ -35,6 +35,9 @@ class DeclarationGlobal;
 class Briques{
     public:
     	void print();
+
+        void checkContexte(Contexte * programme); 
+
         Briques();
         ~Briques();
         void add(DefFonction* d);

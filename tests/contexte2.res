@@ -1,18 +1,21 @@
 Debut du programme
 Debut de briques
+DeclarationGlobal : type ->char  |  nom -> c
 DefFonction : nom ->main
 ArgumentDef : 
-empty
+Declaration : type ->char  |  nom -> b
 Bloc :
 ListInstruction :
 Instruction :
 Declaration : type ->int32  |  nom -> a
 Instruction :
 Affectation :
-nom :a
-symbole :+=
+nom :c
+symbole :=
 expression :
-1
+variable : b
++
+variable : a
 Fin de Bloc
 Fin de briques
 Fin du programme

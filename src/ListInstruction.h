@@ -28,6 +28,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class ListInstruction{
     public:
         void print();
+        void checkContexte(Contexte* contexteCourant );
         void addInstruction(Instruction* instruction);
         ListInstruction();
         ~ListInstruction();
