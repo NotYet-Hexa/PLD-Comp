@@ -28,9 +28,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-std::list<string> AppelFonction::listeNomLValue()
+list<string> AppelFonction::listeNomLValue()
 {
-
+	list<string> list;
+	return list;
 }
 
 void AppelFonction::print()
