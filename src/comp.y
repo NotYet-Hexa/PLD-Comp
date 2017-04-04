@@ -41,7 +41,7 @@ using namespace std;
 //AJOUT
 #include "Contexte.h"
 
-
+#include "PreIR.h"
 
 void yyerror(Programme**, const char*);
 int yylex(void);
@@ -115,7 +115,6 @@ int yylex(void);
 %type<definition_fonction> definition_de_fonction
 %type<declaration_fonction> declaration_de_fonction
 
-%type<chaine> nom_fonction
 %type<args> args_def
 %type<chaine> type
 
@@ -125,7 +124,6 @@ int yylex(void);
 %type<retour_fonction> retour_fonction
 %type<chaine> nom_variable
 %type<chaine> nom
-%type<ival> aff
 %type<chaine> l_value
 %type<expression> appel_fonction
 %type<argsAppel> args_appel_fonction
@@ -341,6 +339,8 @@ int main(void) {
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
     (*result)->print();
+    PreIR preIR;
+    preIR.launchPreIR(*result);
     delete (*result);
     return 0;
 }

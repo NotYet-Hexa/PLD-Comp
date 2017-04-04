@@ -40,7 +40,7 @@ class Briques{
         void add(DefFonction* d);
         void add(DeclarationFonction* d);
         void add(DeclarationGlobal* d);
-
+        std::vector<Brique*> getListBrique();
     private:
     	// std::vector<DefFonction*> vectorDefinitionFonction;
     	// std::vector<DeclarationFonction*> vectorDeclarationFonction;

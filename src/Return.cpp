@@ -39,7 +39,7 @@ void Return::print()
 //----- Constructeur
 Return::Return(Expression* monExpression): expression(monExpression)
 {
-    this->typeInstruction = TIretourFonction;
+    //this->typeInstruction = TIretourFonction;
 }// Bloc vide
 //----- Fin constructeur
 

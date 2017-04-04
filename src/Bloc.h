@@ -31,6 +31,7 @@ class Bloc : public InstructionVraie{
         void print();
         Bloc(ListInstruction* maListInstruction);
         ~Bloc();
+        ListInstruction* getListInstruction();
 
     private:
     ListInstruction* listInstruction;

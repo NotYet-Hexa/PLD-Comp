@@ -28,10 +28,10 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-TypeInstruction InstructionVraie::getTypeInstruction()
+/*TypeInstruction InstructionVraie::getTypeInstruction()
 {
     return typeInstruction;
-}
+}*/
 
 //----- Constructeur
 InstructionVraie::InstructionVraie()
@@ -42,3 +42,8 @@ InstructionVraie::InstructionVraie()
 InstructionVraie::~InstructionVraie()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass InstructionVraie::typeClass()
+{
+    return InstructionVraieClass::instructionVraie;
+}

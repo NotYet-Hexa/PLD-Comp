@@ -123,10 +123,13 @@ bool Contexte::chercherVariable(string nomVariable)
     }
 }
 
+
+
 void Contexte::ajouterParent(Contexte* contexte)
 {
     this->parent = contexte;
 }
+
 
 // ---------------------------------------------------------------------------------------- //
 // ----------------------------------- FONCTION DE TEST ----------------------------------- //

@@ -25,6 +25,8 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //------------------------------------------------------------------------
 
+
+
 class Expression: public InstructionVraie{
     public:
 
@@ -48,6 +50,7 @@ class Expression: public InstructionVraie{
 
         Expression();
         ~Expression();
+        virtual InstructionVraieClass typeClass();
 
     protected:
         TypeExpression type_expression;

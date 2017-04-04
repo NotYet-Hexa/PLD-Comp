@@ -45,3 +45,8 @@ Brique::~Brique()
     cout << "destructeur de Brique" << endl;
 }// Bloc vide
 //----- Fin destructeur
+
+typeClassBrique Brique::typeClass()
+{
+	return typeClassBrique::brique;
+}

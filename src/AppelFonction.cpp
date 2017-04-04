@@ -56,3 +56,8 @@ AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel
 AppelFonction::~AppelFonction()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass AppelFonction::typeClass()
+{
+    return InstructionVraieClass::appelFonction;
+}

@@ -31,6 +31,7 @@ class ListInstruction{
         void addInstruction(Instruction* instruction);
         ListInstruction();
         ~ListInstruction();
+        std::vector<Instruction*> getInstructions();
 
     private:
     std::vector<Instruction*> listInstruction;

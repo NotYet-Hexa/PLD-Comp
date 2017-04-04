@@ -47,3 +47,8 @@ Instruction::~Instruction()
     //delete instruction;
 }// Bloc vide
 //----- Fin destructeur
+
+InstructionVraie* Instruction::getInstructionVraie()
+{
+    return this->instruction;
+}

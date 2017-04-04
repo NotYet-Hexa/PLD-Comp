@@ -30,6 +30,7 @@ class ArgsAppel{
         ~ArgsAppel();
         void add(Expression* expression);
         void print();
+        std::vector <Expression*> getArgs(){return args;}
 
     private:
         std::vector <Expression*> args;

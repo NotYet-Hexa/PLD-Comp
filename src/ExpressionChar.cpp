@@ -51,3 +51,8 @@ ExpressionChar::ExpressionChar(char car) : valeur(car)
 ExpressionChar::~ExpressionChar()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionChar::typeClass()
+{
+    return InstructionVraieClass::expressionChar;
+}

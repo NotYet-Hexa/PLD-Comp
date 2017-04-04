@@ -25,6 +25,7 @@ using namespace std;
 
 //------------------------------------------------------------------------
 
+
 class Contexte{
     public:
         Contexte();
@@ -37,6 +38,7 @@ class Contexte{
         string getNomContexte();
         Contexte* getParent();
         static void test_AfficherTableDesSymboles();
+        
 
     private:
         string nomContexte;

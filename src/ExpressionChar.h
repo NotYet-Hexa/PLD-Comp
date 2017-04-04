@@ -29,6 +29,8 @@ class ExpressionChar : public Expression{
         std::list<string> listeNomLValue();
         ExpressionChar(char car);
         ~ExpressionChar();
+        virtual InstructionVraieClass typeClass();
+        char getChar(){return valeur;}
 
     private:
         char valeur;
