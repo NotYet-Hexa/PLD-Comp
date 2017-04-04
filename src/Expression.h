@@ -30,7 +30,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class Expression: public InstructionVraie{
     public:
 
-        enum TypeExpression{
+        /*enum TypeExpression{
             Unaire=1,
             Binaire=2,
             Char=3,
@@ -42,9 +42,9 @@ class Expression: public InstructionVraie{
             ArgsAppel=9,
             Assignation=10,
             ExpressionVariable=11
-        };
+        };*/
 
-        Expression::TypeExpression getType();
+        //Expression::TypeExpression getType();
         virtual void print();
         virtual std::list<string> listeNomLValue()=0;
 
@@ -53,7 +53,7 @@ class Expression: public InstructionVraie{
         virtual InstructionVraieClass typeClass();
 
     protected:
-        TypeExpression type_expression;
+        //TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSION_H

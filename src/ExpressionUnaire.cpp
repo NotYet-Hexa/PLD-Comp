@@ -43,7 +43,7 @@ void ExpressionUnaire::print()
 //----- Constructeur
 ExpressionUnaire::ExpressionUnaire(Expression* exp, string s) : expression(exp), symbole(s)
 {
-    this->type_expression = Expression::TypeExpression::Unaire;
+    //this->type_expression = Expression::TypeExpression::Unaire;
 }// Bloc vide
 //----- Fin constructeur
 
