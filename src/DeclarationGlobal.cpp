@@ -59,4 +59,10 @@ void DeclarationGlobal::print()
 	}
 	cout<<endl;
 }
+string DeclarationGlobal::get_type(){return type;}
 
+string DeclarationGlobal::get_nom(){return nom;}
+
+bool DeclarationGlobal::get_isTab(){return isTab;}
+
+int DeclarationGlobal::get_size(){return size;}

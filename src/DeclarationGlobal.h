@@ -32,7 +32,10 @@ class DeclarationGlobal : public Brique  {
         std::string getNom(); 
         DeclarationGlobal(string type, string nom, bool isTab, int size);
         ~DeclarationGlobal();
-
+        string get_type();
+        string get_nom();
+        bool get_isTab();
+        int get_size();
     private:
         string type;
         string nom;

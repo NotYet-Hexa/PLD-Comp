@@ -5,6 +5,7 @@ VPATH = src:build
 CC = g++
 REMOVE = rm -f
 DEBUG_FLAG = -g -O0 -D DEBUG -DYYDEBUG=1
+COVERAGE_FLAG=-fprofile-arcs -ftest-coverage
 CFLAGS = -std=c++11
 LDFLAGS = -std=c++11
 EXEC = exe
@@ -41,6 +42,11 @@ ifeq ($(mode),debug)
 	BUILDFOLDER = $(DEBUG_FOLDER)
 else
 	BUILDFOLDER = $(RELEASE_FOLDER)
+endif
+
+ifeq ($(mode),coverage)
+	CFLAGS += $(COVERAGE_FLAG)
+	LDFLAGS += $(COVERAGE_FLAG)
 endif
 
 

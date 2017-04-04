@@ -29,6 +29,7 @@ class ExpressionEntier : public Expression{
         std::list<string> listeNomLValue();
         ExpressionEntier(int);
         ~ExpressionEntier();
+        int get_valeur();
 
     private:
         int valeur;
