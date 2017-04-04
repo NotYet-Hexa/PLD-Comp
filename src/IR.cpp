@@ -40,7 +40,7 @@ void IRInstr::gen_asm(ostream &o)
                     o<<str<<endl;
                     paramNum++;
                 }
-                o<< "\tcall " +params.at(0);
+                o<< "\tcall " +params.at(0)<<endl;
                 break;
     }
 
@@ -92,7 +92,9 @@ void CFG::add_to_symbol_table(string name, Type t)
 {
     SymbolType.insert(std::pair<string,Type>(name,t));
     SymbolIndex.insert(std::pair<string,int>(name,nextFreeSymbolIndex));
+    cout << "valeur index "+SymbolIndex[name]<< "     " << nextFreeSymbolIndex << endl;
     nextFreeSymbolIndex-=8;
+
     nbVar+=1;
 }
 
