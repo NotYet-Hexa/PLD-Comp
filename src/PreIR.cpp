@@ -104,8 +104,31 @@ void PreIR::analyseBloc(Bloc* b)
             case InstructionVraieClass::declaration : analyseDeclaration((Declaration*)(*it)->getInstructionVraie());break;
             case InstructionVraieClass::appelFonction : analyseAppelFonction((AppelFonction*)(*it)->getInstructionVraie()) ; break;
             case InstructionVraieClass::affectation : analyseAffectation((Affectation*)(*it)->getInstructionVraie()) ; break;
+            case InstructionVraieClass::returned : analyseReturn((Return*)(*it)->getInstructionVraie()) ; break;
         }
     }
+}
+
+void PreIR::analyseReturn(Return* returned)
+{
+    Expression* expr = returned->get_expression();
+    InstructionVraieClass ins;
+    string tmpVar;
+    vector<string> params;
+    ins = expr->typeClass();
+    cout << "LE INS EST : " << ins << endl;
+    switch(ins)
+    {
+        case InstructionVraieClass::expressionEntier : 
+                tmpVar = analyseExpressionEntier((ExpressionEntier*)expr);
+                break;
+        case InstructionVraieClass::expressionVariable :
+                cout << "CEST UNE VARIABLE"<<endl;
+                tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
+                break;
+    }
+    params.push_back(tmpVar);
+    current_bb->add_IRInstr(IRInstr::Operation::ret,Type::int64, params);
 }
 
 void PreIR::analyseAffectation(Affectation* aff)
@@ -137,11 +160,50 @@ void PreIR::analyseAffectation(Affectation* aff)
                 params.push_back(nomVar);
                 current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
                 break;
+        case InstructionVraieClass::expressionBinaire :
+                tmpVar = analyseExpressionBinaire((ExpressionBinaire*)expr);
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                break;
+        case InstructionVraieClass::lvalue :
+                tmpVar = analyselvalue((LValue*)expr);
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                break;
     }
-
-    
-
 }
+string PreIR::analyseExpressionBinaire(ExpressionBinaire* expr)
+{
+    Expression* exprGauche = expr->get_gauche();
+    Expression* exprDroite = expr->get_droite();
+    string var1;
+    string var2;
+    string tmp;
+    vector<string> params;
+    InstructionVraieClass e = exprGauche->typeClass();
+    switch(e)
+    {
+        case InstructionVraieClass::expressionVariable :
+                var1 = ((ExpressionVariable*)exprGauche)->get_nomVariable();
+                break;
+    }
+    e = exprDroite->typeClass();
+    switch(e)
+    {
+        case InstructionVraieClass::expressionEntier :
+                var2 = analyseExpressionEntier((ExpressionEntier*)exprDroite); 
+                break;
+    }
+    tmp = current_cfg->create_new_tempvar(Type::int64);
+    params.push_back(tmp);
+    params.push_back(var2);
+    params.push_back(var1);
+    current_bb->add_IRInstr(IRInstr::Operation::sub,Type::int64, params);
+    return tmp;
+}
+
 
 void PreIR::analyseDeclaration(Declaration* dec)
 {  
@@ -199,6 +261,10 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
                             varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
                             listParam.push_back(varStr);
                             break;
+                case InstructionVraieClass::lvalue :
+                            varStr = analyselvalue((LValue*)(*it));
+                            listParam.push_back(varStr);
+                            break;
             }
         }
         current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);
@@ -206,6 +272,12 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
     }
 }
 
+string PreIR::analyselvalue(LValue* expr)
+{
+    string var = expr->getNom();
+    return var;
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
 
 string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 {

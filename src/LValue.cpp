@@ -61,4 +61,9 @@ void LValue::print()
 	cout<<endl;
 }
 
+InstructionVraieClass LValue::typeClass()
+{
+    return InstructionVraieClass::lvalue;
+}
+
 

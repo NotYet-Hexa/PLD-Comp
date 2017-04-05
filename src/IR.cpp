@@ -56,6 +56,17 @@ void IRInstr::gen_asm(ostream &o)
                 str = "\t"+operateur+" %rax,"+ to_string(bb_->cfg->get_var_index(params.at(1)))+"(%rbp)";
                 o<<str<<endl;
                 break;
+        case Operation::sub :
+                str = "\tmovq "+ to_string(bb_->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+                o<<str<<endl;
+                str = "\tsubq "+ to_string(bb_->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
+                o<<str<<endl;
+                str = "\tmovq %rax, "+ to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp)";
+                o<<str<<endl;
+                break;
+        case Operation::ret :
+                str = "\tmovq " + to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
+                o<<str<<endl;
     }
 }
 
