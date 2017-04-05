@@ -55,3 +55,8 @@ ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
 ExpressionVariable::~ExpressionVariable()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionVariable::typeClass()
+{
+    return InstructionVraieClass::expressionVariable;
+}

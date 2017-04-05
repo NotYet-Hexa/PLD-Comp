@@ -30,7 +30,8 @@ enum InstructionVraieClass{
     appelFonction = 3,
     expressionChar = 4,
     affectation = 5,
-    expressionEntier = 6};
+    expressionEntier = 6,
+    expressionVariable = 7};
 
 
 
