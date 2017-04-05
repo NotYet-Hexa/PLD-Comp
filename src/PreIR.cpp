@@ -59,7 +59,7 @@ PreIR::~PreIR()
 	}
 	listCFG.clear();
 	// delete this->current_cfg;
-	delete this->current_bb;
+	// delete this->current_bb;
 }
 
 
