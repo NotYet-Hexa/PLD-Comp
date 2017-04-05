@@ -20,15 +20,15 @@ void IRInstr::gen_asm(ostream &o)
 
     string str;
     string operateur;
-    cout << "Valeur de operation ::::::: " << op << endl;
-    cout << "ldconst vaut :: " << Operation::ldconst <<endl ; 
+    //cout << "Valeur de operation ::::::: " << op << endl;
+    //cout << "ldconst vaut :: " << Operation::ldconst <<endl ; 
     int paramNum =0;
     switch(this->op)
     {
         case Operation::ldconst :
-                //if(params.size() > 2) cout<<"Error trop de parametre dans l'instruction movl"<<endl;
+                //if(params.size() > 2) //cout<<"Error trop de parametre dans l'instruction movl"<<endl;
                 operateur = "movq";
-                cout << "affiche tmp VAR : " << params.at(0)<< endl;
+                //cout << "affiche tmp VAR : " << params.at(0)<< endl;
                 str= "\t"+operateur+ " $"+ params.at(1) + ", "+to_string(bb_->cfg->get_var_index(params.at(0)))+ "(%rbp)";
                 o<< str << endl;
                 break;
@@ -60,12 +60,12 @@ void IRInstr::gen_asm(ostream &o)
 
 void IRInstr::print()
 {
-    cout << "operateur "<< op << "   ";
+    //cout << "operateur "<< op << "   ";
     for(vector<string>::iterator it = params.begin() ; it != params.end() ; it++)
     {
-        cout << *it << "  ";
+        //cout << *it << "  ";
     }
-    cout << endl;
+    //cout << endl;
 }
 
 string IRInstr::chooseRegister(int num)
@@ -112,8 +112,8 @@ void CFG::add_to_symbol_table(string name, Type t)
 {
     SymbolType.insert(std::pair<string,Type>(name,t));
     SymbolIndex.insert(std::pair<string,int>(name,nextFreeSymbolIndex));
-    cout << "LHLJHJHLKH"<< endl;
-    cout << "valeur index "<< "     " << nextFreeSymbolIndex << endl;
+    //cout << "LHLJHJHLKH"<< endl;
+    //cout << "valeur index "<< "     " << nextFreeSymbolIndex << endl;
     nextFreeSymbolIndex-=8;
     nbVar+=1;
 }

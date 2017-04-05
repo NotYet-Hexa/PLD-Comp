@@ -57,15 +57,15 @@ Briques::Briques()
 //----- Destructeur
 Briques::~Briques()
 {
-    cout << "Destrctuer de Briques " << endl;
+    //cout << "Destrctuer de Briques " << endl;
 	if( !vectorBrique.empty() )
     {
         for(std::vector<Brique*>::iterator it = vectorBrique.begin(); it != vectorBrique.end(); ++it)
         {
-                delete (*it);
+                delete *it;
         }
     }
-	vectorBrique.clear();
+	 vectorBrique.clear();
 }// Bloc vide
 //----- Fin destructeur
 

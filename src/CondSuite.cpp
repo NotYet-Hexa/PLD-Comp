@@ -58,7 +58,7 @@ CondSuite::~CondSuite()
 {
     //cout << "Destructeur de CondSuite" << endl;
     if(!vide)
-    {   cout << "Non Vide" << endl;
+    {   
 	    delete this->instruction;
     }
 }

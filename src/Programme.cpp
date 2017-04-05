@@ -58,7 +58,7 @@ Programme::Programme(Briques* briques):Contexte("Programme")
 Programme::~Programme()
 {
     //cout << "Destructeur de Programme" << endl;
-     //delete this->briques ;
+     delete this->briques ;
 }
 //----- Fin destructeur
 
