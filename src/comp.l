@@ -123,4 +123,3 @@ nom [a-zA-Z_]+
 "!="                { return DIFF; }
 "=="                { return EGALEGAL; }
 
-
