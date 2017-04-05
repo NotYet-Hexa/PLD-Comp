@@ -40,7 +40,7 @@ public:
 
     /**  constructor */
     IRInstr(BasicBlock* bb_, Operation op, Type t, std::vector<std::string> params);
-
+    void print();
     std::string chooseRegister(int num);
 
     /** Actual code generation */

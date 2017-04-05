@@ -182,7 +182,6 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
             ins = (*it)->typeClass();
-            ins = InstructionVraieClass::expressionChar;
             string varStr;
             switch(ins)
             {

@@ -52,9 +52,20 @@ void IRInstr::gen_asm(ostream &o)
                 o<<str<<endl;
                 break;
     }
+    
 
 
 
+}
+
+void IRInstr::print()
+{
+    cout << "operateur "<< op << "   ";
+    for(vector<string>::iterator it = params.begin() ; it != params.end() ; it++)
+    {
+        cout << *it << "  ";
+    }
+    cout << endl;
 }
 
 string IRInstr::chooseRegister(int num)
