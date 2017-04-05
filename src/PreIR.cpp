@@ -108,7 +108,7 @@ void PreIR::analyseBloc(Bloc* b)
         }
     }
 }
-
+ 
 void PreIR::analyseReturn(Return* returned)
 {
     Expression* expr = returned->get_expression();
