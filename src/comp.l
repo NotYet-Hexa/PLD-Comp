@@ -61,7 +61,7 @@ nom [a-zA-Z_]+
 
 %%
 
-[ \n\t]             { /* ignore */ }
+[ \r\n\t]             { /* ignore */ }
 "/*"(.|\n|\r)*"*/"  { /* ignore */ }
 "//".*$ 	        { /* ignore */ }
 "#".*$              { /* ignore */ }
@@ -122,4 +122,4 @@ nom [a-zA-Z_]+
 ">="                { return SUPEG; }
 "!="                { return DIFF; }
 "=="                { return EGALEGAL; }
-
+.                   { return UNKNOWN;}
