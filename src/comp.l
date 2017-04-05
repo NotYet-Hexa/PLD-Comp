@@ -12,6 +12,7 @@ using namespace std;
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
+#include "ExpressionUnaire.h"
 #include "LValue.h"
 
 #include "ExpressionBinaire.h"

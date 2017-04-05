@@ -15,6 +15,8 @@ using namespace std;
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
+#include "ExpressionUnaire.h"
+
 #include "LValue.h"
 #include "ExpressionBinaire.h"
 #include "AppelFonction.h"
@@ -224,15 +226,8 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
 
 
 
-
-
-
-
 nom                 : NOM               { $$ = $1; }
                     ;
-
-
-
 
 
 
@@ -288,6 +283,8 @@ expression          : ENTIER                             { $$ = new ExpressionEn
                     | expression SUPEG expression        { $$ = new ExpressionBinaire($1, $3, ">="); }
                     | expression DIFF expression         { $$ = new ExpressionBinaire($1, $3, "!="); }
                     | expression EGALEGAL expression     { $$ = new ExpressionBinaire($1, $3, "=="); }
+                    | MOINS expression %prec NEG         { $$ = new ExpressionUnaire($2, "-"); }
+                    | INV expression                     { $$ = new ExpressionUnaire($2, "~"); }
                     | l_value EGALE expression           { $$ = new Affectation($1, "=", $3); cout <<"lvalue = expression" << endl; }
         			| l_value PLUSEGAL expression        { $$ = new Affectation($1, "+=", $3); }
           			| l_value MOINSEGAL expression       { $$ = new Affectation($1, "-=", $3); }
