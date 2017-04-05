@@ -34,6 +34,7 @@ enum InstructionVraieClass{
     expressionVariable = 7,
     expressionBinaire = 8,
     returned = 9};
+    lvalue = 9};
 
 
 

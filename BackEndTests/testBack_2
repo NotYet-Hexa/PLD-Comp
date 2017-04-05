@@ -1,0 +1,6 @@
+void main()
+{
+        int64_t a;
+        a = 'a';
+	putchar(a);
+}
