@@ -120,5 +120,5 @@ nom [a-zA-Z_]+
 ">="                { return SUPEG; }
 "!="                { return DIFF; }
 "=="                { return EGALEGAL; }
-
+.                   { return UNKNOWN; }
 

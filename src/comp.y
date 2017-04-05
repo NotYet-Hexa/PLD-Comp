@@ -107,6 +107,7 @@ int yylex(void);
 
 %token VOID INT32 INT64 TYPECHAR FOR WHILE IF ELSE RETURN PUTCHAR GETCHAR
 
+%token UNKNOWN
 // %type <ival> expressionevalue
 %type <expression> expression
 %type <chaine> ligne
@@ -137,7 +138,7 @@ int yylex(void);
 %type<argsAppel> args_appel_fonction
 %type<condSuite> fin_cond
 
-
+%type<ival> unknown
 
 
 %left PLUSEGAL EGALE MOINSEGAL DIVEGAL MULEGAL MODULOEGAL DECALGAUCHEEGAL DECALDROITEGAL ETEGAL OUEGAL XOREGAL
@@ -322,6 +323,9 @@ nom_variable        : NOM               { $$ = $1; }  // gérer les tableau
 
 ligne               : CHAINE { $$ = $1; }
                     ;
+
+unknown             : UNKNOWN   { YY_ABORD; }
+
 %%
 
 void yyerror(Programme** pgm, const char * msg) {
