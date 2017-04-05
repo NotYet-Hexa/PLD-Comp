@@ -1,19 +1,19 @@
 /*************************************************************************
 PLD Comp
-Return.h  -  Description
+LValue.h  -  Description
 -------------------
-début                : 15/02/2017
-copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
+début                : 23/02/2017
+copyright            : (C)2017 par Haim Nathan
 *************************************************************************/
 
-//---------- Interface de la classe Return (fichier Return.h) ------
-#if ! defined ( RETURN_H )
-#define RETURN_H
+//---------- Interface de la classe LValue (fichier LValue.h) ------
+#if ! defined ( LVALUE_H )
+#define LVALUE_H
 
+using namespace std;
 
 //--------------------------------------------------- Interfaces utilisées
-
-#include "InstructionVraie.h"
+#include <string>
 #include "Expression.h"
 
 //------------------------------------------------------------------------
@@ -21,22 +21,23 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------------
-// Role de la classe Return:
+// Role de la classe LValue:
 //
 
 //------------------------------------------------------------------------
 
-class Return : public InstructionVraie {
+class LValue : public Expression {
     public:
+        list<string> listeNomLValue();
         void print();
-        std::list<std::string> listeNomLValue();
-        Return(Expression* monExpression);
-        ~Return();
-        Expression* get_expression();
-        virtual InstructionVraieClass typeClass();
+        LValue(string nom, bool isTab, int num);
+        ~LValue();
+        bool getIsTab(){return isTab;}
+        string getNom(){return nom;}
     private:
-    Expression* expression;
-
+        string nom;
+        bool isTab;
+        int num;
 };
 
-#endif // if ! defined RETURN_H
+#endif // if ! defined LVALUE_H

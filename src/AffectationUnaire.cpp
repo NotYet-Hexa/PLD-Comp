@@ -33,24 +33,25 @@ using namespace std;
 std::list<string> AffectationUnaire::listeNomLValue()
 {
     list<string> list;
-    list.push_back(nomVariable);
+    list.push_back(variable->getNom());
     return list;
 }
 
-string AffectationUnaire::get_nom_variable(){return nomVariable;}
+string AffectationUnaire::get_nom_variable(){return variable->getNom();}
 
 string AffectationUnaire::get_symbole(){return symbole;}
 
 void AffectationUnaire::print()
 {
     cout << "Affectation Unaire:" << endl;
-    cout << "nom :" << nomVariable << endl;
+    cout << "variable :";
+    variable->print();
     cout << "symbole :" << symbole << endl;
 
 }
 
 //----- Constructeur
-AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariable(nomVar), symbole(monSymbole)
+AffectationUnaire::AffectationUnaire(LValue* var, string monSymbole):variable(var), symbole(monSymbole)
 {
     //cout << "Constructeur de AffectationUnaire" << endl;
 }// Bloc vide
@@ -60,5 +61,6 @@ AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariab
 AffectationUnaire::~AffectationUnaire()
 {
     //cout << "Destructeur de AffectationUnaire" << endl;
+    delete variable;
 }
 //----- Fin destructeur

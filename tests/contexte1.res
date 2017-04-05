@@ -9,12 +9,12 @@ Instruction :
 Declaration : type ->int32  |  nom -> a
 Instruction :
 Affectation :
-nom :c
+variable :LValue : nom -> c
 symbole :=
 expression :
-variable : b
+LValue : nom -> b
 +
-variable : a
+LValue : nom -> a
 Fin de Bloc
 Fin de briques
 Fin du programme

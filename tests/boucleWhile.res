@@ -7,7 +7,7 @@ Bloc :
 ListInstruction :
 Instruction :
 while :
-variable : i
+LValue : nom -> i
 <
 3
 Instruction :
@@ -15,14 +15,14 @@ Bloc :
 ListInstruction :
 Instruction :
 Affectation Unaire:
-nom :i
+variable :LValue : nom -> i
 symbole :++
 Instruction :
 Affectation :
-nom :a
+variable :LValue : nom -> a
 symbole :+=
 expression :
-variable : i
+LValue : nom -> i
 Fin de Bloc
 Fin de Bloc
 Fin de briques

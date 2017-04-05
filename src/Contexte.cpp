@@ -85,16 +85,19 @@ int Contexte::ajouterVariable(string nomVariable,string typeVariable)
         MapVariable::const_iterator iterateurVariable = tableVariable->find(nomVariable);
         if(iterateurVariable == tableVariable->end())
         {
-            if(this->parent->getNomContexte() == "DefFunction")
+            if(this->parent != nullptr)
             {
-                
-            }
-            else
-            {
-                // La variable n'existe pas dans le contexte - Insertion possible
-                pair<string,string> variable (nomVariable,typeVariable);
-                tableVariable->insert(variable);
-                return 0; // Succes
+                if(this->parent->getNomContexte() == "DefFunction")
+                {
+                    
+                }
+                else
+                {
+                    // La variable n'existe pas dans le contexte - Insertion possible
+                    pair<string,string> variable (nomVariable,typeVariable);
+                    tableVariable->insert(variable);
+                    return 0; // Succes
+                }
             }
         }
         else

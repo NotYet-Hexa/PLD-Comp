@@ -14,6 +14,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 //--------------------------------------------------- Interfaces utilisées
 
 #include "Expression.h"
+#include "LValue.h"
 
 //------------------------------------------------------------------------
 
@@ -29,7 +30,7 @@ class Affectation : public Expression {
     public:
         void print();
         std::list<string> listeNomLValue();
-        Affectation(string nomVariable, string symbole, Expression* monExpression);
+        Affectation(LValue * variable, string symbole, Expression* monExpression);
         ~Affectation();
 
         Expression* get_expression();
@@ -38,7 +39,7 @@ class Affectation : public Expression {
         virtual InstructionVraieClass typeClass();
 
     private:
-        string nomVariable;
+        LValue * variable;
         string symbole;
         Expression* expression;
 
