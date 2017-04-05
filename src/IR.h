@@ -108,6 +108,7 @@ protected:
 class CFG {
 public:
     CFG(DefFonction* ast);
+    ~CFG();
 
     DefFonction* ast; /**< The AST this CFG comes from */
 

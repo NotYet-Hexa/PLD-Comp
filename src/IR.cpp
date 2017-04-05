@@ -103,6 +103,11 @@ CFG::CFG(DefFonction *ast)
     nbTVar = 0;
 }
 
+CFG::~CFG()
+{
+    
+}
+
 void CFG::add_bb(BasicBlock *bb)
 {
     bbs.push_back(bb);
