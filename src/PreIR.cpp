@@ -113,26 +113,34 @@ void PreIR::analyseAffectation(Affectation* aff)
     string nomVar = aff->get_nom_variable();
     string symbole = aff->get_symbole();
     //TODO mettre un switch pour tester les differents symboles
-    Expression* entier = aff->get_expression();
-    string tmpVar = analyseExpressionEntier((ExpressionEntier*)entier);
-    vector<string> params;
-    params.push_back(tmpVar);
-    params.push_back(nomVar);
-    current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
-    /*params.push_back(to_string(bb_->cfg->get_var_index(tmpVar)+"(%rbp)"));
-    params.push_back("%rax");
-    current_bb->add_IRInstr(IRInstr::Operation::mov,Type::int64, listParam);
 
-    vector<string> params1;
-    params.push_back("%rax");
-    params.push_back(to_string(bb_->cfg->get_var_index(nomVar)+"(%rbp)"));
-    current_bb->add_IRInstr(IRInstr::Operation::mov,Type::int64, listParam);*/
+    string tmpVar;
+    vector<string> params;
+    Expression* expr = aff->get_expression();
+    switch(expr->typeClass())
+    {
+        case InstructionVraieClass::expressionEntier :
+                tmpVar = analyseExpressionEntier((ExpressionEntier*)expr); 
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                break;
+        case InstructionVraieClass::expressionChar :
+                tmpVar = analyseExpressionChar((ExpressionChar*)expr); 
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::ch, params);
+                break;
+    }
+
+    
 
 }
 
 void PreIR::analyseDeclaration(Declaration* dec)
 {  
     string s = dec->getType();
+        cout << "type EEEEE : " << s << endl;
     if(s == "int64")
     {
         current_cfg->add_to_symbol_table(dec->getNom(),Type::int64);

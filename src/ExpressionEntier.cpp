@@ -51,3 +51,8 @@ ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
 ExpressionEntier::~ExpressionEntier()
 {}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionEntier::typeClass()
+{
+    return InstructionVraieClass::expressionEntier;
+}
