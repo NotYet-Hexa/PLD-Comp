@@ -348,7 +348,8 @@ int main(void) {
     PreIR preIR;
     preIR.launchPreIR(*result);
 
-    delete (*result);
+    delete *result;
+    delete result;
     return 0;
 }
 
