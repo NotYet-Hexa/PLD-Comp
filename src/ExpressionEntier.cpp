@@ -49,7 +49,9 @@ ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
 
 //----- Destructeur
 ExpressionEntier::~ExpressionEntier()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ExtressionEntier " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass ExpressionEntier::typeClass()

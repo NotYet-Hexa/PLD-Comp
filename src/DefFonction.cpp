@@ -57,8 +57,9 @@ DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonct
 //----- Destructeur
 DefFonction::~DefFonction()
 {
-	//delete this->bloc;
-	//delete this->args;
+	//cout << "Destructeur de Def Fonction " << endl;
+	delete this->bloc;
+	delete this->args;
 }// Bloc vide
 //----- Fin destructeur
 

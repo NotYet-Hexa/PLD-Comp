@@ -198,8 +198,8 @@ bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = n
 
 
 liste_instruction	    : liste_instruction instruction 	    { $$ = $1; $$->addInstruction($2); }
-		                | instruction           		        { $$ = new ListInstruction(); $$->addInstruction($1);cout <<" une instruction"<<endl; }
-                        |                                       { $$ = new ListInstruction(); cout <<"pas d instruction"<<endl; }
+		                | instruction           		        { $$ = new ListInstruction(); $$->addInstruction($1); }
+                        |                                       { $$ = new ListInstruction(); }
                         ;
 
 parametre               : declaration   { $$ = $1; }
@@ -262,9 +262,9 @@ retour_fonction     	: RETURN expression             { $$ = new Return($2); }
                     	;
 
 
-expression          : ENTIER                            { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
-                    | NOM                               { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
-                    | CHAR                              { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
+expression          : ENTIER                             { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
+                    | NOM                                { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
+                    | CHAR                               { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
                     | appel_fonction                     { $$ = $1; }        
                     | expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
                     | expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
@@ -297,7 +297,7 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                    	| l_value OUEGAL expression          { $$ = new Affectation($1, "|=", $3); }
                     | l_value PLUSPLUS                   { $$ = new AffectationUnaire($1, "++"); }
                     | l_value MOINSMOINS                 { $$ = new AffectationUnaire($1, "--"); }
-                   	| PARENTOUV expression PARENTFERM    { $$ = $2; }
+                   	| PARENTOUV expression PARENTFERM    { $$ = $2; } 
                     ;
 
 
@@ -343,7 +343,6 @@ int main(void) {
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
     (*result)->print();
-
     (*result)->checkContexte();
 
     PreIR preIR;

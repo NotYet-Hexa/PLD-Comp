@@ -49,7 +49,7 @@ class Expression: public InstructionVraie{
 
 
         Expression();
-        ~Expression();
+        virtual ~Expression();
         virtual InstructionVraieClass typeClass();
 
     protected:

@@ -59,6 +59,7 @@ ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
 //----- Destructeur
 ExpressionBinaire::~ExpressionBinaire()
 {
+    //cout << "Destructeur de ExpressionBinaire " << endl;
 	delete this->gauche;
 	delete this->droite;
 }// Bloc vide

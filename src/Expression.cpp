@@ -45,7 +45,9 @@ Expression::Expression()
 
 //----- Destructeur
 Expression::~Expression()
-{}// Bloc vide
+{
+    //cout << "Destructeur de Expression " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass Expression::typeClass()

@@ -45,6 +45,7 @@ Brique::Brique()
 //----- Destructeur
 Brique::~Brique()
 {
+    //cout << "Destructeur Brique" << endl;
 }// Bloc vide
 //----- Fin destructeur
 

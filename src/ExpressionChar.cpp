@@ -49,11 +49,12 @@ ExpressionChar::ExpressionChar(char car) : valeur(car)
 
 //----- Destructeur
 ExpressionChar::~ExpressionChar()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ExpressionChar " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass ExpressionChar::typeClass()
 {
-    cout <<"AAAAAAA"<<endl;
     return InstructionVraieClass::expressionChar;
 }

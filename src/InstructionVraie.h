@@ -45,12 +45,12 @@ class InstructionVraie{
             TIretourFonction,
             TIdeclaration,
             TIcond,
-            TIloop
+            TIloop 
         };
 
         virtual void print() = 0;
         InstructionVraie();
-        ~InstructionVraie();
+        virtual ~InstructionVraie();
         InstructionVraie::TypeInstruction getTypeInstruction();
         virtual InstructionVraieClass typeClass();
 
