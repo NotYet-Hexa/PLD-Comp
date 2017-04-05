@@ -53,11 +53,11 @@ PreIR::PreIR()
 
 PreIR::~PreIR()
 {
-	// for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
-	// {
-	// 	delete *it;
-	// }
-	// listCFG.clear();
+	for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
+	{
+		delete *it;
+	}
+	listCFG.clear();
 	// delete this->current_cfg;
 	// delete this->current_bb;
 }
@@ -130,6 +130,12 @@ void PreIR::analyseAffectation(Affectation* aff)
                 params.push_back(tmpVar);
                 params.push_back(nomVar);
                 current_bb->add_IRInstr(IRInstr::Operation::copy,Type::ch, params);
+                break;
+        case InstructionVraieClass::expressionVariable :
+                tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
                 break;
     }
 

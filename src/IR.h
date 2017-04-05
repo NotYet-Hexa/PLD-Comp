@@ -40,6 +40,7 @@ public:
 
     /**  constructor */
     IRInstr(BasicBlock* bb_, Operation op, Type t, std::vector<std::string> params);
+    ~IRInstr();
     void print();
     std::string chooseRegister(int num);
 
@@ -108,6 +109,7 @@ protected:
 class CFG {
 public:
     CFG(DefFonction* ast);
+    ~CFG();
 
     DefFonction* ast; /**< The AST this CFG comes from */
 

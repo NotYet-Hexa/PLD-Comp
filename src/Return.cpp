@@ -57,3 +57,10 @@ Return::~Return()
 	delete this->expression;
 }
 //----- Fin destructeur
+
+
+InstructionVraieClass Return::typeClass()
+{
+    return InstructionVraieClass::returned;
+}
+

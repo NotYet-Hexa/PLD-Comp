@@ -29,11 +29,11 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class Return : public InstructionVraie {
     public:
         void print();
-        std::list<string> listeNomLValue();
+        std::list<std::string> listeNomLValue();
         Return(Expression* monExpression);
         ~Return();
         Expression* get_expression();
-
+        virtual InstructionVraieClass typeClass();
     private:
     Expression* expression;
 

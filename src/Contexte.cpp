@@ -25,7 +25,6 @@ MapContexte Contexte::tableDesSymboles;
 
 //----------------------------------------------------------- Types privés
 
-
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
@@ -52,13 +51,14 @@ Contexte::Contexte(string nomContexte)
 //----- Destructeur
 Contexte::~Contexte()
 {
-    MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
-    MapVariable* tableVariables = iterateurContexte->second;
-
-    //Nettoyage des donnees
-    //tableVariables->clear(); 
-    //delete(tableVariables);
-    //this->tableDesSymboles.erase(this); 
+    if(this->parent == nullptr)
+    {
+        for(MapContexte::iterator it = tableDesSymboles.begin(); it != tableDesSymboles.end(); it++)
+        {
+            delete it->second;
+        }
+        tableDesSymboles.clear();
+    }
 }// Bloc vide
 //----- Fin destructeur
 
