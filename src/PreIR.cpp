@@ -189,6 +189,10 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
                             string varStr = analyseExpressionChar((ExpressionChar*)(*it));
                             listParam.push_back(varStr);
                             break;
+                case InstructionVraieClass::expressionVariable :
+                            string varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
+                            listParam.push_back(varStr);
+                            break;
             }
         }
         current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);
@@ -206,6 +210,14 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     cout << "le char est : " << to_string(expressionChar->getChar()) << endl;
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
+
+
+string PreIR::analyseExpressionVariable(ExpressionVariable* expressionVariable)
+{
+    string var = expressionVariable->get_nomVariable();
+    return var;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
