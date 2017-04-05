@@ -29,7 +29,20 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+string Affectation::get_symbole()
+{
+    return symbole;
+}
 
+Expression* Affectation::get_expression()
+{
+    return expression;
+}
+
+string Affectation::get_nom_variable()
+{
+    return nomVariable;
+}
 
 std::list<string> Affectation::listeNomLValue()
 {
@@ -48,16 +61,26 @@ void Affectation::print()
     expression->print();
 }
 
-Expression* Affectation::get_expression(){return expression;}
+InstructionVraieClass Affectation::typeClass()
+{
+    return InstructionVraieClass::affectation;
+}
+
+Expression::TypeExpression Affectation::getType()
+{
+    return Expression::TypeExpression::Type_Affectation;
+}
 
 //----- Constructeur
 Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)
-{}// Bloc vide
+{
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 Affectation::~Affectation()
 {
-
+    //cout << "Destructeur de Affectation " << endl;
+	delete this->expression;
 }
 //----- Fin destructeur

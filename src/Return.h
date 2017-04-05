@@ -29,8 +29,10 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 class Return : public InstructionVraie {
     public:
         void print();
+        std::list<string> listeNomLValue();
         Return(Expression* monExpression);
         ~Return();
+        Expression* get_expression();
 
     private:
     Expression* expression;

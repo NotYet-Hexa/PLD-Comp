@@ -17,7 +17,10 @@ copyright            : (C)2017 par Haim Nathan
 #include "Bloc.h"
 #include "AppelFonction.h"
 #include "ExpressionChar.h"
+#include "ExpressionEntier.h"
+#include "ExpressionVariable.h"
 #include "Expression.h"
+#include "Affectation.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -37,12 +40,17 @@ public:
     void analyseDefFonction(DefFonction* defFonction);
     void launchPreIR(Programme* prog);
     void analyseBloc(Bloc* b);
+    void analyseBloc2(Bloc* b);
     void analyseDeclaration(Declaration* dec);
     void analyseAppelFonction(AppelFonction* appelFonction);
-    void analyseExpressionChar(ExpressionChar* expressionChar);
+    string analyseExpressionChar(ExpressionChar* expressionChar);
+    string analyseExpressionEntier(ExpressionEntier* expressionEntier);
+    string analyseExpressionVariable(ExpressionVariable* expressionVariable);
     void launchASM();
 
     string expressionToIR(Expression* expression);
+    void instructionToIR(Instruction* instruction);
+    void analyseAffectation(Affectation* aff);
 
 };
 

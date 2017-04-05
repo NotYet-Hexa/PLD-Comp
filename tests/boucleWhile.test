@@ -1,0 +1,1 @@
+void main(){  while(i<3){ i++; a+=i;  } }

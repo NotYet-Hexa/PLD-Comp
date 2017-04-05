@@ -31,7 +31,12 @@ class Affectation : public Expression {
         std::list<string> listeNomLValue();
         Affectation(string nomVariable, string symbole, Expression* monExpression);
         ~Affectation();
+
         Expression* get_expression();
+        string get_nom_variable();
+        string get_symbole();
+        virtual InstructionVraieClass typeClass();
+        TypeExpression getType();
 
     private:
         string nomVariable;

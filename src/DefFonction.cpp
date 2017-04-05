@@ -30,19 +30,37 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void DefFonction::checkContexte()
+{
+	//Ajout des paramatre au variable associé au contexte
+	list<string> listNomParam = args->getListNomParam();
+
+	for(list<string>::iterator it = listNomParam.begin(); it != listNomParam.end(); ++it) 
+	{
+		this->ajouterVariable( (*it) , "int64_t" );
+	}
+	
+	
+	this->bloc->checkContexte(this);
+}
+
 //----- Constructeur
 DefFonction::DefFonction(string type, Bloc* bloc, ArgsDef* args, string nomFonction):
 	Contexte("DefFonction"), nomFonction(nomFonction), type(type)
 {
 	this->bloc = bloc;
 	this->args = args;
-	this->isContexte = false;
+	this->typeBrique = TBdefFonction;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 DefFonction::~DefFonction()
-{}// Bloc vide
+{
+	//cout << "Destructeur de Def Fonction " << endl;
+	delete this->bloc;
+	delete this->args;
+}// Bloc vide
 //----- Fin destructeur
 
 void DefFonction::print()

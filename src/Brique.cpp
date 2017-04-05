@@ -28,9 +28,12 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-bool Brique::getIsContexte()
+
+
+
+TypeBrique Brique::getTypeBrique()
 {
-    return isContexte;
+    return typeBrique;
 }
 
 
@@ -42,7 +45,7 @@ Brique::Brique()
 //----- Destructeur
 Brique::~Brique()
 {
-    cout << "destructeur de Brique" << endl;
+    //cout << "Destructeur Brique" << endl;
 }// Bloc vide
 //----- Fin destructeur
 

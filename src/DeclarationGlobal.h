@@ -29,9 +29,13 @@ using namespace std;
 class DeclarationGlobal : public Brique  {
     public:
         void print();
+        std::string getNom(); 
         DeclarationGlobal(string type, string nom, bool isTab, int size);
         ~DeclarationGlobal();
-
+        string get_type();
+        string get_nom();
+        bool get_isTab();
+        int get_size();
     private:
         string type;
         string nom;

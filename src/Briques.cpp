@@ -12,11 +12,13 @@ copyright            : (C)2015 par Haim Nathan
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Briques.h"
+#include "DefFonction.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -28,7 +30,24 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void Briques::checkContexte(Contexte* programme)
+{
+    for(std::vector<Brique*>::iterator it = vectorBrique.begin(); it != vectorBrique.end(); ++it)
+    {
+        if((*it)->getTypeBrique() == TBdefFonction)
+        {
 
+            ((DefFonction * )(*it))->ajouterParent(programme);
+            ((DefFonction * )(*it))->checkContexte();
+        }
+        if((*it)->getTypeBrique() == TBdec)
+        {
+           programme->ajouterVariable( ((DeclarationGlobal * )(*it))->getNom() , "int64_t" );
+
+           
+        }
+    }
+}
 
 Briques::Briques()
 {
@@ -38,6 +57,15 @@ Briques::Briques()
 //----- Destructeur
 Briques::~Briques()
 {
+    //cout << "Destrctuer de Briques " << endl;
+	if( !vectorBrique.empty() )
+    {
+        for(std::vector<Brique*>::iterator it = vectorBrique.begin(); it != vectorBrique.end(); ++it)
+        {
+                delete *it;
+        }
+    }
+	 vectorBrique.clear();
 }// Bloc vide
 //----- Fin destructeur
 

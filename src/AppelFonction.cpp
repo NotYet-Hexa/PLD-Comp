@@ -41,6 +41,12 @@ void AppelFonction::print()
 	argsAppel->print();
 }
 
+Expression::TypeExpression AppelFonction::getType()
+{
+	return Expression::TypeExpression::Type_AppelFonction;
+}
+
+
 string AppelFonction::getNomFonction()
 {
 	return nomFonction;
@@ -48,14 +54,17 @@ string AppelFonction::getNomFonction()
 
 AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
 {
-	this->type_expression = Expression::TypeExpression::Type_AppelFonction;
+	//cout << "Constructeur de AppelFonction" << endl;
 }
 //-----Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 AppelFonction::~AppelFonction()
-{}// Bloc vide
+{
+	//cout << "Destructeur de AppelFonction " << endl;
+	delete this->argsAppel;
+}
 //----- Fin destructeur
 
 InstructionVraieClass AppelFonction::typeClass()

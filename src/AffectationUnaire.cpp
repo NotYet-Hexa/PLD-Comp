@@ -37,6 +37,15 @@ std::list<string> AffectationUnaire::listeNomLValue()
     return list;
 }
 
+Expression::TypeExpression AffectationUnaire::getType()
+{
+	return Expression::TypeExpression::Type_Unaire;
+}
+
+string AffectationUnaire::get_nom_variable(){return nomVariable;}
+
+string AffectationUnaire::get_symbole(){return symbole;}
+
 void AffectationUnaire::print()
 {
     cout << "Affectation Unaire:" << endl;
@@ -47,12 +56,15 @@ void AffectationUnaire::print()
 
 //----- Constructeur
 AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariable(nomVar), symbole(monSymbole)
-{}// Bloc vide
+{
+	//this->type_expression = Expression::TypeExpression::Type_Unaire;
+    //cout << "Constructeur de AffectationUnaire" << endl;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 AffectationUnaire::~AffectationUnaire()
 {
-
+    //cout << "Destructeur de AffectationUnaire" << endl;
 }
 //----- Fin destructeur

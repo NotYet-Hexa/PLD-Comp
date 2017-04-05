@@ -12,6 +12,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -31,6 +32,14 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+void ListInstruction::checkContexte(Contexte* contexteCourant )
+{
+    for(std::vector<Instruction*>::iterator it = listInstruction.begin() ; it != listInstruction.end() ; it++)
+    {
+    	(*it)->checkContexte(contexteCourant);
+    }
+}
+
 void ListInstruction::print()
 {
     cout << "ListInstruction :" << endl;
@@ -48,7 +57,15 @@ ListInstruction::ListInstruction()
 //----- Destructeur
 ListInstruction::~ListInstruction()
 {
-    //delete instruction;
+    //cout << "Destructeur de ListInstruction " << endl;
+    if(!listInstruction.empty())
+    {
+        for (vector<Instruction*>::iterator it = listInstruction.begin(); it != listInstruction.end(); it++)
+        {
+            delete (*it);
+        }
+    }
+	listInstruction.clear();
 }// Bloc vide
 //----- Fin destructeur
 

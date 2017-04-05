@@ -43,12 +43,16 @@ string DeclarationFonction::getNomFonction()
 //----- Constructeur
 DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomFonction(nf),typeRetour(tr),argsDef(ad)
 {
-		this->isContexte = false;
+		this->typeBrique = TBdecFonction;
 }
 //-----Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 DeclarationFonction::~DeclarationFonction()
-{}// Bloc vide
+{
+	//cout << "Destructeur de DelarationFonction " << endl;
+	delete this->argsDef;
+
+}// Bloc vide
 //----- Fin destructeur

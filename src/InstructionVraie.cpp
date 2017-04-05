@@ -40,7 +40,9 @@ InstructionVraie::InstructionVraie()
 
 //----- Destructeur
 InstructionVraie::~InstructionVraie()
-{}// Bloc vide
+{
+    //cout << "Destructeur de InstructionVraie " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass InstructionVraie::typeClass()

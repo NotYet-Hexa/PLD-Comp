@@ -28,16 +28,23 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+string DeclarationGlobal::getNom()
+{
+	return this->nom;
+}
+
 //----- Constructeur
 DeclarationGlobal::DeclarationGlobal(string t, string n, bool isT, int s):type(t),nom(n),isTab(isT), size(s)
 {
-	this->isContexte = false;
+	this->typeBrique = TBdec;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 DeclarationGlobal::~DeclarationGlobal()
-{}// Bloc vide
+{
+	//cout << "Destructeur de DeclarationGlobal " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 void DeclarationGlobal::print()
@@ -54,4 +61,10 @@ void DeclarationGlobal::print()
 	}
 	cout<<endl;
 }
+string DeclarationGlobal::get_type(){return type;}
 
+string DeclarationGlobal::get_nom(){return nom;}
+
+bool DeclarationGlobal::get_isTab(){return isTab;}
+
+int DeclarationGlobal::get_size(){return size;}

@@ -31,9 +31,11 @@ class ExpressionChar : public Expression{
         ~ExpressionChar();
         virtual InstructionVraieClass typeClass();
         char getChar(){return valeur;}
+        TypeExpression getType();
 
     private:
         char valeur;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONCHAR_H

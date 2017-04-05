@@ -30,10 +30,17 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
+list<string> Return::listeNomLValue()
+{
+    return this->expression->listeNomLValue();
+}
+
+Expression* Return::get_expression(){return expression;}
+
 void Return::print()
 {
     cout << "Return :" << endl;
-    expression->print();
+    this->expression->print();
 }
 
 //----- Constructeur
@@ -46,6 +53,7 @@ Return::Return(Expression* monExpression): expression(monExpression)
 //----- Destructeur
 Return::~Return()
 {
-
+    //cout << "Destructeur de Return " << endl;
+	delete this->expression;
 }
 //----- Fin destructeur

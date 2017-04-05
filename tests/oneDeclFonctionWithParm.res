@@ -7,3 +7,4 @@ ArgumentDef :
 Declaration : type ->char  |  nom -> monParma
 Fin de briques
 Fin du programme
+Verification de variable 

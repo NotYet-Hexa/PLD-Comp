@@ -12,6 +12,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -27,6 +28,18 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
+
+list<string> ArgsDef::getListNomParam()
+{
+    list<string> listNomParam;
+    for(vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+        {
+            listNomParam.push_back((*it)->getNom());
+        }
+    return listNomParam;
+}
+
+
 void ArgsDef::print()
 {
     cout << "ArgumentDef : "<<endl;
@@ -50,10 +63,23 @@ void ArgsDef::add(Declaration* declaration)
 
 //----- Constructeur
 ArgsDef::ArgsDef()
-{}// Bloc vide
+{
+    //cout << "Constructeur de Affectation" << endl;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 ArgsDef::~ArgsDef()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ArgsDef " << endl;
+    if(!args.empty())
+    {
+        for (vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+        {
+            delete *it;
+        }
+    }
+	
+	args.clear();
+}// Bloc vide
 //----- Fin destructeur

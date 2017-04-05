@@ -36,6 +36,13 @@ std::list<string> ExpressionVariable::listeNomLValue()
     return list;
 }
 
+string ExpressionVariable::get_nomVariable(){return nomVariable;}
+
+Expression::TypeExpression ExpressionVariable::getType()
+{
+	return Expression::TypeExpression::Type_Variable;
+}
+
 void ExpressionVariable::print()
 {
     // Ajouter la valeur après les :
@@ -44,11 +51,19 @@ void ExpressionVariable::print()
 //----- Constructeur
 ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
 {
-    this->type_expression = Expression::TypeExpression::Type_ExpressionVariable;
+    //this->type_expression = Expression::TypeExpression::Variable;
+    //this->type_expression = Expression::TypeExpression::Type_ExpressionVariable;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 ExpressionVariable::~ExpressionVariable()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ExpressionVariable " << endl;
+}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionVariable::typeClass()
+{
+    return InstructionVraieClass::expressionVariable;
+}

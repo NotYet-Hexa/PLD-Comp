@@ -37,17 +37,18 @@ class Expression: public InstructionVraie{
             Type_Entier,
             Type_Variable,
             Type_Affectation,
-            Type_AffectationUnaire,
             Type_AppelFonction,
             Type_Assignation,
             Type_ExpressionVariable
         };
 
-        Expression::TypeExpression getType();
+        virtual Expression::TypeExpression getType();
         virtual void print();
-        virtual std::list<std::string> listeNomLValue()=0;
+        virtual std::list<string> listeNomLValue()=0;
+
+
         Expression();
-        ~Expression();
+        virtual ~Expression();
         virtual InstructionVraieClass typeClass();
 
     protected:

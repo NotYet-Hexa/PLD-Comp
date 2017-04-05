@@ -32,7 +32,6 @@ Expression::TypeExpression Expression::getType()
     return type_expression;
 }
 
-
 void Expression::print()
 {
     cout << "salut" << endl;
@@ -40,13 +39,15 @@ void Expression::print()
 //----- Constructeur
 Expression::Expression()
 {
-    this->typeInstruction = InstructionVraie::TIexpression;
+    this->typeInstruction = TypeInstruction::TIexpression;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 Expression::~Expression()
-{}// Bloc vide
+{
+    //cout << "Destructeur de Expression " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass Expression::typeClass()

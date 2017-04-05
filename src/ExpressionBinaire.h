@@ -31,9 +31,11 @@ class ExpressionBinaire : public Expression {
         std::list<string> listeNomLValue();
         ExpressionBinaire(Expression* g, Expression* d, string symb);
         ~ExpressionBinaire();
+        string get_symbole();
         Expression* get_gauche();
         Expression* get_droite();
-
+        TypeExpression getType();
+        
     private:
         string symbole;
         Expression* gauche;

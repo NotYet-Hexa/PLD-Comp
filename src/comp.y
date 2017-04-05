@@ -28,6 +28,10 @@ using namespace std;
 #include "DefFonction.h"
 
 
+#include "Cond.h"
+#include "CondSuite.h"
+#include "LoopStatement.h"
+
 #include "ArgsDef.h"
 #include "ArgsAppel.h"
 
@@ -55,6 +59,10 @@ int yylex(void);
     char charactere;
     Expression * expression;
     Instruction * instruction;
+    Cond * cond;
+    CondSuite * condSuite;
+    LoopStatement * loop;
+
     char* chaine;
 
     Declaration* declaration;
@@ -119,17 +127,16 @@ int yylex(void);
 %type<chaine> type
 
 %type<declaration> parametre
-%type<ival> loop_statement
-%type<ival> cond 
+%type<loop> loop_statement
+%type<cond> cond 
 %type<retour_fonction> retour_fonction
 %type<chaine> nom_variable
 %type<chaine> nom
 %type<chaine> l_value
 %type<expression> appel_fonction
 %type<argsAppel> args_appel_fonction
-%type<ival> fin_cond
-%type<ival> for_loop
-%type<ival> while_loop
+%type<condSuite> fin_cond
+
 
 
 
@@ -191,8 +198,8 @@ bloc                        :  ACCOLOUV liste_instruction  ACCOLFERM    { $$ = n
 
 
 liste_instruction	    : liste_instruction instruction 	    { $$ = $1; $$->addInstruction($2); }
-		                | instruction           		        { $$ = new ListInstruction(); $$->addInstruction($1);cout <<" une instruction"<<endl; }
-                        |                                       { $$ = new ListInstruction(); cout <<"pas d instruction"<<endl; }
+		                | instruction           		        { $$ = new ListInstruction(); $$->addInstruction($1); }
+                        |                                       { $$ = new ListInstruction(); }
                         ;
 
 parametre               : declaration   { $$ = $1; }
@@ -215,6 +222,8 @@ type 	                : INT32	    		{ $$ = strdup("int32"); }
 
 
 
+
+
 nom                 : NOM               { $$ = $1; }
                     ;
 
@@ -223,32 +232,26 @@ nom                 : NOM               { $$ = $1; }
 
 
 
-cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond
+cond                	: IF PARENTOUV expression PARENTFERM instruction fin_cond       { $$ = new Cond($3, $5, $6); }
                 		;
 
-fin_cond           		: ELSE instruction 
-              			|
-                		;
+fin_cond           		: ELSE instruction                                              { $$ = new CondSuite(false, $2); }
+              			|                                                               { Instruction * Ipt ; $$ = new CondSuite(true, Ipt ); }
+                		;                                                               
 
 
-loop_statement      	: while_loop 
-            			| for_loop
+loop_statement      	: WHILE PARENTOUV expression PARENTFERM instruction                { $$ = new LoopStatement($3, $5); }
+            			| FOR PARENTOUV expression POINTVIRGULE expression POINTVIRGULE expression PARENTFERM instruction
+                                                                                        { $$ = new LoopStatement($3, $5, $7, $9); }
             			;
 
-
-while_loop          	: WHILE PARENTOUV expression PARENTFERM instruction
-            			;
-
-
-for_loop          		: FOR PARENTOUV expression POINTVIRGULE expression POINTVIRGULE expression PARENTFERM instruction
-            			;
 
 
 
 instruction         : expression POINTVIRGULE               { $$ = new Instruction($1); }
                     | bloc                                  { $$ = new Instruction($1); }
-                    | loop_statement 
-        			| cond 
+                    | loop_statement                        { $$ = new Instruction($1); }
+        			| cond                                  { $$ = new Instruction($1); }
           			| retour_fonction POINTVIRGULE          { $$ = new Instruction($1); }
 		            | declaration POINTVIRGULE              { $$ = new Instruction($1); }
                     ;
@@ -259,9 +262,9 @@ retour_fonction     	: RETURN expression             { $$ = new Return($2); }
                     	;
 
 
-expression          : ENTIER                            { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
-                    | NOM                               { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
-                    | CHAR                              { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
+expression          : ENTIER                             { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
+                    | NOM                                { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
+                    | CHAR                               { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
                     | appel_fonction                     { $$ = $1; }        
                     | expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
                     | expression OULOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "||"); }
@@ -294,7 +297,7 @@ expression          : ENTIER                            { $$ = new ExpressionEnt
                    	| l_value OUEGAL expression          { $$ = new Affectation($1, "|=", $3); }
                     | l_value PLUSPLUS                   { $$ = new AffectationUnaire($1, "++"); }
                     | l_value MOINSMOINS                 { $$ = new AffectationUnaire($1, "--"); }
-                   	| PARENTOUV expression PARENTFERM    { $$ = $2; }
+                   	| PARENTOUV expression PARENTFERM    { $$ = $2; } 
                     ;
 
 
@@ -335,12 +338,16 @@ int main(void) {
 #endif
     // les cout de yyparse sont jeté à la corbeille
     yyparse(result);
+    
 #ifndef DEBUG
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
     (*result)->print();
+    (*result)->checkContexte();
+
     PreIR preIR;
     preIR.launchPreIR(*result);
+
     delete (*result);
     return 0;
 }

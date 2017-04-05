@@ -40,6 +40,12 @@ void ExpressionChar::print()
     cout << "char : ";  
     cout << valeur << endl;
 }
+
+Expression::TypeExpression ExpressionChar::getType()
+{
+	return Expression::TypeExpression::Type_Char;
+}
+
 //----- Constructeur
 ExpressionChar::ExpressionChar(char car) : valeur(car)
 {
@@ -49,7 +55,9 @@ ExpressionChar::ExpressionChar(char car) : valeur(car)
 
 //----- Destructeur
 ExpressionChar::~ExpressionChar()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ExpressionChar " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 InstructionVraieClass ExpressionChar::typeClass()

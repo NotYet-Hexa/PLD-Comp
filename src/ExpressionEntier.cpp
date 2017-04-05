@@ -33,19 +33,33 @@ std::list<string> ExpressionEntier::listeNomLValue()
     return list;
 }
 
+int ExpressionEntier::get_valeur(){return valeur;}
+
 void ExpressionEntier::print()
 {
     cout << valeur << endl;
 }
 
+Expression::TypeExpression ExpressionEntier::getType()
+{
+	return Expression::TypeExpression::Type_Entier;
+}
+
 //----- Constructeur
 ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
 {
-    this->type_expression = Expression::TypeExpression::Type_Entier;
+    //this->type_expression = Expression::TypeExpression::Type_Entier;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 ExpressionEntier::~ExpressionEntier()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ExtressionEntier " << endl;
+}// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionEntier::typeClass()
+{
+    return InstructionVraieClass::expressionEntier;
+}

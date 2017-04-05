@@ -15,8 +15,9 @@ using namespace std;
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
 #include "Programme.h"
-#include "ArgsAppel.h"
 #include "Expression.h"
+#include "ArgsAppel.h"
+
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -37,6 +38,7 @@ class AppelFonction : public Expression
         string getNomFonction();
         virtual InstructionVraieClass typeClass();
         ArgsAppel* getArgsAppel(){return argsAppel;}
+        TypeExpression getType();
     private:
         string nomFonction;
         ArgsAppel* argsAppel;

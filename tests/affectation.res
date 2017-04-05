@@ -6,6 +6,8 @@ empty
 Bloc :
 ListInstruction :
 Instruction :
+Declaration : type ->int32  |  nom -> a
+Instruction :
 Affectation :
 nom :a
 symbole :+=
@@ -14,3 +16,4 @@ expression :
 Fin de Bloc
 Fin de briques
 Fin du programme
+Verification de variable 

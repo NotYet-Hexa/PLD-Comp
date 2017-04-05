@@ -29,9 +29,12 @@ class ExpressionEntier : public Expression{
         std::list<string> listeNomLValue();
         ExpressionEntier(int);
         ~ExpressionEntier();
-
+        int get_valeur();
+        virtual InstructionVraieClass typeClass();
+        TypeExpression getType();
     private:
         int valeur;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined EXPRESSIONENTIER_H

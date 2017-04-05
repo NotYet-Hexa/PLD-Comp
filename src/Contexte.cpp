@@ -85,20 +85,25 @@ int Contexte::ajouterVariable(string nomVariable,string typeVariable)
         MapVariable::const_iterator iterateurVariable = tableVariable->find(nomVariable);
         if(iterateurVariable == tableVariable->end())
         {
-            // La variable n'existe pas dans le contexte - Insertion possible
-            pair<string,string> variable (nomVariable,typeVariable);
-            tableVariable->insert(variable);
-            return 0; // Succes
+            if(this->parent->getNomContexte() == "DefFunction")
+            {
+                
+            }
+            else
+            {
+                // La variable n'existe pas dans le contexte - Insertion possible
+                pair<string,string> variable (nomVariable,typeVariable);
+                tableVariable->insert(variable);
+                return 0; // Succes
+            }
         }
         else
             return -2; // La Variable Existe deja dans le contexte
     }
+    return -1; // Avoid Warning
 }
 bool Contexte::chercherVariable(string nomVariable)
 {
-    cout << "Var a trouver : " << endl;
-    cout << nomVariable << endl;
-    cout << this->getNomContexte() << endl;
     MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
     if (iterateurContexte == this->tableDesSymboles.end())
         return false; // Le Contexte n'existe pas

@@ -39,6 +39,7 @@ void Programme::checkContexte()
 {
     cout << "Verification de variable " << endl; 
    // a faire plus bas dans brique
+   briques->checkContexte(this);
 }
 
 //----- Constructeur
@@ -56,9 +57,9 @@ Programme::Programme(Briques* briques):Contexte("Programme")
 //----- Destructeur
 Programme::~Programme()
 {
+    //cout << "Destructeur de Programme" << endl;
      delete this->briques ;
-   
-}// Bloc vide
+}
 //----- Fin destructeur
 
 

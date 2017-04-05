@@ -26,8 +26,9 @@ copyright            : (C)2015 par Haim Nathan
 
 class InstructionVraie;
 
-class Bloc : public InstructionVraie{
+class Bloc : public InstructionVraie, public Contexte{
     public:
+        void checkContexte(Contexte* contexteCourant);
         void print();
         Bloc(ListInstruction* maListInstruction);
         ~Bloc();
