@@ -33,6 +33,7 @@ class LValue : public Expression {
         LValue(string nom, bool isTab, int num);
         ~LValue();
         bool getIsTab(){return isTab;}
+        virtual InstructionVraieClass typeClass();
         string getNom(){return nom;}
     private:
         string nom;
