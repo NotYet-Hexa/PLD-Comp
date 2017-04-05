@@ -61,6 +61,11 @@ void Affectation::print()
     expression->print();
 }
 
+InstructionVraieClass Affectation::typeClass()
+{
+    return InstructionVraieClass::affectation;
+}
+
 //----- Constructeur
 Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)
 {

@@ -22,6 +22,7 @@ void IRInstr::gen_asm(ostream &o)
     string operateur;
     cout << "Valeur de operation ::::::: " << op << endl;
     cout << "ldconst vaut :: " << Operation::ldconst <<endl ; 
+    int paramNum =0;
     switch(this->op)
     {
         case Operation::ldconst :
@@ -32,7 +33,7 @@ void IRInstr::gen_asm(ostream &o)
                 o<< str << endl;
                 break;
         case Operation::call :
-                int paramNum =0;
+
                 while((params.size() - paramNum) > 1 )
                 {
                     string p = params.at(params.size()-paramNum-1);
@@ -43,10 +44,28 @@ void IRInstr::gen_asm(ostream &o)
                 }
                 o<< "\tcall " +params.at(0)<<endl;
                 break;
+        case Operation::copy :
+                operateur = "movq";
+                str = "\t"+operateur+" "+ to_string(bb_->cfg->get_var_index(params.at(0)))+"(%rbp), %rax";
+                o<<str<<endl;
+                str = "\t"+operateur+" %rax,"+ to_string(bb_->cfg->get_var_index(params.at(1)))+"(%rbp)";
+                o<<str<<endl;
+                break;
     }
+    
 
 
 
+}
+
+void IRInstr::print()
+{
+    cout << "operateur "<< op << "   ";
+    for(vector<string>::iterator it = params.begin() ; it != params.end() ; it++)
+    {
+        cout << *it << "  ";
+    }
+    cout << endl;
 }
 
 string IRInstr::chooseRegister(int num)
@@ -93,9 +112,9 @@ void CFG::add_to_symbol_table(string name, Type t)
 {
     SymbolType.insert(std::pair<string,Type>(name,t));
     SymbolIndex.insert(std::pair<string,int>(name,nextFreeSymbolIndex));
-    cout << "valeur index "+SymbolIndex[name]<< "     " << nextFreeSymbolIndex << endl;
+    cout << "LHLJHJHLKH"<< endl;
+    cout << "valeur index "<< "     " << nextFreeSymbolIndex << endl;
     nextFreeSymbolIndex-=8;
-
     nbVar+=1;
 }
 

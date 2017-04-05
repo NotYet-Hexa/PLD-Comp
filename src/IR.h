@@ -33,17 +33,19 @@ public:
         call,
         cmp_eq,
         cmp_lt,
-        cmp_le
+        cmp_le,
+        copy
     } Operation;
 
 
     /**  constructor */
     IRInstr(BasicBlock* bb_, Operation op, Type t, std::vector<std::string> params);
-
+    void print();
     std::string chooseRegister(int num);
 
     /** Actual code generation */
     void gen_asm(std::ostream &o); /**< x86 assembly code generation for this IR instruction */
+
 
 private:
 

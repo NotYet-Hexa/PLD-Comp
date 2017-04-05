@@ -103,16 +103,55 @@ void PreIR::analyseBloc(Bloc* b)
         {
             case InstructionVraieClass::declaration : analyseDeclaration((Declaration*)(*it)->getInstructionVraie());break;
             case InstructionVraieClass::appelFonction : analyseAppelFonction((AppelFonction*)(*it)->getInstructionVraie()) ; break;
+            case InstructionVraieClass::affectation : analyseAffectation((Affectation*)(*it)->getInstructionVraie()) ; break;
         }
     }
+}
+
+void PreIR::analyseAffectation(Affectation* aff)
+{
+    string nomVar = aff->get_nom_variable();
+    string symbole = aff->get_symbole();
+    //TODO mettre un switch pour tester les differents symboles
+
+    string tmpVar;
+    vector<string> params;
+    Expression* expr = aff->get_expression();
+    switch(expr->typeClass())
+    {
+        case InstructionVraieClass::expressionEntier :
+                tmpVar = analyseExpressionEntier((ExpressionEntier*)expr); 
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                break;
+        case InstructionVraieClass::expressionChar :
+                tmpVar = analyseExpressionChar((ExpressionChar*)expr); 
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::ch, params);
+                break;
+    }
+
+    
+
 }
 
 void PreIR::analyseDeclaration(Declaration* dec)
 {  
     string s = dec->getType();
+        cout << "type EEEEE : " << s << endl;
     if(s == "int64")
     {
         current_cfg->add_to_symbol_table(dec->getNom(),Type::int64);
+    }
+    else if(s == "int32")
+    {
+        current_cfg->add_to_symbol_table(dec->getNom(),Type::int32); 
+    }
+    else if(s == "char")
+    {
+        current_cfg->add_to_symbol_table(dec->getNom(),Type::ch);
     }
 }
 
@@ -143,11 +182,15 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
             ins = (*it)->typeClass();
-            ins = InstructionVraieClass::expressionChar;
+            string varStr;
             switch(ins)
             {
                 case InstructionVraieClass::expressionChar :
-                            string varStr = analyseExpressionChar((ExpressionChar*)(*it));
+                            varStr = analyseExpressionChar((ExpressionChar*)(*it));
+                            listParam.push_back(varStr);
+                            break;
+                case InstructionVraieClass::expressionVariable :
+                            varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
                             listParam.push_back(varStr);
                             break;
             }
@@ -169,6 +212,28 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
+
+
+string PreIR::analyseExpressionVariable(ExpressionVariable* expressionVariable)
+{
+    string var = expressionVariable->get_nomVariable();
+    return var;
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
+
+
+string PreIR::analyseExpressionEntier(ExpressionEntier* expressionEntier)
+{
+    string tmpVar = current_cfg->create_new_tempvar(Type::int64);
+    vector<string> params;
+    params.push_back(tmpVar);
+    params.push_back(to_string(expressionEntier->get_valeur()));
+    current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
+    return tmpVar;
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
+
+
 
 // string PreIR::instructionToIR(Instruction* instruction)
 // {

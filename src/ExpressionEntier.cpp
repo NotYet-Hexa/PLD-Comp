@@ -53,3 +53,8 @@ ExpressionEntier::~ExpressionEntier()
     //cout << "Destructeur de ExtressionEntier " << endl;
 }// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionEntier::typeClass()
+{
+    return InstructionVraieClass::expressionEntier;
+}

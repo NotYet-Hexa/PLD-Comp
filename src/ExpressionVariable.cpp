@@ -57,3 +57,8 @@ ExpressionVariable::~ExpressionVariable()
     //cout << "Destructeur de ExpressionVariable " << endl;
 }// Bloc vide
 //----- Fin destructeur
+
+InstructionVraieClass ExpressionVariable::typeClass()
+{
+    return InstructionVraieClass::expressionVariable;
+}
