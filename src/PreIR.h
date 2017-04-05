@@ -18,6 +18,7 @@ copyright            : (C)2017 par Haim Nathan
 #include "AppelFonction.h"
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
+#include "ExpressionVariable.h"
 #include "Expression.h"
 #include "Affectation.h"
 //------------------------------------------------------------------------
@@ -43,6 +44,7 @@ public:
     void analyseAppelFonction(AppelFonction* appelFonction);
     string analyseExpressionChar(ExpressionChar* expressionChar);
     string analyseExpressionEntier(ExpressionEntier* expressionEntier);
+    string analyseExpressionVariable(ExpressionVariable* expressionVariable);
     void launchASM();
 
     string expressionToIR(Expression* expression);

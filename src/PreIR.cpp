@@ -183,14 +183,15 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
         {
             ins = (*it)->typeClass();
             ins = InstructionVraieClass::expressionChar;
+            string varStr;
             switch(ins)
             {
                 case InstructionVraieClass::expressionChar :
-                            string varStr = analyseExpressionChar((ExpressionChar*)(*it));
+                            varStr = analyseExpressionChar((ExpressionChar*)(*it));
                             listParam.push_back(varStr);
                             break;
                 case InstructionVraieClass::expressionVariable :
-                            string varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
+                            varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
                             listParam.push_back(varStr);
                             break;
             }
