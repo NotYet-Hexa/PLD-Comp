@@ -39,8 +39,7 @@ result_from_test() {
 
 
 run_test() {
-
-    result=`$exe < "$1"`
+    result=`bash -c "$exe < $1"  2>&1`
 
     diff=`diff -u -w $2 <(echo -e "$result")`
 
