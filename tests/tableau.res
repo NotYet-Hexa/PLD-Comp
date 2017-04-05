@@ -6,10 +6,11 @@ empty
 Bloc :
 ListInstruction :
 Instruction :
-Debut d'appel de Fonction
-nom fonction : a
-ArgumentAppel : 
-LValue : nom -> monParam
+Declaration : type ->char  |  nom -> a[4]
+Instruction :
+Affectation Unaire:
+variable :LValue : nom -> a[1]
+symbole :++
 Fin de Bloc
 Fin de briques
 Fin du programme

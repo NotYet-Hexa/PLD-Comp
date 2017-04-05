@@ -8,22 +8,22 @@ ListInstruction :
 Instruction :
 for :
 e1: Affectation :
-nom :i
+variable :LValue : nom -> i
 symbole :=
 expression :
 0
-e2: variable : i
+e2: LValue : nom -> i
 <
 3
 e3: Affectation Unaire:
-nom :i
+variable :LValue : nom -> i
 symbole :++
 Instruction :
 Bloc :
 ListInstruction :
 Instruction :
 Affectation :
-nom :a
+variable :LValue : nom -> a
 symbole :=
 expression :
 5

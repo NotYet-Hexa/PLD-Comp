@@ -9,7 +9,7 @@ Instruction :
 Declaration : type ->int32  |  nom -> a
 Instruction :
 Affectation Unaire:
-nom :a
+variable :LValue : nom -> a
 symbole :++
 Fin de Bloc
 Fin de briques

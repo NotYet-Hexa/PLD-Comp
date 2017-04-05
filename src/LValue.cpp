@@ -1,12 +1,12 @@
 /*************************************************************************
-PLD COMP
-Programme.cpp  -  Description
+PLD Comp
+LValue.cpp  -  Description
 -------------------
-début                : 20/03/2017
-copyright            : (C)2017 par H4114
+début                : 23/02/2017
+copyright            : (C)2015 par Haim Nathan
 *************************************************************************/
 
-//---------- Réalisation de la classe Programme (fichier Programme.cpp) --
+//---------- Réalisation de la classe LValue (fichier LValue.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,8 +16,7 @@ copyright            : (C)2017 par H4114
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-// #include "const.h"
-#include "Programme.h" 
+#include "LValue.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -28,44 +27,38 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-void Programme::print()
-{
-    cout << "Debut du programme" << endl;
-    this->briques->print();
-    cout << "Fin du programme" << endl;
-}
 
-void Programme::checkContexte()
+std::list<string> LValue::listeNomLValue()
 {
-    
-   // a faire plus bas dans brique
-   briques->checkContexte(this);
+    list<string> list;
+    list.push_back(nom);
+    return list;
 }
 
 //----- Constructeur
-Programme::Programme():Contexte("Programme")
-{}// Bloc vide
-//----- Fin constructeur
-
-//----- Constructeur
-Programme::Programme(Briques* briques):Contexte("Programme")
+LValue::LValue(string no, bool isT, int nu):nom(no),isTab(isT), num(nu)
 {
-    this->briques = briques;
-}
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Programme::~Programme()
-{
-    //cout << "Destructeur de Programme" << endl;
-     delete this->briques ;
-}
+LValue::~LValue()
+{}// Bloc vide
 //----- Fin destructeur
 
-
-
-
-Briques* Programme::getBriques()
+void LValue::print()
 {
-    return this->briques;
+	cout << "LValue : nom -> " << nom;
+	if(isTab)
+	{
+		cout<<"[";
+		if(this->num>0)
+		{
+			cout<<this->num;
+		}
+		cout<<"]";
+	}
+	cout<<endl;
 }
+
+

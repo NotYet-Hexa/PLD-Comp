@@ -9,7 +9,7 @@ Instruction :
 Declaration : type ->int32  |  nom -> a
 Instruction :
 Affectation :
-nom :a
+variable :LValue : nom -> a
 symbole :+=
 expression :
 1
