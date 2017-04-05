@@ -53,6 +53,7 @@ Return::Return(Expression* monExpression): expression(monExpression)
 //----- Destructeur
 Return::~Return()
 {
-	//delete this->expression;
+    //cout << "Destructeur de Return " << endl;
+	delete this->expression;
 }
 //----- Fin destructeur

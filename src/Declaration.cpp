@@ -38,7 +38,9 @@ Declaration::Declaration(string t, string n, bool isT, int s):type(t),nom(n),isT
 
 //----- Destructeur
 Declaration::~Declaration()
-{}// Bloc vide
+{
+	//cout << "Destructeur de Declaration " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 void Declaration::print()

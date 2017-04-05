@@ -57,11 +57,15 @@ ListInstruction::ListInstruction()
 //----- Destructeur
 ListInstruction::~ListInstruction()
 {
-	/*for (vector<Instruction*>::iterator it = listInstruction.begin(); it != listInstruction.end(); it++)
-	{
-		delete *it;
-	}
-	listInstruction.clear();*/
+    //cout << "Destructeur de ListInstruction " << endl;
+    if(!listInstruction.empty())
+    {
+        for (vector<Instruction*>::iterator it = listInstruction.begin(); it != listInstruction.end(); it++)
+        {
+            delete (*it);
+        }
+    }
+	listInstruction.clear();
 }// Bloc vide
 //----- Fin destructeur
 

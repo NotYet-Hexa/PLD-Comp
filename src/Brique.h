@@ -44,7 +44,7 @@ class Brique{
         virtual typeClassBrique typeClass();
 
         Brique();
-        ~Brique();
+        virtual ~Brique();
 
     protected:
         TypeBrique typeBrique;

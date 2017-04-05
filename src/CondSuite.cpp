@@ -56,6 +56,10 @@ CondSuite::CondSuite(bool monVide, Instruction* monInstruction): instruction(mon
 //----- Destructeur
 CondSuite::~CondSuite()
 {
-	delete this->instruction;
+    //cout << "Destructeur de CondSuite" << endl;
+    if(!vide)
+    {   cout << "Non Vide" << endl;
+	    delete this->instruction;
+    }
 }
 //----- Fin destructeur

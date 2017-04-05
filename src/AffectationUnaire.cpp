@@ -51,12 +51,14 @@ void AffectationUnaire::print()
 
 //----- Constructeur
 AffectationUnaire::AffectationUnaire(string nomVar, string monSymbole):nomVariable(nomVar), symbole(monSymbole)
-{}// Bloc vide
+{
+    //cout << "Constructeur de AffectationUnaire" << endl;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 AffectationUnaire::~AffectationUnaire()
 {
-
+    //cout << "Destructeur de AffectationUnaire" << endl;
 }
 //----- Fin destructeur

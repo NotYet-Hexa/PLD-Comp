@@ -128,6 +128,7 @@ LoopStatement::LoopStatement(Expression* monExpression1, Expression* monExpressi
 //----- Destructeur
 LoopStatement::~LoopStatement()
 {
+    //cout << "Destructeur de LoopStatement " << endl;
     // for et while 
     if(this->typeLoop == LoopStatement::TLwhile)
     {

@@ -30,7 +30,7 @@ class Contexte{
     public:
         Contexte();
         Contexte(string Nom);
-        ~Contexte();
+        virtual ~Contexte();
         virtual void print();
         int ajouterVariable(string nomVariable,string typeVariable);
         bool chercherVariable(string nomVariable);

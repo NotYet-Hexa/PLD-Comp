@@ -53,5 +53,7 @@ ExpressionVariable::ExpressionVariable(string nom) : nomVariable(nom)
 
 //----- Destructeur
 ExpressionVariable::~ExpressionVariable()
-{}// Bloc vide
+{
+    //cout << "Destructeur de ExpressionVariable " << endl;
+}// Bloc vide
 //----- Fin destructeur

@@ -63,16 +63,23 @@ void ArgsDef::add(Declaration* declaration)
 
 //----- Constructeur
 ArgsDef::ArgsDef()
-{}// Bloc vide
+{
+    //cout << "Constructeur de Affectation" << endl;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 ArgsDef::~ArgsDef()
 {
-	for (vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
-	{
-		//delete *it;
-	}
+    //cout << "Destructeur de ArgsDef " << endl;
+    if(!args.empty())
+    {
+        for (vector<Declaration*>::iterator it = args.begin(); it != args.end(); it++)
+        {
+            delete (*it);
+        }
+    }
+	
 	args.clear();
 }// Bloc vide
 //----- Fin destructeur

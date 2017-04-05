@@ -51,6 +51,7 @@ string AppelFonction::getNomFonction()
 
 AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel(ap)
 {
+	//cout << "Constructeur de AppelFonction" << endl;
 	this->type_expression = Expression::TypeExpression::Type_AppelFonction;
 }
 //-----Bloc vide
@@ -59,8 +60,9 @@ AppelFonction::AppelFonction(string nf, ArgsAppel* ap):nomFonction(nf),argsAppel
 //----- Destructeur
 AppelFonction::~AppelFonction()
 {
-	//delete this->argsAppel;
-}// Bloc vide
+	//cout << "Destructeur de AppelFonction " << endl;
+	delete this->argsAppel;
+}
 //----- Fin destructeur
 
 InstructionVraieClass AppelFonction::typeClass()

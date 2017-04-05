@@ -51,7 +51,8 @@ DeclarationFonction::DeclarationFonction(string nf, string tr, ArgsDef* ad):nomF
 //----- Destructeur
 DeclarationFonction::~DeclarationFonction()
 {
-	//delete this->argsDef;
+	//cout << "Destructeur de DelarationFonction " << endl;
+	delete this->argsDef;
 
 }// Bloc vide
 //----- Fin destructeur

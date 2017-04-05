@@ -63,12 +63,15 @@ void Affectation::print()
 
 //----- Constructeur
 Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)
-{}// Bloc vide
+{
+    //cout << "Constructeur de Affectation" << endl;
+}// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
 Affectation::~Affectation()
 {
-	//delete this->expression;
+    //cout << "Destructeur de Affectation " << endl;
+	delete this->expression;
 }
 //----- Fin destructeur

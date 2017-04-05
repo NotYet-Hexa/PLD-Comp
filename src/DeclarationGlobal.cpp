@@ -42,7 +42,9 @@ DeclarationGlobal::DeclarationGlobal(string t, string n, bool isT, int s):type(t
 
 //----- Destructeur
 DeclarationGlobal::~DeclarationGlobal()
-{}// Bloc vide
+{
+	//cout << "Destructeur de DeclarationGlobal " << endl;
+}// Bloc vide
 //----- Fin destructeur
 
 void DeclarationGlobal::print()
