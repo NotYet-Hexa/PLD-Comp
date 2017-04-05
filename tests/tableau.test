@@ -1,0 +1,1 @@
+void main(){ char a[4]; a[1]++; }

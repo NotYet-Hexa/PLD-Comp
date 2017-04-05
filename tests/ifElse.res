@@ -20,7 +20,7 @@ Bloc :
 ListInstruction :
 Instruction :
 Affectation :
-nom :a
+variable :LValue : nom -> a
 symbole :=
 expression :
 2

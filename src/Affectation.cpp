@@ -41,13 +41,13 @@ Expression* Affectation::get_expression()
 
 string Affectation::get_nom_variable()
 {
-    return nomVariable;
+    return variable->getNom();
 }
 
 std::list<string> Affectation::listeNomLValue()
 {
     list<string> list;
-    list.push_back(nomVariable);
+    list.push_back(variable->getNom());
     list.merge(expression->listeNomLValue());
     return list;
 }
@@ -55,7 +55,8 @@ std::list<string> Affectation::listeNomLValue()
 void Affectation::print()
 {
     cout << "Affectation :" << endl;
-    cout << "nom :" << nomVariable << endl;
+    cout << "variable :";
+    variable->print();
     cout << "symbole :" << symbole << endl;
     cout << "expression :" << endl;
     expression->print();
@@ -67,7 +68,7 @@ InstructionVraieClass Affectation::typeClass()
 }
 
 //----- Constructeur
-Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpression):nomVariable(nomVar), symbole(monSymbole), expression(monExpression)
+Affectation::Affectation(LValue* var, string monSymbole, Expression* monExpression):variable(var), symbole(monSymbole), expression(monExpression)
 {
     //cout << "Constructeur de Affectation" << endl;
 }// Bloc vide
@@ -77,6 +78,7 @@ Affectation::Affectation(string nomVar, string monSymbole, Expression* monExpres
 Affectation::~Affectation()
 {
     //cout << "Destructeur de Affectation " << endl;
+    delete this->variable;
 	delete this->expression;
 }
 //----- Fin destructeur

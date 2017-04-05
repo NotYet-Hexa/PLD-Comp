@@ -42,7 +42,7 @@ void Briques::checkContexte(Contexte* programme)
         }
         if((*it)->getTypeBrique() == TBdec)
         {
-           programme->ajouterVariable( ((DeclarationGlobal * )(*it))->getNom() , "int64_t" );
+            programme->ajouterVariable( ((DeclarationGlobal * )(*it))->getNom() , "int64_t" );
 
            
         }
