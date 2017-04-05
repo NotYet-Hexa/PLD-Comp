@@ -42,6 +42,12 @@ Expression* ExpressionBinaire::get_gauche(){return gauche;}
 
 Expression* ExpressionBinaire::get_droite(){return droite;}
 
+InstructionVraieClass ExpressionBinaire::typeClass()
+{
+    return InstructionVraieClass::expressionBinaire;
+}
+
+
 void ExpressionBinaire::print()
 {
     gauche->print();

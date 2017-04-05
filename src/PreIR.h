@@ -21,6 +21,8 @@ copyright            : (C)2017 par Haim Nathan
 #include "ExpressionVariable.h"
 #include "Expression.h"
 #include "Affectation.h"
+#include "ExpressionBinaire.h"
+#include "Return.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -45,6 +47,8 @@ public:
     string analyseExpressionChar(ExpressionChar* expressionChar);
     string analyseExpressionEntier(ExpressionEntier* expressionEntier);
     string analyseExpressionVariable(ExpressionVariable* expressionVariable);
+    string analyseExpressionBinaire(ExpressionBinaire* expr);
+    void analyseReturn(Return* returned);
     void launchASM();
 
     string expressionToIR(Expression* expression);

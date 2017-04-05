@@ -34,6 +34,7 @@ class ExpressionBinaire : public Expression {
         string get_symbole();
         Expression* get_gauche();
         Expression* get_droite();
+        virtual InstructionVraieClass typeClass();
         
     private:
         string symbole;

@@ -34,7 +34,8 @@ public:
         cmp_eq,
         cmp_lt,
         cmp_le,
-        copy
+        copy,
+        ret
     } Operation;
 
 
