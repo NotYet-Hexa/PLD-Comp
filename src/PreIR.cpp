@@ -131,6 +131,12 @@ void PreIR::analyseAffectation(Affectation* aff)
                 params.push_back(nomVar);
                 current_bb->add_IRInstr(IRInstr::Operation::copy,Type::ch, params);
                 break;
+        case InstructionVraieClass::expressionVariable :
+                tmpVar = analyseExpressionVariable((ExpressionVar*)expr);
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                break;
     }
 
     
