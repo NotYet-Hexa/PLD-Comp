@@ -32,7 +32,8 @@ enum InstructionVraieClass{
     affectation = 5,
     expressionEntier = 6,
     expressionVariable = 7,
-    expressionBinaire = 8};
+    expressionBinaire = 8,
+    returned = 9};
 
 
 

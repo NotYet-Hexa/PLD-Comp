@@ -1,12 +1,12 @@
 /*************************************************************************
 PLD Comp
-Return.cpp  -  Description
+LValue.cpp  -  Description
 -------------------
-début                : 15/02/2017
-copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
+début                : 23/02/2017
+copyright            : (C)2015 par Haim Nathan
 *************************************************************************/
 
-//---------- Réalisation de la classe Return (fichier Return.cpp) --
+//---------- Réalisation de la classe LValue (fichier LValue.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,9 +16,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 using namespace std;
 
 //------------------------------------------------------ Include personnel
-
-#include "Return.h"
-#include "InstructionVraie.h"
+#include "LValue.h"
 
 //---------------------------------------------------- Variables de classe
 
@@ -30,37 +28,37 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-list<string> Return::listeNomLValue()
+std::list<string> LValue::listeNomLValue()
 {
-    return this->expression->listeNomLValue();
-}
-
-Expression* Return::get_expression(){return expression;}
-
-void Return::print()
-{
-    cout << "Return :" << endl;
-    this->expression->print();
+    list<string> list;
+    list.push_back(nom);
+    return list;
 }
 
 //----- Constructeur
-Return::Return(Expression* monExpression): expression(monExpression)
+LValue::LValue(string no, bool isT, int nu):nom(no),isTab(isT), num(nu)
 {
-    this->typeInstruction = InstructionVraie::TIretourFonction;
 }// Bloc vide
 //----- Fin constructeur
 
 //----- Destructeur
-Return::~Return()
-{
-    //cout << "Destructeur de Return " << endl;
-	delete this->expression;
-}
+LValue::~LValue()
+{}// Bloc vide
 //----- Fin destructeur
 
-
-InstructionVraieClass Return::typeClass()
+void LValue::print()
 {
-    return InstructionVraieClass::returned;
+	cout << "LValue : nom -> " << nom;
+	if(isTab)
+	{
+		cout<<"[";
+		if(this->num>0)
+		{
+			cout<<this->num;
+		}
+		cout<<"]";
+	}
+	cout<<endl;
 }
+
 

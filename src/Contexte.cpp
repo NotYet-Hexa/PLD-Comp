@@ -25,7 +25,6 @@ MapContexte Contexte::tableDesSymboles;
 
 //----------------------------------------------------------- Types privés
 
-
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
@@ -52,13 +51,14 @@ Contexte::Contexte(string nomContexte)
 //----- Destructeur
 Contexte::~Contexte()
 {
-    MapContexte::const_iterator iterateurContexte = this->tableDesSymboles.find(this);
-    MapVariable* tableVariables = iterateurContexte->second;
-
-    //Nettoyage des donnees
-    //tableVariables->clear(); 
-    //delete(tableVariables);
-    //this->tableDesSymboles.erase(this); 
+    if(this->parent == nullptr)
+    {
+        for(MapContexte::iterator it = tableDesSymboles.begin(); it != tableDesSymboles.end(); it++)
+        {
+            delete it->second;
+        }
+        tableDesSymboles.clear();
+    }
 }// Bloc vide
 //----- Fin destructeur
 
@@ -85,16 +85,19 @@ int Contexte::ajouterVariable(string nomVariable,string typeVariable)
         MapVariable::const_iterator iterateurVariable = tableVariable->find(nomVariable);
         if(iterateurVariable == tableVariable->end())
         {
-            if(this->parent->getNomContexte() == "DefFunction")
+            if(this->parent != nullptr)
             {
-                
-            }
-            else
-            {
-                // La variable n'existe pas dans le contexte - Insertion possible
-                pair<string,string> variable (nomVariable,typeVariable);
-                tableVariable->insert(variable);
-                return 0; // Succes
+                if(this->parent->getNomContexte() == "DefFunction")
+                {
+                    
+                }
+                else
+                {
+                    // La variable n'existe pas dans le contexte - Insertion possible
+                    pair<string,string> variable (nomVariable,typeVariable);
+                    tableVariable->insert(variable);
+                    return 0; // Succes
+                }
             }
         }
         else

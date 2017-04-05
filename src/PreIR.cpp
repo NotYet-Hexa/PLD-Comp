@@ -53,11 +53,11 @@ PreIR::PreIR()
 
 PreIR::~PreIR()
 {
-	// for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
-	// {
-	// 	delete *it;
-	// }
-	// listCFG.clear();
+	for (vector<CFG*>::iterator it = listCFG.begin(); it != listCFG.end(); it++)
+	{
+		delete *it;
+	}
+	listCFG.clear();
 	// delete this->current_cfg;
 	// delete this->current_bb;
 }
@@ -111,15 +111,21 @@ void PreIR::analyseBloc(Bloc* b)
 
 void PreIR::analyseReturn(Return* returned)
 {
-    Expression* exp = returned->get_expression();
+    Expression* expr = returned->get_expression();
     InstructionVraieClass ins;
     string tmpVar;
     vector<string> params;
-    ins = exp->typeClass();
+    ins = expr->typeClass();
+    cout << "LE INS EST : " << ins << endl;
     switch(ins)
     {
         case InstructionVraieClass::expressionEntier : 
-                tmpVar = analyseExpressionEntier((ExpressionEntier*)exp);break;
+                tmpVar = analyseExpressionEntier((ExpressionEntier*)expr);
+                break;
+        case InstructionVraieClass::expressionVariable :
+                cout << "CEST UNE VARIABLE"<<endl;
+                tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
+                break;
     }
     params.push_back(tmpVar);
     current_bb->add_IRInstr(IRInstr::Operation::ret,Type::int64, params);
@@ -249,6 +255,10 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
                             varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
                             listParam.push_back(varStr);
                             break;
+                case InstructionVraieClass::lvalue :
+                            varStr = analyselvalue((LValue*)(*it));
+                            listParam.push_back(varStr);
+                            break;
             }
         }
         current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);
@@ -256,6 +266,12 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
     }
 }
 
+string PreIR::analyselvalue(LValue* expr)
+{
+    string var = expr->getNom();
+    return var;
+    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
+}
 
 string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
 {

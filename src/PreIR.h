@@ -23,6 +23,7 @@ copyright            : (C)2017 par Haim Nathan
 #include "Affectation.h"
 #include "ExpressionBinaire.h"
 #include "Return.h"
+#include "LValue.h"
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------- Constantes
@@ -49,6 +50,7 @@ public:
     string analyseExpressionVariable(ExpressionVariable* expressionVariable);
     string analyseExpressionBinaire(ExpressionBinaire* expr);
     void analyseReturn(Return* returned);
+    string analyselvalue(LValue* expr);
     void launchASM();
 
     string expressionToIR(Expression* expression);

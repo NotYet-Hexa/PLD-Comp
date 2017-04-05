@@ -15,6 +15,11 @@ IRInstr::IRInstr(BasicBlock *bb_, Operation op, Type t, vector <string> params)
     this->params = params;
 }
 
+IRInstr::~IRInstr()
+{
+    
+}
+
 void IRInstr::gen_asm(ostream &o)
 {
 
@@ -63,10 +68,6 @@ void IRInstr::gen_asm(ostream &o)
                 str = "\tmovq " + to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
                 o<<str<<endl;
     }
-    
-
-
-
 }
 
 void IRInstr::print()
@@ -112,6 +113,15 @@ CFG::CFG(DefFonction *ast)
     nextBBnumber = 1;
     nbVar = 0;
     nbTVar = 0;
+}
+
+CFG::~CFG()
+{
+    for(vector<BasicBlock*>::iterator it = bbs.begin(); it != bbs.end(); it++)
+    {
+        delete *it;
+    }
+    bbs.clear();
 }
 
 void CFG::add_bb(BasicBlock *bb)

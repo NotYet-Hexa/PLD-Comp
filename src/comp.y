@@ -15,6 +15,7 @@ using namespace std;
 #include "ExpressionChar.h"
 #include "ExpressionEntier.h"
 #include "ExpressionVariable.h"
+#include "LValue.h"
 #include "ExpressionBinaire.h"
 #include "AppelFonction.h"
 #include "Instruction.h"
@@ -70,6 +71,7 @@ int yylex(void);
     DeclarationFonction* declaration_fonction;
     DefFonction*  definition_fonction;
 
+    LValue * lValue;
     Return* retour_fonction;
 
     Briques* briques;
@@ -132,7 +134,7 @@ int yylex(void);
 %type<retour_fonction> retour_fonction
 %type<chaine> nom_variable
 %type<chaine> nom
-%type<chaine> l_value
+%type<lValue> l_value
 %type<expression> appel_fonction
 %type<argsAppel> args_appel_fonction
 %type<condSuite> fin_cond
@@ -263,7 +265,7 @@ retour_fonction     	: RETURN expression             { $$ = new Return($2); }
 
 
 expression          : ENTIER                             { $$ = new ExpressionEntier($1); cout  << "expresoin : entier " << endl;}
-                    | NOM                                { $$ = new ExpressionVariable($1); cout << "expression : Nom " << endl; } 
+                    | l_value                            { $$ = $1; } 
                     | CHAR                               { $$ = new ExpressionChar($1); cout << "expression : char " << endl; }
                     | appel_fonction                     { $$ = $1; }        
                     | expression ETLOGIQUE expression    { $$ = new ExpressionBinaire($1, $3, "&&"); }
@@ -310,7 +312,8 @@ args_appel_fonction : args_appel_fonction VIRGULE expression        { $$ = $1 ; 
                     |                                               { $$ = new ArgsAppel(); } 
                     ;
 
-l_value             : nom_variable          { $$ = $1; }
+l_value             : NOM                                           { $$ = new LValue($1,false, -1); }
+                    | NOM CROCHETOUV ENTIER CROCHETFERM             { $$ = new LValue($1,true, $3); }
                     ;
 
 
@@ -343,12 +346,14 @@ int main(void) {
     std::cout.rdbuf(coutbuf); //reset to standard output again
 #endif
     (*result)->print();
+    cout << "Verification de variable " << endl; 
     (*result)->checkContexte();
 
     PreIR preIR;
     preIR.launchPreIR(*result);
 
-    delete (*result);
+    delete *result;
+    delete result;
     return 0;
 }
 

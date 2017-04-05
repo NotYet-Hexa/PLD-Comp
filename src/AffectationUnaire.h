@@ -15,6 +15,7 @@ copyright            : (C)2015 par FOLLEAS Jacques et SCHROTER Quentin
 
 
 #include "Expression.h"
+#include "LValue.h"
 
 //------------------------------------------------------------------------
 
@@ -30,12 +31,12 @@ class AffectationUnaire: public Expression {
     public:
         void print();
         std::list<string> listeNomLValue();
-        AffectationUnaire(string nomVariable, string symbole);
+        AffectationUnaire(LValue* variable, string symbole);
         ~AffectationUnaire();
         string get_nom_variable();
         string get_symbole();
     private:
-        string nomVariable;
+        LValue* variable;
         string symbole;
 
 };
