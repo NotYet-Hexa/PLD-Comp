@@ -1,0 +1,9 @@
+void main()
+{
+        int64_t a;
+	int64_t b;
+	b = 4;
+        a = b;
+	putchar(a);
+	putchar('c');
+}
