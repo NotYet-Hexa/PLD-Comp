@@ -116,7 +116,7 @@ void PreIR::analyseReturn(Return* returned)
     string tmpVar;
     vector<string> params;
     ins = expr->typeClass();
-    cout << "LE INS EST : " << ins << endl;
+    // cout << "LE INS EST : " << ins << endl;
     switch(ins)
     {
         case InstructionVraieClass::expressionEntier : 
