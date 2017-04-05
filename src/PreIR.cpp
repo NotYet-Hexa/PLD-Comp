@@ -166,6 +166,12 @@ void PreIR::analyseAffectation(Affectation* aff)
                 params.push_back(nomVar);
                 current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
                 break;
+        case InstructionVraieClass::lvalue :
+                tmpVar = analyselvalue((LValue*)expr);
+                params.push_back(tmpVar);
+                params.push_back(nomVar);
+                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                break;
     }
 }
 string PreIR::analyseExpressionBinaire(ExpressionBinaire* expr)
