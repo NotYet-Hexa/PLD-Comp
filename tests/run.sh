@@ -8,6 +8,8 @@ NC='\033[0m'
 
 nb_success_test=0
 nb_fail_test=0
+assembl_success=0
+assembl_fail=0
 
 if [ $# -eq 0 ]
 then
@@ -37,6 +39,14 @@ result_from_test() {
     echo $resultname
 }
 
+assembl_from_test()
+{
+    name="$1"
+    path=`echo "$1" | sed -n "s/^\(.*\).test$/\1/p"`
+    resultname="$path"".s"
+    echo $resultname
+}
+
 
 run_test() {
     result=`bash -c "$exe < $1"  2>&1`
@@ -58,6 +68,43 @@ run_test() {
         message+=":small_blue_diamond: `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` :x: \n"
         fail=1
         nb_fail_test=`expr $nb_fail_test + 1`
+    fi
+
+    assembleur=$(assembl_from_test "$1")
+
+    main_ass="main.s"
+
+    if [ -f $assembleur ]
+    then
+        if [ ! -f $main_ass ]
+        then
+            if [ -f "../$main_ass" ]
+            then
+                main_ass="../$main_ass"
+            else
+                echo "main.s not found $assembleur ignored"
+                return
+            fi
+        fi
+
+        assembl_diff=`diff -u -w $assembleur $main_ass`
+        if [ "$assembl_diff" == "" ]
+        then
+            echo -e "\t → `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` assembl \xE2\x9C\x93"
+            message+="\t `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` assembl :heavy_check_mark: \n"
+            assembl_success=`expr $assembl_success + 1`
+        else
+            printf "$RED"
+            echo -e "$1 assembl \xE2\x9C\x96"
+            echo "$assembl_diff" | sed -e 's/^/\t/g'
+            printf "$NC"
+
+            message+="\t `basename $1 | sed -n "s/^\(.*\).test$/\1/p"` assembl :x: \n"
+            assembl_fail=`expr $assembl_fail + 1`
+        fi
+        
+    else
+        echo -e "test assembleur ignored → $assembleur \t missing"
     fi
 }
 
@@ -141,6 +188,14 @@ else
             echo -e "$test \t was ignored → $resultname \t missing"
         fi
     done
+
+    if [ $assembl_fail -eq 0 ]
+    then
+        echo -e "\033[32;1m$assembl_success test(s) assembleurs réussis ! \033[0m"
+    else
+        echo -e "\033[1;31m$assembl_success test(s) assembleurs réussis, $assembl_fail test(s) assembleurs échoués\033[0m"
+    fi
+
     format_message > slack_result.json
     if [ $fail -eq 1 ]
     then
