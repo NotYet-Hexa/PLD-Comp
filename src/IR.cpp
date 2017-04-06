@@ -190,7 +190,7 @@ void BasicBlock::gen_asm(std::ostream &o)
 
 void CFG::gen_asm_prologue(std::ostream& o)
 {
-
+    o<<"main:"<<endl;
     o<<"\tpushq %rbp"<<endl;
     o<<"\tmovq %rsp, %rbp"<<endl;
     if(nbVar%2 == 0)    o<<"\tsubq $" + to_string(nbVar/2*16) + ", %rsp"<<endl;

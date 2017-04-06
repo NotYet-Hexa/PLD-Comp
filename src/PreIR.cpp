@@ -114,19 +114,7 @@ void PreIR::analyseReturn(Return* returned)
     string tmpVar;
     vector<string> params;
     ins = expr->typeClass();
-    switch(ins)
-    {
-        case InstructionVraieClass::expressionEntier : 
-                tmpVar = analyseExpressionEntier((ExpressionEntier*)expr);
-                break;
-        case InstructionVraieClass::expressionVariable :
-                tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
-                break;
-        case InstructionVraieClass::lvalue :
-                tmpVar = analyselvalue((LValue*)expr);
-                params.push_back(tmpVar);
-                break;
-    }
+    tmpVar = expressionToIR(expr);
     params.push_back(tmpVar);
     current_bb->add_IRInstr(IRInstr::Operation::ret,Type::int64, params);
 }
@@ -204,7 +192,6 @@ void PreIR::launchASM()
     ofstream outfile ("main.s",ofstream::binary);
     outfile<<".text"<<endl;
     outfile<<".global main"<<endl;
-    outfile<<"main:"<<endl;
     for(vector<CFG*>::iterator it= listCFG.begin() ; it != listCFG.end() ; it++)
     {
         (*it)->gen_asm(outfile);
