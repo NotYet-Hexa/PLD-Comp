@@ -38,6 +38,7 @@ class AppelFonction : public Expression
         string getNomFonction();
         virtual InstructionVraieClass typeClass();
         ArgsAppel* getArgsAppel(){return argsAppel;}
+        TypeExpression getType();
     private:
         string nomFonction;
         ArgsAppel* argsAppel;

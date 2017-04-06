@@ -40,6 +40,12 @@ void ExpressionChar::print()
     cout << "char : ";  
     cout << valeur << endl;
 }
+
+Expression::TypeExpression ExpressionChar::getType()
+{
+	return Expression::TypeExpression::Type_Char;
+}
+
 //----- Constructeur
 ExpressionChar::ExpressionChar(char car) : valeur(car)
 {

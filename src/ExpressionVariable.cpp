@@ -38,6 +38,12 @@ std::list<string> ExpressionVariable::listeNomLValue()
 
 string ExpressionVariable::get_nomVariable(){return nomVariable;}
 
+
+Expression::TypeExpression ExpressionVariable::getType()
+{
+	return Expression::TypeExpression::Type_Variable;
+}
+
 void ExpressionVariable::print()
 {
     // Ajouter la valeur après les :

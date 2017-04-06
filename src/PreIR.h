@@ -43,6 +43,7 @@ public:
     void analyseDefFonction(DefFonction* defFonction);
     void launchPreIR(Programme* prog);
     void analyseBloc(Bloc* b);
+    void analyseBloc2(Bloc* b);
     void analyseDeclaration(Declaration* dec);
     void analyseAppelFonction(AppelFonction* appelFonction);
     string analyseExpressionChar(ExpressionChar* expressionChar);

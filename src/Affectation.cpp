@@ -79,6 +79,6 @@ Affectation::~Affectation()
 {
     //cout << "Destructeur de Affectation " << endl;
     delete this->variable;
-	delete this->expression;
+    delete this->expression;
 }
 //----- Fin destructeur

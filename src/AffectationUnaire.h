@@ -31,13 +31,15 @@ class AffectationUnaire: public Expression {
     public:
         void print();
         std::list<string> listeNomLValue();
-        AffectationUnaire(LValue* variable, string symbole);
+        AffectationUnaire(LValue* var, string monSymbole);
         ~AffectationUnaire();
         string get_nom_variable();
         string get_symbole();
+        TypeExpression getType();
     private:
         LValue* variable;
         string symbole;
+        TypeExpression type_expression;
 
 };
 

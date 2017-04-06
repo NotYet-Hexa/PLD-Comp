@@ -52,9 +52,9 @@ void ExpressionUnaire::print()
     expression->print();
 }
 //----- Constructeur
-ExpressionUnaire::ExpressionUnaire(Expression* e, string s) : expression(e), symbole(s)
+ExpressionUnaire::ExpressionUnaire(Expression* exp, string s) : expression(exp), symbole(s)
 {
-    //this->type_expression = Expression::TypeExpression::Type_Unaire;
+    this->type_expression = Expression::TypeExpression::Type_Unaire;
 }// Bloc vide
 //----- Fin constructeur
 

@@ -34,6 +34,7 @@ class ExpressionVariable : public Expression{
         ~ExpressionVariable();
         virtual InstructionVraieClass typeClass();
         string get_nomVariable();
+        TypeExpression getType();
     private:
         string nomVariable;
         TypeExpression type_expression;

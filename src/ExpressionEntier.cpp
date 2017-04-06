@@ -40,6 +40,11 @@ void ExpressionEntier::print()
     cout << valeur << endl;
 }
 
+Expression::TypeExpression ExpressionEntier::getType()
+{
+	return Expression::TypeExpression::Type_Entier;
+}
+
 //----- Constructeur
 ExpressionEntier::ExpressionEntier(int unint) : valeur(unint)
 {

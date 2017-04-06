@@ -43,7 +43,7 @@ class Expression: public InstructionVraie{
             Type_ExpressionVariable
         };
 
-        Expression::TypeExpression getType();
+        virtual Expression::TypeExpression getType();
         virtual void print();
         virtual std::list<string> listeNomLValue()=0;
 

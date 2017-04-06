@@ -144,7 +144,12 @@ void PreIR::analyseAffectation(Affectation* aff)
     string tmpVar;
     vector<string> params;
     Expression* expr = aff->get_expression();
-    switch(expr->typeClass())
+    tmpVar = expressionToIR(expr);
+    params.push_back(tmpVar);
+    params.push_back(nomVar);
+
+    current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+    /*switch(expr->typeClass())
     {
         case InstructionVraieClass::expressionEntier :
                 tmpVar = analyseExpressionEntier((ExpressionEntier*)expr); 
@@ -176,8 +181,10 @@ void PreIR::analyseAffectation(Affectation* aff)
                 params.push_back(nomVar);
                 current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
                 break;
-    }
+    }*/
 }
+
+
 string PreIR::analyseExpressionBinaire(ExpressionBinaire* expr)
 {
     Expression* exprGauche = expr->get_gauche();
@@ -187,24 +194,27 @@ string PreIR::analyseExpressionBinaire(ExpressionBinaire* expr)
     string tmp;
     vector<string> params;
     InstructionVraieClass e = exprGauche->typeClass();
-    switch(e)
-    {
-        case InstructionVraieClass::expressionVariable :
-                var1 = ((ExpressionVariable*)exprGauche)->get_nomVariable();
-                break;
-    }
-    e = exprDroite->typeClass();
-    switch(e)
-    {
-        case InstructionVraieClass::expressionEntier :
-                var2 = analyseExpressionEntier((ExpressionEntier*)exprDroite); 
-                break;
-    }
+    var1 = expressionToIR(exprGauche);
+    var2 = expressionToIR(exprDroite);
+
     tmp = current_cfg->create_new_tempvar(Type::int64);
     params.push_back(tmp);
     params.push_back(var2);
     params.push_back(var1);
-    current_bb->add_IRInstr(IRInstr::Operation::sub,Type::int64, params);
+    Outils outils ;
+    switch (outils.parse_symb(expr->get_symbole()))
+    {
+        case Symboles::plus:
+        {
+            current_bb->add_IRInstr(IRInstr::Operation::add,Type::int64, params);
+            break;
+        }
+        case Symboles::moins:
+        {
+            current_bb->add_IRInstr(IRInstr::Operation::sub,Type::int64, params);
+            break;
+        }
+    }
     return tmp;
 }
 
@@ -212,7 +222,6 @@ string PreIR::analyseExpressionBinaire(ExpressionBinaire* expr)
 void PreIR::analyseDeclaration(Declaration* dec)
 {  
     string s = dec->getType();
-        // //cout << "type EEEEE : " << s << endl;
     if(s == "int64")
     {
         current_cfg->add_to_symbol_table(dec->getNom(),Type::int64);
@@ -310,12 +319,29 @@ string PreIR::analyseExpressionEntier(ExpressionEntier* expressionEntier)
     vector<string> params;
     params.push_back(tmpVar);
     params.push_back(to_string(expressionEntier->get_valeur()));
+    cout <<endl << endl<< "construction var temp : " << expressionEntier->get_valeur()<< endl<<endl;
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
 
+
+
+
+void PreIR::analyseBloc2(Bloc* b)
+{
+    ListInstruction* listInstr = b->getListInstruction();
+    vector<Instruction*> instructions = listInstr->getInstructions();
+    InstructionVraieClass ins;
+    for(vector<Instruction*>::iterator instr= instructions.begin() ; instr != instructions.end() ; instr++)
+    {
+        cout<<"début analyse bloc"<<endl;
+        PreIR::instructionToIR(*instr);
+
+    }
+
+}
 
 // string PreIR::instructionToIR(Instruction* instruction)
 // {
@@ -330,19 +356,24 @@ void PreIR::instructionToIR(Instruction* instruction)
     {
         case(TypeInstruction::TIexpression):
         {
+            
             Expression* expression = (Expression*)instructionVraie;
+            cout<<"Cette instruction est une expression du type : "<<expression->getType()<<endl;
             PreIR::expressionToIR(expression);
             break;
         }
 
         case(TypeInstruction::TIbloc):
         {
+            cout<<"Cette instruction est un bloc"<<endl;
             Bloc* bloc = (Bloc*)instructionVraie;
             ListInstruction* listInstruction = bloc->getListInstruction();
             std::vector<Instruction*> instructions = listInstruction-> getInstructions();
             for(std::vector<Instruction*>::iterator i =instructions.begin();i!=instructions.end();++i)
             {
+                cout<<"on traite l'instruction dans le bloc"<<endl;
                 PreIR::instructionToIR(*i);
+
             }
             break;
 
@@ -350,12 +381,35 @@ void PreIR::instructionToIR(Instruction* instruction)
         
         case(TypeInstruction::TIretourFonction):
         {
+            cout<<"cette instruction est un retour"<<endl;
             Return* retour = (Return*)instructionVraie;
             PreIR::expressionToIR(retour->get_expression());
             break;
         }
-        
+        case (TypeInstruction::TIloop):
+        {
+            break;
+        }
+        case (TypeInstruction::TIcond):
+        {
+            break;
+        }
+        case(TypeInstruction::TIdeclaration):
+        {
+            cout<<"cette instruction est ne déclaration"<<endl;
+            Declaration* dec = (Declaration*)instructionVraie;
+            PreIR::analyseDeclaration(dec);
+            break;
+        }
+        default:
+        {
+            cout<<"Y'a rien"<<endl;
+            break;
+        }
+
     }
+
+    cout<<"On sort du SWITCH de  l'instruction"<<endl;
 }
 string PreIR::expressionToIR(Expression* expression)
 {
@@ -365,36 +419,38 @@ string PreIR::expressionToIR(Expression* expression)
     vector<std::string> params;
     EnumExpression type = expression->getType();
     Outils outils ;
-
     switch(type)
     {
         case EnumExpression::Type_Unaire :
+            cout<<"expression est une affectation unaire"<<endl;
             break;
         case EnumExpression::Type_Binaire :
-            {
+            
+                result = analyseExpressionBinaire((ExpressionBinaire*)expression);
+                return result;
+                /*cout<<"expression est une expression binaire"<<endl;
                 ExpressionBinaire* expressionBinaire = (ExpressionBinaire*)expression;
                 resultGauche = expressionToIR(expressionBinaire->get_gauche());
                 resultDroite = expressionToIR(expressionBinaire->get_droite());
+                params.push_back(resultGauche);
+                params.push_back(resultDroite);
                 switch (outils.parse_symb(expressionBinaire->get_symbole()))
                 {
                     case Symboles::plus:
                     {
-                        params.push_back(resultGauche);
-                        params.push_back(resultDroite);
+                        cout<<"expression est une expression binaire avec un symbole +"<<endl;
                         current_bb->add_IRInstr(Operation::add,Type::int64, params);
                         break;
                     }
                     case Symboles::moins:
                     {
-                        params.push_back(resultGauche);
-                        params.push_back(resultDroite);
+                        cout<<"expression est une expression binaire avec un symbole -"<<endl;
                         current_bb->add_IRInstr(Operation::sub,Type::int64, params);
                         break;
                     }
                     case Symboles::multi:
                     {
-                        params.push_back(resultGauche);
-                        params.push_back(resultDroite);
+                        cout<<"expression est une expression binaire avec un symbole *"<<endl;
                         current_bb->add_IRInstr(Operation::mul,Type::int64, params);
                         break;
                     }
@@ -402,82 +458,129 @@ string PreIR::expressionToIR(Expression* expression)
                     {
                         throw "toujours pas fait ";
                     }
-                break;
-
-            }
-        }
+                break;*/
+                    break;
+                
+            //break;   
 
         case EnumExpression::Type_Char :
             {
                 ExpressionChar* expressionChar = (ExpressionChar*)expression;
+                cout << " il y a un char : " << expressionChar->getChar()<<endl;
+                result = current_cfg->create_new_tempvar(Type::ch);
+                params.push_back(result);
                 params.push_back(to_string(expressionChar->getChar()));
-                current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
+                //cout << "le char est : " << to_string(expressionChar->getChar()) << endl;
+                current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
                 break;
             }
         case EnumExpression::Type_Entier :
             {
-                ExpressionEntier* expressionEntier = (ExpressionEntier*)expression;
+                result = analyseExpressionEntier((ExpressionEntier*)expression); 
+                break;
+                /*ExpressionEntier* expressionEntier= (ExpressionEntier*)expression;
+                cout << "il y a un entier : " <<  to_string(expressionEntier->get_valeur()) << endl;
+                result = current_cfg->create_new_tempvar(Type::int64);
+                params.push_back(result);
                 params.push_back(to_string(expressionEntier->get_valeur()));
-                current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
+                current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);*/
                 break;
             }
         case EnumExpression::Type_Variable :
             {
                 ExpressionVariable* expressionVariable = (ExpressionVariable*)expression;
-                params.push_back(expressionVariable->get_nomVariable());
-                current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
+                cout<<"Il y a  une variable : "<< expressionVariable->get_nomVariable()<<endl;
+                result = expressionVariable->get_nomVariable();
+                // params.push_back(expressionVariable->get_nomVariable());
+                // current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
                 break;
             }
         case EnumExpression::Type_Affectation :
             {
+                cout<<"l'expression est une affectation"<<endl;
                 Affectation* affectation = (Affectation*)expression;
                 result = expressionToIR(affectation->get_expression());
 
                 // move result to nom_variable
                 params.push_back(result);
                 params.push_back(affectation->get_nom_variable());
-
+                //TODO mettre un switch pour tester les differents symboles
                 switch(outils.parse_symb(affectation->get_symbole()))
                 {
                     case Symboles::egal:
                         {
-                            current_bb->add_IRInstr(Operation::ldconst,Type::int64, params);
+                            cout<<"le symbole est : "<<affectation->get_symbole()<<endl;
+                            cout<<"l'expression est une affectation avec le symbole = "<<endl;
+                            switch(expression->typeClass())
+                            {
+                                case InstructionVraieClass::expressionEntier :
+                                        result = expressionToIR(expression); 
+                                        params.push_back(result);
+                                        params.push_back(affectation->get_nom_variable());
+                                        current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
+                                        break;
+                                case InstructionVraieClass::expressionChar :
+                                        result = expressionToIR(expression); 
+                                        params.push_back(result);
+                                        params.push_back(affectation->get_nom_variable());
+                                        current_bb->add_IRInstr(IRInstr::Operation::copy,Type::ch, params);
+                                        break;
+                            }
                             break;
                         }
                     case Symboles::plusegal:
                         {
-                            current_bb->add_IRInstr(Operation::add,Type::int64,params);
-                            current_bb->add_IRInstr(Operation::ldconst,Type::int64,params);
+                            cout<<"l'expression est une affectation avec lesymbole += mais c'est pas géré "<<endl;
+                            
                             break;
                         }
                     case Symboles::moinsegal:
                         {
+                            cout<<"l'expression est une affectation avec les ymbole -= mais c'est pas géré "<<endl;
                             break;
                         }
                     case Symboles::divegal:
                         {
+                            cout<<"l'expression est une affectation avec lesymbole /= mais c'est pas géré "<<endl;
                            break; 
                         }
                     case Symboles::mulegal:
                         {
+                            cout<<"l'expression est une affectation avec lesymbole *= mais c'est pas géré "<<endl;
                            break; 
                         }
                     default:
                         {
+                            cout<<"l'expression est rien mais c'est pas géré "<<endl;
                             throw "Not Implemented Yet";
                         }
                 }
-
+                cout<<"On a finit de traiter l'affectation"<<endl;
                 break;
             }
-        case EnumExpression::Type_AffectationUnaire :
-            break;
         case EnumExpression::Type_AppelFonction :
+        {
+            cout<<"expression est une expression Type_AppelFonction"<<endl;
             break;
+        }
         case EnumExpression::Type_Assignation :
+        {
+            cout<<"expression est une expression Type_Assignation"<<endl;
             break;
+        }
         case EnumExpression::Type_ExpressionVariable :
+        {
+            cout<<"expression est une expression Type_ExpressionVariable"<<endl;
             break;
+        }
+        default:
+        {
+            cout<<"YA RIEN ICI POTO"<<endl;
+            break;
+        }
     }
+    cout<<"On sort du SWITCH DE l'expression"<<endl;
+    cout <<"On a donc comme result : "<<result<<endl;
+    cout << "\n"<<endl;
     return result;
 }

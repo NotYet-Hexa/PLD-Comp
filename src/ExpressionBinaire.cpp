@@ -54,6 +54,12 @@ void ExpressionBinaire::print()
     cout << symbole << endl;
     droite->print();
 }
+
+Expression::TypeExpression ExpressionBinaire::getType()
+{
+	return Expression::TypeExpression::Type_Binaire;
+}
+
 //----- Constructeur
 ExpressionBinaire::ExpressionBinaire(Expression* g, Expression* d, string s) :
     gauche(g), droite(d), symbole(s)

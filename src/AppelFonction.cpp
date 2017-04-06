@@ -41,7 +41,10 @@ void AppelFonction::print()
 	argsAppel->print();
 }
 
-
+Expression::TypeExpression AppelFonction::getType()
+{
+	return Expression::TypeExpression::Type_AppelFonction;
+}
 
 
 string AppelFonction::getNomFonction()

@@ -22,7 +22,6 @@ IRInstr::~IRInstr()
 
 void IRInstr::gen_asm(ostream &o)
 {
-
     string str;
     string operateur;
     //cout << "Valeur de operation ::::::: " << op << endl;
@@ -38,7 +37,6 @@ void IRInstr::gen_asm(ostream &o)
                 o<< str << endl;
                 break;
         case Operation::call :
-
                 while((params.size() - paramNum) > 1 )
                 {
                     string p = params.at(params.size()-paramNum-1);
@@ -64,10 +62,22 @@ void IRInstr::gen_asm(ostream &o)
                 str = "\tmovq %rax, "+ to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp)";
                 o<<str<<endl;
                 break;
+        case Operation::add :
+                str = "\tmovq "+ to_string(bb_->cfg->get_var_index(params.at(2))) + "(%rbp), %rax";
+                o<<str<<endl;
+                str = "\taddq "+ to_string(bb_->cfg->get_var_index(params.at(1))) + "(%rbp), %rax";
+                o<<str<<endl;
+                str = "\tmovq %rax, "+ to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp)";
+                o<<str<<endl;
+                break;
         case Operation::ret :
                 str = "\tmovq " + to_string(bb_->cfg->get_var_index(params.at(0))) + "(%rbp), %rax";
                 o<<str<<endl;
     }
+    
+
+
+
 }
 
 void IRInstr::print()

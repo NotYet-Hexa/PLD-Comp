@@ -31,7 +31,7 @@ class ExpressionEntier : public Expression{
         ~ExpressionEntier();
         int get_valeur();
         virtual InstructionVraieClass typeClass();
-
+        TypeExpression getType();
     private:
         int valeur;
         TypeExpression type_expression;

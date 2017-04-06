@@ -39,6 +39,12 @@ std::list<string> AffectationUnaire::listeNomLValue()
 
 string AffectationUnaire::get_nom_variable(){return variable->getNom();}
 
+Expression::TypeExpression AffectationUnaire::getType()
+{
+	return Expression::TypeExpression::Type_Unaire;
+}
+
+
 string AffectationUnaire::get_symbole(){return symbole;}
 
 void AffectationUnaire::print()
