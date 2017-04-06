@@ -495,7 +495,7 @@ string PreIR::expressionToIR(Expression* expression)
                 break;
             }
         case EnumExpression::Type_LValue :
-                result = analyselvalue((LValue*)expr);
+                result = analyselvalue((LValue*)expression);
                 return result;
         case EnumExpression::Type_Affectation :
             {

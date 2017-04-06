@@ -35,7 +35,7 @@ class LValue : public Expression {
         bool getIsTab(){return isTab;}
         virtual InstructionVraieClass typeClass();
         string getNom(){return nom;}
-        TypeExpression getType()
+        TypeExpression getType();
     private:
         string nom;
         bool isTab;
