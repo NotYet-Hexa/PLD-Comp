@@ -1,0 +1,4 @@
+void main()
+{
+  putchar(97+6);
+}
