@@ -262,8 +262,9 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
 
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
-            ins = (*it)->typeClass();
             string varStr;
+            /*ins = (*it)->typeClass();
+            
             switch(ins)
             {
                 case InstructionVraieClass::expressionChar :
@@ -278,7 +279,9 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
                             varStr = analyselvalue((LValue*)(*it));
                             listParam.push_back(varStr);
                             break;
-            }
+            }*/
+            varStr = expressionToIR(*it);
+            listParam.push_back(varStr);
         }
         current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);
     //IRInstr* irInstr = new IRInstr(current_bb,IRInstr::Operation::call,Type::ch, listParam);    
@@ -465,25 +468,21 @@ string PreIR::expressionToIR(Expression* expression)
 
         case EnumExpression::Type_Char :
             {
-                ExpressionChar* expressionChar = (ExpressionChar*)expression;
+                result = analyseExpressionChar((ExpressionChar*)expression);
+                return result;
+                /*ExpressionChar* expressionChar = (ExpressionChar*)expression;
                 cout << " il y a un char : " << expressionChar->getChar()<<endl;
                 result = current_cfg->create_new_tempvar(Type::ch);
                 params.push_back(result);
                 params.push_back(to_string(expressionChar->getChar()));
                 //cout << "le char est : " << to_string(expressionChar->getChar()) << endl;
                 current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
+                */
                 break;
             }
         case EnumExpression::Type_Entier :
             {
                 result = analyseExpressionEntier((ExpressionEntier*)expression); 
-                break;
-                /*ExpressionEntier* expressionEntier= (ExpressionEntier*)expression;
-                cout << "il y a un entier : " <<  to_string(expressionEntier->get_valeur()) << endl;
-                result = current_cfg->create_new_tempvar(Type::int64);
-                params.push_back(result);
-                params.push_back(to_string(expressionEntier->get_valeur()));
-                current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);*/
                 break;
             }
         case EnumExpression::Type_Variable :
