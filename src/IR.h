@@ -11,11 +11,12 @@
 #include <initializer_list>
 
 // Declarations from the parser -- replace with your own
+#include "DefFonction.h"
 #include "Type.h"
 //#include "symbole.h"
 class BasicBlock;
 class CFG;
-class DefFonction;
+//class DefFonction;
 
 
 //! The class for one 3-address instruction
