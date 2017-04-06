@@ -190,7 +190,7 @@ void BasicBlock::gen_asm(std::ostream &o)
 
 void CFG::gen_asm_prologue(std::ostream& o)
 {
-    cout << ast->getNomFonction()<<":"<<endl;
+    o<<endl<< ast->getNomFonction()<<":"<<endl;
     //o<<"main:"<<endl;
     o<<"\tpushq %rbp"<<endl;
     o<<"\tmovq %rsp, %rbp"<<endl;
