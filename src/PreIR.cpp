@@ -126,6 +126,10 @@ void PreIR::analyseReturn(Return* returned)
                 cout << "CEST UNE VARIABLE"<<endl;
                 tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
                 break;
+        case InstructionVraieClass::lvalue :
+                tmpVar = analyselvalue((LValue*)expr);
+                params.push_back(tmpVar);
+                break;
     }
     params.push_back(tmpVar);
     current_bb->add_IRInstr(IRInstr::Operation::ret,Type::int64, params);
