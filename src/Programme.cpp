@@ -37,7 +37,6 @@ void Programme::print()
 
 void Programme::checkContexte()
 {
-    cout << "Verification de variable " << endl; 
    // a faire plus bas dans brique
    briques->checkContexte(this);
 }

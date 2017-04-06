@@ -58,8 +58,6 @@ PreIR::~PreIR()
 		delete *it;
 	}
 	listCFG.clear();
-	// delete this->current_cfg;
-	// delete this->current_bb;
 }
 
 
@@ -116,7 +114,6 @@ void PreIR::analyseReturn(Return* returned)
     string tmpVar;
     vector<string> params;
     ins = expr->typeClass();
-    // cout << "LE INS EST : " << ins << endl;
     switch(ins)
     {
         case InstructionVraieClass::expressionEntier : 
@@ -138,7 +135,6 @@ void PreIR::analyseAffectation(Affectation* aff)
 {
     string nomVar = aff->get_nom_variable();
     string symbole = aff->get_symbole();
-    //TODO mettre un switch pour tester les differents symboles
 
     string tmpVar;
     vector<string> params;
@@ -148,39 +144,6 @@ void PreIR::analyseAffectation(Affectation* aff)
     params.push_back(nomVar);
 
     current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
-    /*switch(expr->typeClass())
-    {
-        case InstructionVraieClass::expressionEntier :
-                tmpVar = analyseExpressionEntier((ExpressionEntier*)expr); 
-                params.push_back(tmpVar);
-                params.push_back(nomVar);
-                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
-                break;
-        case InstructionVraieClass::expressionChar :
-                tmpVar = analyseExpressionChar((ExpressionChar*)expr); 
-                params.push_back(tmpVar);
-                params.push_back(nomVar);
-                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::ch, params);
-                break;
-        case InstructionVraieClass::expressionVariable :
-                tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
-                params.push_back(tmpVar);
-                params.push_back(nomVar);
-                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
-                break;
-        case InstructionVraieClass::expressionBinaire :
-                tmpVar = analyseExpressionBinaire((ExpressionBinaire*)expr);
-                params.push_back(tmpVar);
-                params.push_back(nomVar);
-                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
-                break;
-        case InstructionVraieClass::lvalue :
-                tmpVar = analyselvalue((LValue*)expr);
-                params.push_back(tmpVar);
-                params.push_back(nomVar);
-                current_bb->add_IRInstr(IRInstr::Operation::copy,Type::int64, params);
-                break;
-    }*/
 }
 
 
@@ -262,28 +225,10 @@ void PreIR::analyseAppelFonction(AppelFonction* appelFonction)
         for(vector<Expression*>::iterator it= listExp.begin() ; it != listExp.end() ; it++)
         {
             string varStr;
-            /*ins = (*it)->typeClass();
-            
-            switch(ins)
-            {
-                case InstructionVraieClass::expressionChar :
-                            varStr = analyseExpressionChar((ExpressionChar*)(*it));
-                            listParam.push_back(varStr);
-                            break;
-                case InstructionVraieClass::expressionVariable :
-                            varStr = analyseExpressionVariable((ExpressionVariable*)(*it));
-                            listParam.push_back(varStr);
-                            break;
-                case InstructionVraieClass::lvalue :
-                            varStr = analyselvalue((LValue*)(*it));
-                            listParam.push_back(varStr);
-                            break;
-            }*/
             varStr = expressionToIR(*it);
             listParam.push_back(varStr);
         }
-        current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);
-    //IRInstr* irInstr = new IRInstr(current_bb,IRInstr::Operation::call,Type::ch, listParam);    
+        current_bb->add_IRInstr(IRInstr::Operation::call,Type::ch, listParam);   
     }
 }
 
@@ -291,7 +236,6 @@ string PreIR::analyselvalue(LValue* expr)
 {
     string var = expr->getNom();
     return var;
-    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
 string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
@@ -300,10 +244,8 @@ string PreIR::analyseExpressionChar(ExpressionChar* expressionChar)
     vector<string> params;
     params.push_back(tmpVar);
     params.push_back(to_string(expressionChar->getChar()));
-    //cout << "le char est : " << to_string(expressionChar->getChar()) << endl;
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
-    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
 
@@ -311,7 +253,6 @@ string PreIR::analyseExpressionVariable(ExpressionVariable* expressionVariable)
 {
     string var = expressionVariable->get_nomVariable();
     return var;
-    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
 
@@ -323,7 +264,6 @@ string PreIR::analyseExpressionEntier(ExpressionEntier* expressionEntier)
     params.push_back(to_string(expressionEntier->get_valeur()));
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
-    //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
 }
 
 
@@ -343,10 +283,6 @@ void PreIR::analyseBloc2(Bloc* b)
 
 }
 
-// string PreIR::instructionToIR(Instruction* instruction)
-// {
-
-// }
 /// Return soit a dans le cas a = b + 1 soit tn 
 void PreIR::instructionToIR(Instruction* instruction)
 {
@@ -420,53 +356,12 @@ string PreIR::expressionToIR(Expression* expression)
             
                 result = analyseExpressionBinaire((ExpressionBinaire*)expression);
                 return result;
-                /*cout<<"expression est une expression binaire"<<endl;
-                ExpressionBinaire* expressionBinaire = (ExpressionBinaire*)expression;
-                resultGauche = expressionToIR(expressionBinaire->get_gauche());
-                resultDroite = expressionToIR(expressionBinaire->get_droite());
-                params.push_back(resultGauche);
-                params.push_back(resultDroite);
-                switch (outils.parse_symb(expressionBinaire->get_symbole()))
-                {
-                    case Symboles::plus:
-                    {
-                        cout<<"expression est une expression binaire avec un symbole +"<<endl;
-                        current_bb->add_IRInstr(Operation::add,Type::int64, params);
-                        break;
-                    }
-                    case Symboles::moins:
-                    {
-                        cout<<"expression est une expression binaire avec un symbole -"<<endl;
-                        current_bb->add_IRInstr(Operation::sub,Type::int64, params);
-                        break;
-                    }
-                    case Symboles::multi:
-                    {
-                        cout<<"expression est une expression binaire avec un symbole *"<<endl;
-                        current_bb->add_IRInstr(Operation::mul,Type::int64, params);
-                        break;
-                    }
-                    default:
-                    {
-                        throw "toujours pas fait ";
-                    }
-                break;*/
-                    break;
-                
-            //break;   
+                break;
 
         case EnumExpression::Type_Char :
             {
                 result = analyseExpressionChar((ExpressionChar*)expression);
                 return result;
-                /*ExpressionChar* expressionChar = (ExpressionChar*)expression;
-                cout << " il y a un char : " << expressionChar->getChar()<<endl;
-                result = current_cfg->create_new_tempvar(Type::ch);
-                params.push_back(result);
-                params.push_back(to_string(expressionChar->getChar()));
-                //cout << "le char est : " << to_string(expressionChar->getChar()) << endl;
-                current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
-                */
                 break;
             }
         case EnumExpression::Type_Entier :
@@ -478,8 +373,6 @@ string PreIR::expressionToIR(Expression* expression)
             {
                 ExpressionVariable* expressionVariable = (ExpressionVariable*)expression;
                 result = expressionVariable->get_nomVariable();
-                // params.push_back(expressionVariable->get_nomVariable());
-                // current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
                 break;
             }
         case EnumExpression::Type_LValue :
@@ -489,11 +382,8 @@ string PreIR::expressionToIR(Expression* expression)
             {
                 Affectation* affectation = (Affectation*)expression;
                 result = expressionToIR(affectation->get_expression());
-
-                // move result to nom_variable
                 params.push_back(result);
                 params.push_back(affectation->get_nom_variable());
-                //TODO mettre un switch pour tester les differents symboles
                 switch(outils.parse_symb(affectation->get_symbole()))
                 {
                     case Symboles::egal:
