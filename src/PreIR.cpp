@@ -123,7 +123,6 @@ void PreIR::analyseReturn(Return* returned)
                 tmpVar = analyseExpressionEntier((ExpressionEntier*)expr);
                 break;
         case InstructionVraieClass::expressionVariable :
-                cout << "CEST UNE VARIABLE"<<endl;
                 tmpVar = analyseExpressionVariable((ExpressionVariable*)expr);
                 break;
         case InstructionVraieClass::lvalue :
@@ -322,7 +321,6 @@ string PreIR::analyseExpressionEntier(ExpressionEntier* expressionEntier)
     vector<string> params;
     params.push_back(tmpVar);
     params.push_back(to_string(expressionEntier->get_valeur()));
-    cout <<endl << endl<< "construction var temp : " << expressionEntier->get_valeur()<< endl<<endl;
     current_bb->add_IRInstr(IRInstr::Operation::ldconst,Type::ch, params);
     return tmpVar;
     //IRInstr* irInstr = new IRInstr(current_bb, Operation op, Type t, std::vector<std::string> params);
@@ -339,7 +337,6 @@ void PreIR::analyseBloc2(Bloc* b)
     InstructionVraieClass ins;
     for(vector<Instruction*>::iterator instr= instructions.begin() ; instr != instructions.end() ; instr++)
     {
-        cout<<"début analyse bloc"<<endl;
         PreIR::instructionToIR(*instr);
 
     }
@@ -361,20 +358,17 @@ void PreIR::instructionToIR(Instruction* instruction)
         {
             
             Expression* expression = (Expression*)instructionVraie;
-            cout<<"Cette instruction est une expression du type : "<<expression->getType()<<endl;
             PreIR::expressionToIR(expression);
             break;
         }
 
         case(TypeInstruction::TIbloc):
         {
-            cout<<"Cette instruction est un bloc"<<endl;
             Bloc* bloc = (Bloc*)instructionVraie;
             ListInstruction* listInstruction = bloc->getListInstruction();
             std::vector<Instruction*> instructions = listInstruction-> getInstructions();
             for(std::vector<Instruction*>::iterator i =instructions.begin();i!=instructions.end();++i)
             {
-                cout<<"on traite l'instruction dans le bloc"<<endl;
                 PreIR::instructionToIR(*i);
 
             }
@@ -384,7 +378,6 @@ void PreIR::instructionToIR(Instruction* instruction)
         
         case(TypeInstruction::TIretourFonction):
         {
-            cout<<"cette instruction est un retour"<<endl;
             Return* retour = (Return*)instructionVraie;
             PreIR::expressionToIR(retour->get_expression());
             break;
@@ -399,20 +392,17 @@ void PreIR::instructionToIR(Instruction* instruction)
         }
         case(TypeInstruction::TIdeclaration):
         {
-            cout<<"cette instruction est ne déclaration"<<endl;
             Declaration* dec = (Declaration*)instructionVraie;
             PreIR::analyseDeclaration(dec);
             break;
         }
         default:
         {
-            cout<<"Y'a rien"<<endl;
             break;
         }
 
     }
 
-    cout<<"On sort du SWITCH de  l'instruction"<<endl;
 }
 string PreIR::expressionToIR(Expression* expression)
 {
@@ -425,7 +415,6 @@ string PreIR::expressionToIR(Expression* expression)
     switch(type)
     {
         case EnumExpression::Type_Unaire :
-            cout<<"expression est une affectation unaire"<<endl;
             break;
         case EnumExpression::Type_Binaire :
             
@@ -488,7 +477,6 @@ string PreIR::expressionToIR(Expression* expression)
         case EnumExpression::Type_Variable :
             {
                 ExpressionVariable* expressionVariable = (ExpressionVariable*)expression;
-                cout<<"Il y a  une variable : "<< expressionVariable->get_nomVariable()<<endl;
                 result = expressionVariable->get_nomVariable();
                 // params.push_back(expressionVariable->get_nomVariable());
                 // current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
@@ -499,7 +487,6 @@ string PreIR::expressionToIR(Expression* expression)
                 return result;
         case EnumExpression::Type_Affectation :
             {
-                cout<<"l'expression est une affectation"<<endl;
                 Affectation* affectation = (Affectation*)expression;
                 result = expressionToIR(affectation->get_expression());
 
@@ -511,8 +498,6 @@ string PreIR::expressionToIR(Expression* expression)
                 {
                     case Symboles::egal:
                         {
-                            cout<<"le symbole est : "<<affectation->get_symbole()<<endl;
-                            cout<<"l'expression est une affectation avec le symbole = "<<endl;
                             switch(expression->typeClass())
                             {
                                 case InstructionVraieClass::expressionEntier :
@@ -532,57 +517,44 @@ string PreIR::expressionToIR(Expression* expression)
                         }
                     case Symboles::plusegal:
                         {
-                            cout<<"l'expression est une affectation avec lesymbole += mais c'est pas géré "<<endl;
                             
                             break;
                         }
                     case Symboles::moinsegal:
                         {
-                            cout<<"l'expression est une affectation avec les ymbole -= mais c'est pas géré "<<endl;
                             break;
                         }
                     case Symboles::divegal:
                         {
-                            cout<<"l'expression est une affectation avec lesymbole /= mais c'est pas géré "<<endl;
                            break; 
                         }
                     case Symboles::mulegal:
                         {
-                            cout<<"l'expression est une affectation avec lesymbole *= mais c'est pas géré "<<endl;
                            break; 
                         }
                     default:
                         {
-                            cout<<"l'expression est rien mais c'est pas géré "<<endl;
-                            throw "Not Implemented Yet";
+                            break;
                         }
                 }
-                cout<<"On a finit de traiter l'affectation"<<endl;
                 break;
             }
         case EnumExpression::Type_AppelFonction :
         {
-            cout<<"expression est une expression Type_AppelFonction"<<endl;
             break;
         }
         case EnumExpression::Type_Assignation :
         {
-            cout<<"expression est une expression Type_Assignation"<<endl;
             break;
         }
         case EnumExpression::Type_ExpressionVariable :
         {
-            cout<<"expression est une expression Type_ExpressionVariable"<<endl;
             break;
         }
         default:
         {
-            cout<<"YA RIEN ICI POTO"<<endl;
             break;
         }
     }
-    cout<<"On sort du SWITCH DE l'expression"<<endl;
-    cout <<"On a donc comme result : "<<result<<endl;
-    cout << "\n"<<endl;
     return result;
 }
