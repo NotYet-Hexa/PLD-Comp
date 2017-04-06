@@ -35,9 +35,15 @@ std::list<string> LValue::listeNomLValue()
     return list;
 }
 
+Expression::TypeExpression LValue::getType()
+{
+    return Expression::TypeExpression::Type_LValue;
+}
+
 //----- Constructeur
 LValue::LValue(string no, bool isT, int nu):nom(no),isTab(isT), num(nu)
 {
+    this->type_expression = Expression::TypeExpression::Type_LValue;
 }// Bloc vide
 //----- Fin constructeur
 

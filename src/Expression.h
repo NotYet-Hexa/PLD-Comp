@@ -40,7 +40,8 @@ class Expression: public InstructionVraie{
             Type_AffectationUnaire,
             Type_AppelFonction,
             Type_Assignation,
-            Type_ExpressionVariable
+            Type_ExpressionVariable,
+            Type_LValue
         };
 
         virtual Expression::TypeExpression getType();

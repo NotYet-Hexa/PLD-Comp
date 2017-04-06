@@ -494,6 +494,9 @@ string PreIR::expressionToIR(Expression* expression)
                 // current_bb->add_IRInstr(Operation::ldconst,Type::ch, params);
                 break;
             }
+        case EnumExpression::Type_LValue :
+                result = analyselvalue((LValue*)expr);
+                return result;
         case EnumExpression::Type_Affectation :
             {
                 cout<<"l'expression est une affectation"<<endl;

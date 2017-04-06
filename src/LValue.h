@@ -35,10 +35,12 @@ class LValue : public Expression {
         bool getIsTab(){return isTab;}
         virtual InstructionVraieClass typeClass();
         string getNom(){return nom;}
+        TypeExpression getType()
     private:
         string nom;
         bool isTab;
         int num;
+        TypeExpression type_expression;
 };
 
 #endif // if ! defined LVALUE_H
